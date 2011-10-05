@@ -37,6 +37,7 @@ function ff() {
 function get_pwd () {
 	if [ "${COLUMNS}" -lt "70" ]
 	then
+		echo -n "./"
 		basename `pwd`
 	else
 		pwd
@@ -85,8 +86,8 @@ function prompt () {
 			;;
 	esac
 
-	PS1="${TITLEBAR}\n${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\$(get_hostname):${GREEN}\$(get_pwd)\$(__git_ps1 \" (%s)\")${CYAN}]${BLACK_ON_WHITE}\$ "
-	PS2="${CYAN}[\t][$MAGENTA\u$CYAN@$YELLOW\$(get_hostname):$GREEN\W$CYAN]${BLACK_ON_WHITE}> "
+	PS1="${TITLEBAR}\n${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\$(get_hostname)${CYAN}:${GREEN}\$(get_pwd)\$(__git_ps1 \" (%s)\")${CYAN}]${BLACK_ON_WHITE}\$ "
+	PS2="${CYAN}[\t][$MAGENTA\u$CYAN@$YELLOW\$(get_hostname)${CYAN}:$GREEN\W$CYAN]${BLACK_ON_WHITE}> "
 }
 #######################################################
 # Export some useful variables
