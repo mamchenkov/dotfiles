@@ -65,8 +65,7 @@ function prompt () {
 
 	# Make hostname shorter by removing local parts
 	local HOST=`echo $HOSTNAME | sed -e 's/.localdomain//' -e 's/.local//'`
-
-	PS1="${TITLEBAR}\n${CYAN}[\t][$MAGENTA\u$CYAN@$YELLOW$HOST:$GREEN\w$CYAN]${BLACK_ON_WHITE}\$ "
+	PS1="${TITLEBAR}\n${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\h:${GREEN}\W\$(__git_ps1 \" (%s)\")${CYAN}]${BLACK_ON_WHITE}\$ "
 	PS2="${CYAN}[\t][$MAGENTA\u$CYAN@$YELLOW\h:$GREEN\W$CYAN]${BLACK_ON_WHITE}> "
 }
 
