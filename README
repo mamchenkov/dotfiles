@@ -1,4 +1,4 @@
 cd ~
-git clone git@github.com:mamchenkov/dotfiles.git dotfiles
+git clone git://github.com/mamchenkov/dotfiles.git dotfiles
 ln -s dotfiles/bashrc .bashrc
-ln -s dotfiles/bashrc .gitconfig
+ln -s dotfiles/gitconfig .gitconfig
