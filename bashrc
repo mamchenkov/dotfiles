@@ -33,6 +33,28 @@ function ff() {
 
 }
 
+# If wide terminal window, show full path. Otherwise, just current dir
+function get_pwd () {
+	if [ "${COLUMNS}" -lt "70" ]
+	then
+		basename `pwd`
+	else
+		pwd
+	fi
+}
+
+# If wide terminal window, show full hostname. Otherwise, just host part.
+# Alwasy remove .localdomain and .local bits
+function get_hostname () {
+	if [ "${COLUMNS}" -lt "70" ]
+	then
+		HOST=`hostname -s`
+	else
+		HOST=${HOSTNAME}
+	fi
+
+	echo $HOST | sed -e 's/.localdomain//' -e 's/.local//'
+}
 
 # Build prompt without polluting much of the namespace
 function prompt () {
@@ -63,12 +85,9 @@ function prompt () {
 			;;
 	esac
 
-	# Make hostname shorter by removing local parts
-	local HOST=`echo $HOSTNAME | sed -e 's/.localdomain//' -e 's/.local//'`
-	PS1="${TITLEBAR}\n${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\h:${GREEN}\w\$(__git_ps1 \" (%s)\")${CYAN}]${BLACK_ON_WHITE}\$ "
-	PS2="${CYAN}[\t][$MAGENTA\u$CYAN@$YELLOW\h:$GREEN\W$CYAN]${BLACK_ON_WHITE}> "
+	PS1="${TITLEBAR}\n${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\$(get_hostname):${GREEN}\$(get_pwd)\$(__git_ps1 \" (%s)\")${CYAN}]${BLACK_ON_WHITE}\$ "
+	PS2="${CYAN}[\t][$MAGENTA\u$CYAN@$YELLOW\$(get_hostname):$GREEN\W$CYAN]${BLACK_ON_WHITE}> "
 }
-
 #######################################################
 # Export some useful variables
 #######################################################
