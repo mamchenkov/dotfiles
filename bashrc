@@ -86,7 +86,7 @@ function prompt () {
 			;;
 	esac
 
-	PS1="${TITLEBAR}\n${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\$(get_hostname)${CYAN}:${GREEN}\$(get_pwd)\$(__git_ps1 \" (%s)\")${CYAN}]${BLACK_ON_WHITE}\$ "
+	PS1="${TITLEBAR}\n${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\$(get_hostname)${CYAN}:${GREEN}\$(get_pwd)${YELLOW}\$(__git_ps1 \" (%s)\")${CYAN}]${BLACK_ON_WHITE}\$ "
 	PS2="${CYAN}[\t][$MAGENTA\u$CYAN@$YELLOW\$(get_hostname)${CYAN}:$GREEN\W$CYAN]${BLACK_ON_WHITE}> "
 }
 #######################################################
