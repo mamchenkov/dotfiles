@@ -1,5 +1,7 @@
 cd ~
 git clone git://github.com/mamchenkov/dotfiles.git dotfiles
+git submodule init
+git submodule update
 
 ln -s dotfiles/bash/bashrc ~/.bashrc
 ln -s dotfiles/bash/bash_profile ~/.bash_profile
