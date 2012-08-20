@@ -1,0 +1,3 @@
+" Load all bundles via Pathogen vim plugin
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
