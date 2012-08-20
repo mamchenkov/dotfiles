@@ -16,3 +16,6 @@
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
 	url = git://github.com/tpope/vim-surround.git
+[submodule "vim/bundle/better-css-syntax"]
+	path = vim/bundle/better-css-syntax
+	url = git://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
