@@ -44,6 +44,7 @@ set smartcase				" case-insensitive searching until pattern is in lower case
 
 
 " Shortcuts
+map <F3> :NERDTreeToggle<CR>
 map <F4> :q<CR>
 map <F9> :TagbarToggle<CR>
 map <F10> :wq<CR>
