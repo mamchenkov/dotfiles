@@ -1,3 +1,50 @@
 " Load all bundles via Pathogen vim plugin
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
+
+syntax on					" switch on syntax highlighting
+filetype on					" switch on filetype guessing
+
+" Options : misc
+set autowrite				" saves unwritten buffers
+set bg=dark					" use colors for the dark background
+set bs=2					" backspace over everything in insert mode
+set complete-=k				" Do not complete from dictionaries
+set encoding=utf-8			" Set encoding
+set formatoptions=croq
+set history=50				" keep last 50 commands
+set laststatus=2			" always display the status line
+set matchtime=5				" Show match for half a second
+set mouse=a					" Mouse support
+set nobackup				" do not create backup files
+set nowrap					" No line wrapping
+set number 					" Set line numbering
+set numberwidth=4			" Number of columns in line numbering
+set ruler					" show cursor position in the file
+set showcmd					" show command autocompletion
+set showmatch				" Show matching opening bracket
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%04l,%04v]\ [LEN=%L][%p%%]
+set title titlestring=vim\ -\ %F\ %h
+set visualbell				" Don't beep me, you beep!
+set wildmenu				" show autocompetion in status menu
+set wrapmargin=1			" margin from the right to show wrapping
+
+" Options : tabulation 
+set autoindent				" automatic indenting of new lines
+set shiftwidth=4			" indent level
+set smartindent				" get smart indenting for program code-like texts
+set tabstop=4				" tabs are 4 characters long
+set wildchar=<tab>			" Complete filenames with Tab
+
+" Options : searching 
+set ignorecase				" ignore case
+set incsearch				" incremental search (search while pattern is typed)
+set nohlsearch				" do not highlight search patterns
+set smartcase				" case-insensitive searching until pattern is in lower case
+
+
+" Shortcuts
+map <F4> :q<CR>
+map <F9> :TagbarToggle<CR>
+map <F10> :wq<CR>
+
