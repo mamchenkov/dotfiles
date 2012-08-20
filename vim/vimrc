@@ -5,6 +5,9 @@ call pathogen#helptags()
 syntax on					" switch on syntax highlighting
 filetype on					" switch on filetype guessing
 
+set t_Co=256				" Must be BEFORE the colorscheme
+colorscheme desert256
+
 " Options : misc
 set autowrite				" saves unwritten buffers
 set bg=dark					" use colors for the dark background
