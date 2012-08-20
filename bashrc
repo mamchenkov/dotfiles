@@ -101,7 +101,7 @@ export HISTTIMEFORMAT=" (%F %T) "
 export MOZ_NO_REMOTE=1
 
 # Shorten and simplify cd
-export CDPATH=.:~:~/Development:/var/www/html:/var/www/vhosts
+export CDPATH=.:~:~/Development/mamchenkov:~/Development/ImpreStyle:~/Development/Exwebris:~/Development:/var/www/html:/var/www/vhosts
 # Do not save these commands to history
 export HISTIGNORE="bg:fg:h:history"
 # Ignore files matching this suffixes from completion
