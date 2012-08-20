@@ -10,6 +10,9 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
 #######################################################
 # Useful functions
 #######################################################
@@ -108,6 +111,7 @@ export EDITOR=`which --skip-alias vim 2> /dev/null`
 export SVN_EDITOR=$EDITOR
 export LC_TIME=en_US
 export HISTTIMEFORMAT=" (%F %T) "
+export HISTCONTROL=ignoredups:ignorespace
 export MOZ_NO_REMOTE=1
 
 # Shorten and simplify cd
@@ -116,6 +120,10 @@ export CDPATH=.:~:~/Development/mamchenkov:~/Development/ImpreStyle:~/Developmen
 export HISTIGNORE="bg:fg:h:history"
 # Ignore files matching this suffixes from completion
 export FIGNORE=".svn"
+
+# When displaying prompt, write previous command to history file so that,
+# any new shell immediately gets the history lines from all previous shells.
+PROMPT_COMMAND='history -a'
 
 #######################################################
 # Aliases
