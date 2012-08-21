@@ -43,3 +43,6 @@
 [submodule "vim/bundle/phpDocumentor"]
 	path = vim/bundle/phpDocumentor
 	url = git://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git
+[submodule "vim/bundle/search-complete"]
+	path = vim/bundle/search-complete
+	url = git://github.com/vim-scripts/SearchComplete.git
