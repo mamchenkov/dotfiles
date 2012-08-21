@@ -7,9 +7,9 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
 " JavaScript and HTML indentation plugin settings
-let g:html_indent_inctags = "html,body,head,tbody"
-let g:html_indent_script1 = "inc"
-let g:html_indent_style1 = "inc"
+let html_indent_inctags = "html,body,head,tbody"
+let html_indent_script1 = "inc"
+let html_indent_style1 = "inc"
 
 " Open NERDTree if no files were specified for vim startup
 autocmd vimenter * if !argc() | NERDTree | endif
@@ -17,12 +17,19 @@ autocmd vimenter * if !argc() | NERDTree | endif
 " Disable PHP coding style check with Syntastic
 let g:syntastic_phpcs_disable = 1
 
+" Syntax highlighting in PHP files
+let php_sql_query=1
+let php_htmlInStrings=1
+let php_noShortTags=1
+let php_folding=0
+
 "
 " Options : basic
 "
 
 syntax on					" switch on syntax highlighting
-filetype plugin on			" switch on filetype guessing
+filetype plugin on
+filetype indent on
 
 set t_Co=256				" Must be BEFORE the colorscheme
 colorscheme desert256
@@ -72,6 +79,7 @@ set ignorecase				" ignore case
 set incsearch				" incremental search (search while pattern is typed)
 set nohlsearch				" do not highlight search patterns
 set smartcase				" case-insensitive searching until pattern is in lower case
+set wrapscan				" wrap search around the end of file
 
 
 " 
