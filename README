@@ -7,7 +7,7 @@ ln -s dotfiles/bash/bashrc ~/.bashrc
 ln -s dotfiles/bash/bash_profile ~/.bash_profile
 ln -s dotfiles/bash/bash_logout ~/.bash_logout
 
-ln -s dotfiles/miscgitconfig ~/.gitconfig
+ln -s dotfiles/misc/gitconfig ~/.gitconfig
 
 ln -s dotfiles/vim ~/.vim
 ln -s dotfiles/vim/vimrc ~/.vimrc
