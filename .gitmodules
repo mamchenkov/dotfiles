@@ -37,3 +37,6 @@
 [submodule "vim/bundle/colorschemes"]
 	path = vim/bundle/colorschemes
 	url = git://github.com/flazz/vim-colorschemes.git
+[submodule "vim/bundle/ManPageView"]
+	path = vim/bundle/ManPageView
+	url = git://github.com/hpyhacking/ManPageView.git
