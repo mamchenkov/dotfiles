@@ -40,3 +40,6 @@
 [submodule "vim/bundle/ManPageView"]
 	path = vim/bundle/ManPageView
 	url = git://github.com/hpyhacking/ManPageView.git
+[submodule "vim/bundle/phpDocumentor"]
+	path = vim/bundle/phpDocumentor
+	url = git://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git

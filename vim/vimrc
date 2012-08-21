@@ -84,3 +84,5 @@ map <F5> :SyntasticCheck<CR>
 map <F9> :TagbarToggle<CR>
 map <F10> :wq<CR>
 
+imap <C-o> <ESC>:set paste<CR>:call PhpDoc()<CR>:set nopaste<CR>
+
