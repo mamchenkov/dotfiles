@@ -15,11 +15,13 @@ let html_indent_style1 = "inc"
 autocmd vimenter * if !argc() | NERDTree | endif
 
 " Disable PHP coding style check with Syntastic
-let g:syntastic_phpcs_disable = 1
+let syntastic_phpcs_disable = 1
 
 " Syntax highlighting in PHP files
-let php_sql_query=1
-let php_htmlInStrings=1
+let php_sql_query=0
+let php_parent_error_close=1
+let php_parent_error_open=1
+let php_htmlInStrings=0
 let php_noShortTags=1
 let php_folding=0
 

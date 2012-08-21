@@ -46,3 +46,6 @@
 [submodule "vim/bundle/search-complete"]
 	path = vim/bundle/search-complete
 	url = git://github.com/vim-scripts/SearchComplete.git
+[submodule "vim/bundle/php"]
+	path = vim/bundle/php
+	url = git://github.com/vim-scripts/php.vim--Garvin.git
