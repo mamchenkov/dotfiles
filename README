@@ -11,3 +11,4 @@ ln -s dotfiles/misc/gitconfig ~/.gitconfig
 
 ln -s dotfiles/vim ~/.vim
 ln -s dotfiles/vim/vimrc ~/.vimrc
+ln -s dotfiles/vim/vimpagerrc ~/.vimpagerrc

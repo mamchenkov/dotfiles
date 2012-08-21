@@ -49,3 +49,6 @@
 [submodule "vim/bundle/php"]
 	path = vim/bundle/php
 	url = git://github.com/vim-scripts/php.vim--Garvin.git
+[submodule "vim/vimpager"]
+	path = vim/vimpager
+	url = git://github.com/rkitover/vimpager.git
