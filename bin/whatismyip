@@ -1,0 +1,45 @@
+#!/usr/bin/perl -w
+
+#
+# Print out IP addresses, both internal and external.   The internal 
+# IP addreses DO NOT include the localhost 127.0.0.1.  The remote IP
+# address uses WhatIsMyIp.com service, as well as whois information
+# to show the ISP.
+#
+
+use strict;
+use LWP::UserAgent;
+
+local_ip();
+remote_ip();
+
+sub local_ip {
+	my @ifconfig = `ip addr`;
+	foreach my $_ (@ifconfig) {
+		if (m/inet\s/ && !m/127.0.0.1/) {
+			s/^\s*inet\s+(\d.*?)\/.*?\s(\w+)$/$1 $2/;
+			print;
+		}
+	}
+}
+
+sub remote_ip {
+	my $ua = LWP::UserAgent->new('agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0)');
+	my $response =  $ua->get("http://automation.whatismyip.com/n09230945.asp");
+	if ($response->is_success) {
+		my $ip = $response->decoded_content;
+		my @whois = `whois $ip`;
+		my $printed = 0;
+		foreach my $_ (@whois) {
+			chomp;
+			if (m/^netname:/) {
+				s/^netname:\s+//;
+				print "$ip $_";
+				$printed++;
+			}
+		}
+		if (!$printed) {
+			print $ip;
+		}
+	}
+}
