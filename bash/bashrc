@@ -112,7 +112,7 @@ function welcome () {
 #######################################################
 # Export some useful variables
 #######################################################
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/bin:$HOME/dotfiles/bin
 #export PAGER=`which --skip-alias less 2> /dev/null`
 export PAGER=~/dotfiles/vim/vimpager/vimpager
 export VIMPAGER_RC=~/.vimpagerrc
