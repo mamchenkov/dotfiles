@@ -1,5 +1,0 @@
-set noloadplugins					" Don't load any of the vim plugins
-let vimpager_disable_x11 = 1		" Start with -X (no X11 connection), slightly faster
-let vimpager_scrolloff = 5			" Provide some contexts when scrolling (:help scrolloff)
-
-" vim:set ft=vim:
