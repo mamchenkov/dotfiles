@@ -9,7 +9,7 @@ echo -e "
  Load Average:     $(/bin/cat /proc/loadavg | /usr/bin/cut -d " " -f 1)
  Processes:        $(/bin/ps aux | /usr/bin/wc -l)
  Memory Free:      $(/usr/bin/free -m | /bin/grep - | /usr/bin/awk '{ print $4 }')MB/$(/usr/bin/free -m | /bin/grep Mem | /usr/bin/awk '{ print $2 }')MB
- Disk space (/):   $(/usr/bin/df -h | /bin/grep rootfs | /usr/bin/awk '{print $4 "/" $2}')
+ Disk space (/):   $(/bin/df -h | /bin/grep -e '/$' | /usr/bin/awk '{print $4 "/" $2}')
  Uptime:           $(/usr/bin/uptime | /bin/sed 's/.*up \([^,]*\), .*/\1/')
 
 "
