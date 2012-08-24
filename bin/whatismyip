@@ -25,7 +25,7 @@ sub local_ip {
 	my @ifconfig = `ip addr`;
 	foreach my $_ (@ifconfig) {
 		if (m/inet\s/ && !m/127.0.0.1/) {
-			s/^\s*inet\s+(\d.*?)\/.*?\s(\w+)$/$1 $2/;
+			s/^\s*inet\s+(\d.*?)\/.*?\s(\S+)$/$1 $2/;
 			print;
 		}
 	}
