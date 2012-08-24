@@ -100,15 +100,6 @@ function prompt () {
 	PS2="${CYAN}[\t][$MAGENTA\u$CYAN@$YELLOW\$(get_hostname)${CYAN}:$GREEN\W$CYAN]${BLACK_ON_WHITE}> "
 }
 
-function welcome () {
-	echo
-	printf "Welcome to %s (%s %s %s)\n" "$(lsb_release -s -d)" "$(uname -o)" "$(uname -r)" "$(uname -m)"
-	echo
-	uptime
-	echo
-	df -h | grep -E -v "tmpfs|rootfs|devtmpfs"
-	echo
-}
 #######################################################
 # Export some useful variables
 #######################################################
@@ -207,4 +198,4 @@ export PATH
 # Call prompt() which was defined above
 #
 prompt
-welcome
+whereami
