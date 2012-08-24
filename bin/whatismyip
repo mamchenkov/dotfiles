@@ -10,8 +10,16 @@
 use strict;
 use LWP::UserAgent;
 
-local_ip();
-remote_ip();
+if ($ARGV[0] && $ARGV[0] eq 'local') {
+	local_ip();
+}
+elsif ($ARGV[0] && $ARGV[0] eq 'remote') {
+	remote_ip();
+}
+else {
+	local_ip();
+	remote_ip();
+}
 
 sub local_ip {
 	my @ifconfig = `ip addr`;
