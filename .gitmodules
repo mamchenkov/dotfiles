@@ -58,3 +58,6 @@
 [submodule "vim/bundle/cakephp.vim"]
 	path = vim/bundle/cakephp.vim
 	url = git://github.com/vim-scripts/cakephp.vim.git
+[submodule "vim/bundle/jQuery"]
+	path = vim/bundle/jQuery
+	url = git://github.com/vim-scripts/jQuery.git
