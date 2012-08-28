@@ -53,6 +53,11 @@ function get_pwd () {
 	fi
 }
 
+function __git_dirty {
+	git diff --quiet HEAD &>/dev/null 
+	[ $? == 1 ] && echo " * "
+}
+
 # Build prompt without polluting much of the namespace
 function prompt () {
 
@@ -66,6 +71,7 @@ function prompt () {
 	# 46 = cyan
 	# 47 = light gray
 
+	local RED="\[\033[44;1;31m\]"
 	local CYAN="\[\033[44;1;36m\]"
 	local MAGENTA="\[\033[44;1;35m\]"
 	local BLUE="\[\033[44;34m\]"
@@ -84,7 +90,7 @@ function prompt () {
 
 	export PROMPT_DIRTRIM=3 # Limit trailing directory components
 
-	PS1="${TITLEBAR}\n${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\h${CYAN}:${GREEN}\w${YELLOW}\$(__git_ps1 \" (%s)\")${CYAN}]${BLACK_ON_WHITE}\$ "
+	PS1="${TITLEBAR}\n${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\h${CYAN}:${GREEN}\w${YELLOW}\$(__git_ps1 \" (%s)\")${RED}\$(__git_dirty)${CYAN}]${BLACK_ON_WHITE}\$ "
 	PS2="${CYAN}[\t][$MAGENTA\u$CYAN@$YELLOW\h${CYAN}:$GREEN\W$CYAN]${BLACK_ON_WHITE}> "
 }
 
