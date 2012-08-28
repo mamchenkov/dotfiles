@@ -33,3 +33,5 @@
 	info = remote -v
 	fullchangelog = log ORIG_HEAD.. --reverse --no-merges
 	changelog = log ORIG_HEAD.. --reverse --no-merges --pretty=format:'* %s'
+[github]
+	user = mamchenkov
