@@ -61,3 +61,6 @@
 [submodule "vim/bundle/jQuery"]
 	path = vim/bundle/jQuery
 	url = git://github.com/vim-scripts/jQuery.git
+[submodule "vim/bundle/Gist"]
+	path = vim/bundle/Gist
+	url = git://github.com/mattn/gist-vim.git
