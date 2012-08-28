@@ -64,3 +64,6 @@
 [submodule "vim/bundle/webapi-vim"]
 	path = vim/bundle/webapi-vim
 	url = git://github.com/mattn/webapi-vim.git
+[submodule "vim/bundle/vim-cakephp"]
+	path = vim/bundle/vim-cakephp
+	url = git://github.com/ndreynolds/vim-cakephp.git
