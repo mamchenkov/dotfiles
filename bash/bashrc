@@ -43,16 +43,7 @@ function ff() {
 
 }
 
-# If wide terminal window, show full path. Otherwise, just current dir
-function get_pwd () {
-	if [ "${COLUMNS}" -lt "100" ]
-	then
-		basename `pwd`
-	else
-		pwd
-	fi
-}
-
+# Print flag character if current git directory is locally modified
 function __git_dirty {
 	git diff --quiet HEAD &>/dev/null 
 	[ $? == 1 ] && echo " * "
