@@ -55,3 +55,6 @@
 [submodule "vim/bundle/Smart-Tabs"]
 	path = vim/bundle/Smart-Tabs
 	url = git://github.com/vim-scripts/Smart-Tabs.git
+[submodule "vim/bundle/cakephp.vim"]
+	path = vim/bundle/cakephp.vim
+	url = git://github.com/vim-scripts/cakephp.vim.git
