@@ -52,9 +52,6 @@
 [submodule "vim/bundle/Smart-Tabs"]
 	path = vim/bundle/Smart-Tabs
 	url = git://github.com/vim-scripts/Smart-Tabs.git
-[submodule "vim/bundle/cakephp.vim"]
-	path = vim/bundle/cakephp.vim
-	url = git://github.com/vim-scripts/cakephp.vim.git
 [submodule "vim/bundle/jQuery"]
 	path = vim/bundle/jQuery
 	url = git://github.com/vim-scripts/jQuery.git
@@ -64,3 +61,6 @@
 [submodule "vim/bundle/webapi-vim"]
 	path = vim/bundle/webapi-vim
 	url = git://github.com/mattn/webapi-vim.git
+[submodule "vim/bundle/vim-cakephp"]
+	path = vim/bundle/vim-cakephp
+	url = git://github.com/ndreynolds/vim-cakephp.git

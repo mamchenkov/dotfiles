@@ -46,7 +46,7 @@ function ff() {
 # Print flag character if current git directory is locally modified
 function __git_dirty {
 	git diff --quiet HEAD &>/dev/null 
-	[ $? == 1 ] && echo " * "
+	[ $? == 1 ] && echo "M"
 }
 
 # Build prompt without polluting much of the namespace
