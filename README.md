@@ -39,3 +39,11 @@ $ sudo yum install bash-completion
 
 Once the package is installed, exit your current bash shell and start a new instance.
 
+Feedback
+--------
+
+If you need to get in touch, send me an email to leonid@mamchenkov.net .  Alternatively, you can send in
+comments and pull requests for the project on GitHub at https://github.com/mamchenkov/dotfiles .
+
+Patches welcome! ;)
+
