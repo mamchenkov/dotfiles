@@ -1,13 +1,22 @@
+DOTFILES
+========
+
+This repository contains most of my "movable" setup.  Mostly these are configurations
+for bash shell, git version control, and Vim text editor.
+
+Installation
+------------
+
+Download and run the install script, which will fetch all the necessary modules and create
+all the necessary links.  Switching to your home directory and backing up your current setup
+is a good idea, since:
+
+1. The installation script will create symlinks in your CURRENT directory.
+2. The installation script will remove necessary files in your CURRENT directory.
+
+
+```
 cd ~
-git clone git://github.com/mamchenkov/dotfiles.git dotfiles
-git submodule init
-git submodule update
+wget -O - https://raw.github.com/mamchenkov/dotfiles/master/bin/dotfiles-install.sh | /bin/bash
+```
 
-ln -s dotfiles/bash/bashrc ~/.bashrc
-ln -s dotfiles/bash/bash_profile ~/.bash_profile
-ln -s dotfiles/bash/bash_logout ~/.bash_logout
-
-ln -s dotfiles/misc/gitconfig ~/.gitconfig
-
-ln -s dotfiles/vim ~/.vim
-ln -s dotfiles/vim/vimrc ~/.vimrc
