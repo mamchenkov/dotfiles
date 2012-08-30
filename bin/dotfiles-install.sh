@@ -13,44 +13,6 @@ then
 fi
 
 #
-# Before removing everything, make sure the dotfiles are here
-#
-if [ ! -d "dotfile" ]
-then
-	echo "Failed to fetch dotfiles. Dying ..."
-	exit 1
-fi
-
-#
-# Get all the submodules
+# Run the update script
 # 
-cd dotfiles
-git submodule init
-git submodule update
-cd ..
-
-#
-# Replace current files with symlinks to dotfiles
-# 
-rm -f .bashrc
-ln -s dotfiles/bash/bashrc .bashrc
-
-rm -f .bash_profile
-ln -s dotfiles/bash/bash_profile .bash_profile
-
-rm -f .bash_logout
-ln -s dotfiles/bash/bash_logout .bash_logout
-
-rm -f .gitconfig
-ln -s dotfiles/misc/gitconfig .gitconfig
-
-rm -f .vimrc
-ln -s dotfiles/vim/vimrc .vimrc
-
-rm -rf .vim
-ln -s dotfiles/vim .vim
-
-#
-# Source .bashrc into current shell
-#
-source .bashrc
+dotfiles/bin/dotfiles-update.sh
