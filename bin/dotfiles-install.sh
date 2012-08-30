@@ -16,13 +16,13 @@ fi
 if [ ! -d "dotfiles" ]
 then
 	echo "Getting dotfiles via ssh protocol"
-	git clone git@github.com:mamchenkov/dotfiles.git dotfile
+	git clone git@github.com:mamchenkov/dotfiles.git dotfiles
 fi
 
 if [ ! -d "dotfiles" ]
 then
 	echo "Getting dotfiles via http protocol"
-	git clone https://github.com/mamchenkov/dotfiles.git dotfile
+	git clone https://github.com/mamchenkov/dotfiles.git dotfiles
 fi
 
 #
