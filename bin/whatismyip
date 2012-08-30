@@ -8,7 +8,6 @@
 #
 
 use strict;
-use LWP::UserAgent;
 
 if ($ARGV[0] && $ARGV[0] eq 'local') {
 	local_ip();
@@ -32,22 +31,28 @@ sub local_ip {
 }
 
 sub remote_ip {
-	my $ua = LWP::UserAgent->new('agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0)');
-	my $response =  $ua->get("http://automation.whatismyip.com/n09230945.asp");
-	if ($response->is_success) {
-		my $ip = $response->decoded_content;
-		my @whois = `whois $ip`;
+
+	my $user_agent_string = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0)';
+	my $remote_ip_url = 'http://automation.whatismyip.com/n09230945.asp';
+
+	my $remote_ip = `wget -q -O - --user-agent="$user_agent_string" $remote_ip_url`;
+
+	if ($remote_ip) {
+		my @whois = `whois $remote_ip`;
 		my $printed = 0;
 		foreach my $_ (@whois) {
 			chomp;
 			if (m/^netname:/) {
 				s/^netname:\s+//;
-				print "$ip $_";
+				print "$remote_ip $_";
 				$printed++;
 			}
 		}
 		if (!$printed) {
-			print $ip;
+			print $remote_ip;
 		}
+	}
+	else {
+		print "Failed to establish remote IP address";
 	}
 }
