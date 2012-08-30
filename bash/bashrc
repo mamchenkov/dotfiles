@@ -24,18 +24,6 @@ fi
 # Useful functions
 #######################################################
 
-# Set title of the xterm to given args
-function xtitle () {
-
-	case "$TERM" in
-		*term | rxvt)
-			echo -n -e "\033]0;$*\007" ;;
-		*)
-			;; 
-	esac
-}
-
-
 # Find file that matches specified pattern
 function ff() {
 
@@ -135,18 +123,12 @@ alias p="phing"
 alias traceroute="traceroute -I"
 alias who="who -HT"
 
-# vimpager
-alias less=$PAGER
-alias zless=$PAGER
-
 alias head='head -n $((${LINES:-12}-2))' #as many as possible without scrolling
 alias tail='tail -n $((${LINES:-12}-2)) -s.1' #Likewise, also more responsive -f
 
 # what most people want from od (hexdump)
 alias hd='od -Ax -tx1z -v'
 
-alias top="xtitle Processes on $HOSTNAME && top"
-alias make="xtitle Making $(basename $PWD) ; make"
 #######################################################
 # Set some shell options
 #######################################################
