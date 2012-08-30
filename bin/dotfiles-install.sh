@@ -38,6 +38,7 @@ fi
 # Get all the submodules
 # 
 cd dotfiles
+git pull
 git submodule init
 git submodule update
 cd ..
