@@ -52,27 +52,30 @@ function __git_dirty {
 # Build prompt without polluting much of the namespace
 function prompt () {
 
-	# Backgrounds (there is ~/bin/colors somewhere):
-	# 40 = black
-	# 41 = red
-	# 42 = green
-	# 43 = brown
-	# 44 = blue
-	# 45 = magenta
-	# 46 = cyan
-	# 47 = light gray
-
-	local RED="\[\033[44;1;31m\]"
-	local CYAN="\[\033[44;1;36m\]"
-	local MAGENTA="\[\033[44;1;35m\]"
-	local BLUE="\[\033[44;34m\]"
-	local YELLOW="\[\033[44;1;33m\]"
-	local GREEN="\[\033[44;1;32m\]"
-	local BLACK_ON_WHITE="\[\033[0m\]"
+	if [ "$EUID" -eq "0" ]
+	then
+		# Root user gets red background
+		local RED="\[\033[41;1;31m\]"
+		local CYAN="\[\033[41;1;36m\]"
+		local MAGENTA="\[\033[41;1;35m\]"
+		local BLUE="\[\033[41;34m\]"
+		local YELLOW="\[\033[41;1;33m\]"
+		local GREEN="\[\033[41;1;32m\]"
+		local BLACK_ON_WHITE="\[\033[0m\]"
+	else
+		# Regular user gets blue background
+		local RED="\[\033[44;1;31m\]"
+		local CYAN="\[\033[44;1;36m\]"
+		local MAGENTA="\[\033[44;1;35m\]"
+		local BLUE="\[\033[44;34m\]"
+		local YELLOW="\[\033[44;1;33m\]"
+		local GREEN="\[\033[44;1;32m\]"
+		local BLACK_ON_WHITE="\[\033[0m\]"
+	fi
 
 	case $TERM in
 		xterm*|rxvt*)
-			TITLEBAR='\[\033]0;\u@\H:\w\007\]'
+			TITLEBAR="\[\033]0;\u@\H:\w\007\]\n"
 			;;
 		*)
 			TITLEBAR=""
@@ -81,7 +84,7 @@ function prompt () {
 
 	export PROMPT_DIRTRIM=3 # Limit trailing directory components
 
-	PS1="${TITLEBAR}\n${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\h${CYAN}:${GREEN}\w${YELLOW}\$(__git_ps1 \" (%s)\")${RED}\$(__git_dirty)${CYAN}]${BLACK_ON_WHITE}\$ "
+	PS1="${TITLEBAR}${CYAN}[\t][${MAGENTA}\u${CYAN}@${YELLOW}\h${CYAN}:${GREEN}\w${YELLOW}\$(__git_ps1 \" (%s)\")${RED}\$(__git_dirty)${CYAN}]${BLACK_ON_WHITE}\$ "
 	PS2="${CYAN}[\t][$MAGENTA\u$CYAN@$YELLOW\h${CYAN}:$GREEN\W$CYAN]${BLACK_ON_WHITE}> "
 }
 
