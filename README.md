@@ -56,6 +56,7 @@ Here is a brief overview of some of the features hidden deep in these dotfiles.
 	number of current processes, available and total disk space, and simplified uptime.
 4.	For root user, an automatically initialized local git repository in /etc folder, with automatic commits of all
 	changes upon logout.
+5.  Colors for man pages.
 
 ### Git version control
 
@@ -73,6 +74,7 @@ Here is a brief overview of some of the features hidden deep in these dotfiles.
 ### Miscelanous
 
 1. 	Easier installer, which can also be used to update the setup and all the symlinks.
+2.  MySQL prompt that includes current user, host, and selected database.
 
 Feedback
 --------
