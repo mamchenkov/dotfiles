@@ -13,6 +13,15 @@ then
 fi
 
 #
+# Before removing everything, make sure the dotfiles are here
+#
+if [ ! -d "dotfile" ]
+then
+	echo "Failed to fetch dotfiles. Dying ..."
+	exit 1
+fi
+
+#
 # Get all the submodules
 # 
 cd dotfiles
