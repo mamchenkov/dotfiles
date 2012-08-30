@@ -1,66 +1,66 @@
 [submodule "vim/bundle/tagbar"]
 	path = vim/bundle/tagbar
-	url = git://github.com/majutsushi/tagbar.git
+	url = https://github.com/majutsushi/tagbar.git
 [submodule "vim/bundle/closetag"]
 	path = vim/bundle/closetag
-	url = git://github.com/docunext/closetag.vim.git
+	url = https://github.com/docunext/closetag.vim.git
 [submodule "vim/bundle/nerdcommenter"]
 	path = vim/bundle/nerdcommenter
-	url = git://github.com/scrooloose/nerdcommenter.git
+	url = https://github.com/scrooloose/nerdcommenter.git
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
-	url = git://github.com/tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
-	url = git://github.com/tpope/vim-surround.git
+	url = https://github.com/tpope/vim-surround.git
 [submodule "vim/bundle/better-css-syntax"]
 	path = vim/bundle/better-css-syntax
-	url = git://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
+	url = https://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
 [submodule "vim/bundle/nerdtree"]
 	path = vim/bundle/nerdtree
-	url = git://github.com/scrooloose/nerdtree.git
+	url = https://github.com/scrooloose/nerdtree.git
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
-	url = git://github.com/scrooloose/syntastic.git
+	url = https://github.com/scrooloose/syntastic.git
 [submodule "vim/bundle/javascript"]
 	path = vim/bundle/javascript
-	url = git://github.com/pangloss/vim-javascript.git
+	url = https://github.com/pangloss/vim-javascript.git
 [submodule "vim/bundle/matchit"]
 	path = vim/bundle/matchit
-	url = git://github.com/tsaleh/vim-matchit.git
+	url = https://github.com/tsaleh/vim-matchit.git
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim.git
+	url = https://github.com/msanders/snipmate.vim.git
 [submodule "vim/bundle/colorschemes"]
 	path = vim/bundle/colorschemes
-	url = git://github.com/flazz/vim-colorschemes.git
+	url = https://github.com/flazz/vim-colorschemes.git
 [submodule "vim/bundle/ManPageView"]
 	path = vim/bundle/ManPageView
-	url = git://github.com/hpyhacking/ManPageView.git
+	url = https://github.com/hpyhacking/ManPageView.git
 [submodule "vim/bundle/phpDocumentor"]
 	path = vim/bundle/phpDocumentor
-	url = git://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git
+	url = https://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git
 [submodule "vim/bundle/search-complete"]
 	path = vim/bundle/search-complete
-	url = git://github.com/vim-scripts/SearchComplete.git
+	url = https://github.com/vim-scripts/SearchComplete.git
 [submodule "vim/bundle/php"]
 	path = vim/bundle/php
-	url = git://github.com/vim-scripts/php.vim--Garvin.git
+	url = https://github.com/vim-scripts/php.vim--Garvin.git
 [submodule "vim/bundle/PHP-Indenting-for-Vim"]
 	path = vim/bundle/PHP-Indenting-for-Vim
-	url = git://github.com/2072/PHP-Indenting-for-VIm.git
+	url = https://github.com/2072/PHP-Indenting-for-VIm.git
 [submodule "vim/bundle/Smart-Tabs"]
 	path = vim/bundle/Smart-Tabs
-	url = git://github.com/vim-scripts/Smart-Tabs.git
+	url = https://github.com/vim-scripts/Smart-Tabs.git
 [submodule "vim/bundle/jQuery"]
 	path = vim/bundle/jQuery
-	url = git://github.com/vim-scripts/jQuery.git
+	url = https://github.com/vim-scripts/jQuery.git
 [submodule "vim/bundle/Gist"]
 	path = vim/bundle/Gist
-	url = git://github.com/mattn/gist-vim.git
+	url = https://github.com/mattn/gist-vim.git
 [submodule "vim/bundle/webapi-vim"]
 	path = vim/bundle/webapi-vim
-	url = git://github.com/mattn/webapi-vim.git
+	url = https://github.com/mattn/webapi-vim.git
 [submodule "vim/bundle/vim-cakephp"]
 	path = vim/bundle/vim-cakephp
-	url = git://github.com/ndreynolds/vim-cakephp.git
+	url = https://github.com/ndreynolds/vim-cakephp.git
