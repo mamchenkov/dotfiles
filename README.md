@@ -18,5 +18,22 @@ is a good idea, since:
 ```
 cd ~
 wget -O - https://raw.github.com/mamchenkov/dotfiles/master/bin/dotfiles-install.sh | /bin/bash
+source .bashrc
+```
+
+Known Issues
+------------
+
+### Missing bash completions
+
+```
+-bash: __git_ps1: command not found
+```
+
+If you see the above message after installation, you are missing bash completions.  Gladly, the issue
+is easily solved by installing bash-completion package.  On Fedora / Red Hat / CentOS do the following:
+
+```
+$ sudo yum install bash-completion
 ```
 
