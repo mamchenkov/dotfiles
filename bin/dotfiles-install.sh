@@ -28,7 +28,7 @@ fi
 #
 # Before removing everything, make sure the dotfiles are here
 #
-if [ ! -d "dotfile" ]
+if [ ! -d "dotfiles" ]
 then
 	echo "Failed to fetch dotfiles. Dying ..."
 	exit 1
