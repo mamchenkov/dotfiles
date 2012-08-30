@@ -41,3 +41,7 @@ ln -s dotfiles/vim/vimrc .vimrc
 rm -rf .vim
 ln -s dotfiles/vim .vim
 
+#
+# Source .bashrc into current shell
+#
+source .bashrc
