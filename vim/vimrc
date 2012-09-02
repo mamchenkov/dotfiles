@@ -87,7 +87,6 @@ set wrapscan				" wrap search around the end of file
 " 
 " Shortcuts
 "
-
 map <F3> :NERDTreeToggle<CR>
 map <F4> :q<CR>
 map <F5> :SyntasticCheck<CR>
@@ -96,3 +95,5 @@ map <F10> :wq<CR>
 
 imap <C-o> <ESC>:set paste<CR>:call PhpDoc()<CR>:set nopaste<CR>
 
+" exit to normal mode with 'jj'
+inoremap jj <ESC>
