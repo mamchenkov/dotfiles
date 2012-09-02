@@ -55,6 +55,10 @@ ln -s dotfiles/bash/bash_profile .bash_profile
 rm -f .bash_logout
 ln -s dotfiles/bash/bash_logout .bash_logout
 
+rm -f .inputrc
+ln -s dotfiles/bash/inputrc .inputrc
+
+
 rm -f .gitconfig
 ln -s dotfiles/misc/gitconfig .gitconfig
 
