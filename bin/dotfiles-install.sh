@@ -58,6 +58,8 @@ ln -s dotfiles/bash/bash_logout .bash_logout
 rm -f .inputrc
 ln -s dotfiles/bash/inputrc .inputrc
 
+rm -f .ackrc
+ln -s dotfiles/misc/ackrc .ackrc
 
 rm -f .gitconfig
 ln -s dotfiles/misc/gitconfig .gitconfig

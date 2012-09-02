@@ -1,0 +1,8 @@
+# Always sort the files
+--sort-files
+
+# Use smart case (case-insensitive when pattern has no uppercase letters)
+--smart-case
+
+# Add .ctp (CakePHP view templates) to PHP type
+--type-add=php=.ctp
