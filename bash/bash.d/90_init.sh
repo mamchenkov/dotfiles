@@ -2,4 +2,4 @@
 # Last bits
 # 
 have whereami && whereami
-have fortune && fortune
+have fortune && fortune -s
