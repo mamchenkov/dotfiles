@@ -45,14 +45,18 @@ function resetcolor {
     echo "\\[\\e[0m\\]"
 }
 
+function terminal_title {
+	echo "\\[\\033]0;\\u@\\H:\\w\\007\\]"
+}
+
 function fancyprompt {
     PROMPT_COMMAND="smart_pwd"
 
 	if [ "$EUID" -eq "0" ]
 	then
-		PS1="$(bgcolor 196)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]#$(resetcolor) "
+		PS1="$(terminal_title)$(bgcolor 196)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
 	else
-		PS1="$(bgcolor 17)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
+		PS1="$(terminal_title)$(bgcolor 17)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
 	fi
 }
 
@@ -60,7 +64,7 @@ function dullprompt {
     PROMPT_COMMAND=""
 	if [ "$EUID" -eq "0" ]
 	then
-		PS1="[\t][\u@\h:\w\$(__git_ps1 \" (%s)\")\$(__git_dirty)]# "
+		PS1="[\t][\u@\h:\w\$(__git_ps1 \" (%s)\")\$(__git_dirty)]\$ "
 	else
 		PS1="[\t][\u@\h:\w\$(__git_ps1 \" (%s)\")\$(__git_dirty)]\$ "
 	fi
