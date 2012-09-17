@@ -70,6 +70,9 @@ ln -s dotfiles/vim/vimrc .vimrc
 rm -rf .vim
 ln -s dotfiles/vim .vim
 
+rm -rf .fonts
+ln -s dotfiles/fonts .fonts
+
 #
 # Source .bashrc into current shell
 #
