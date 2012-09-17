@@ -54,7 +54,7 @@ function fancyprompt {
 
 	if [ "$EUID" -eq "0" ]
 	then
-		PS1="$(terminal_title)$(bgcolor 196)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
+		PS1="$(terminal_title)$(bgcolor 124)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
 	else
 		PS1="$(terminal_title)$(bgcolor 17)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
 	fi
