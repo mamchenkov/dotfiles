@@ -40,7 +40,7 @@ set t_Co=256				" Must be BEFORE the colorscheme
 "
 if has("gui_running")
 	" GUI options {{{
-	set guifont=Inconsolata
+	set guifont=Fixedsys\ Excelsior\ 3.01\ 12
 	set guioptions-=m " No menu
 	set guioptions-=T " No toolbar
 	set guioptions+=c " Use console dialogs where possible
