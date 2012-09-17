@@ -34,7 +34,23 @@ filetype plugin on
 filetype indent on
 
 set t_Co=256				" Must be BEFORE the colorscheme
-colorscheme desert256
+
+"
+" Options : GUI
+"
+if has("gui_running")
+	" GUI options {{{
+	set guifont=Inconsolata
+	set guioptions-=m " No menu
+	set guioptions-=T " No toolbar
+	set guioptions+=c " Use console dialogs where possible
+	set guioptions+=lrb " Enable left, right, and bottom scrollbars
+	set guioptions-=lrb " Disable left, right, and bottom scrollbars (retarded, but has to be set first)
+	colorscheme wombat256mod
+else
+	colorscheme wombat256mod
+endif
+
 
 " 
 " Options : misc
