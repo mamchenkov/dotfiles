@@ -73,7 +73,7 @@ set numberwidth=4			" Number of columns in line numbering
 set ruler					" show cursor position in the file
 set showcmd					" show command autocompletion
 set showmatch				" Show matching opening bracket
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%04l,%04v]\ [LEN=%L][%p%%]
+set statusline=%F%m%r%h%w\ [EOL=%{&ff}]\ [TYPE=%Y]\ [ENC=%{(&fenc==\"\"?&enc:&fenc)}]\ %=[POS=%04l,%04v]\ [LEN=%L][%p%%]
 set title titlestring=vim\ -\ %F\ %h
 set visualbell				" Don't beep me, you beep!
 set wildmenu				" show autocompetion in status menu
