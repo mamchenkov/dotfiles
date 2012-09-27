@@ -49,14 +49,21 @@ function terminal_title {
 	echo "\\[\\033]0;\\u@\\H:\\w\\007\\]"
 }
 
+function ssh_flag {
+	if [ ! -z "$SSH_CLIENT" ]
+	then
+		echo "$(bgcolor 126)$(fgcolor 114)[SSH]"
+	fi
+}
+
 function fancyprompt {
     PROMPT_COMMAND="smart_pwd"
 
 	if [ "$EUID" -eq "0" ]
 	then
-		PS1="$(terminal_title)$(bgcolor 124)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
+		PS1="$(terminal_title)$(ssh_flag)$(bgcolor 124)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
 	else
-		PS1="$(terminal_title)$(bgcolor 17)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
+		PS1="$(terminal_title)$(ssh_flag)$(bgcolor 17)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_ps1 \" (%s)\")$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
 	fi
 }
 
