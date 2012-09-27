@@ -6,10 +6,17 @@ in some of your environment's configuration.  For this reason, I am
 adding some of the fonts in here, just so that I don't have find them
 all over again when I move to another system.
 
-FSEX300.ttf - Fixedsys Excelsior
---------------------------------
+Fixedsys Excelsior
+------------------
+Filename: FSEX300.ttf
 Source: http://www.fixedsysexcelsior.com/
 
-Monaco\_Linux.ttf - Monaco
--------------------------
-Source: http://www.gringod.com/wp-upload/software/Fonts/Monaco\_Linux.ttf
+Monaco
+------
+Filename: Monaco_Linux.ttf
+Source: http://www.gringod.com/wp-upload/software/Fonts/Monaco_Linux.ttf
+
+Microsoft Consolas
+------------------
+Filename: CONSOLA.TTF, CONSOLAB.TTF, CONSOLAI.TTF
+Source: http://www.microsoft.com/typography/fonts/font.aspx?FMID=1252
