@@ -78,7 +78,7 @@ function dullprompt {
 }
 
 case "$TERM" in
-xterm-color|xterm-256color|rxvt*|screen-256color)
+xterm-color|xterm-256color|rxvt*|screen*)
         fancyprompt
     ;;
 *)
