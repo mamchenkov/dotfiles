@@ -2,4 +2,5 @@
 # Last bits
 # 
 have whereami && whereami
-have fortune && fortune -s
+have fortune && echo Thought of the day: && fortune -s && echo
+		
