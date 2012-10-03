@@ -10,7 +10,7 @@ alias m7='alias g7="cd `pwd`"'
 alias m8='alias g8="cd `pwd`"'                                                                                                                                          
 alias m9='alias g9="cd `pwd`"'                                                                                                                                          
 alias mdump='alias|grep -e "alias g[0-9]"|grep -v "alias m" > ~/.bookmarks'                                                                                             
-alias mload='source ~/.bookmarks'
+alias mload='if [ -e ~/.bookmarks ] ; then source ~/.bookmarks ; fi'
 alias ah='(echo;alias | grep  "g[0-9]" | grep -v "m[0-9]" | cut -d" " -f "2,3"| sed "s/=/   /" | sed "s/cd //";echo)' 
 
 # 
