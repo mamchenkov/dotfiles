@@ -64,3 +64,6 @@
 [submodule "vim/bundle/vim-cakephp"]
 	path = vim/bundle/vim-cakephp
 	url = https://github.com/ndreynolds/vim-cakephp.git
+[submodule "vim/bundle/vim-powerline"]
+	path = vim/bundle/vim-powerline
+	url = https://github.com/Lokaltog/vim-powerline.git
