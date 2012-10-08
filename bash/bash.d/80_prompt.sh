@@ -15,8 +15,7 @@ function __git_branch {
 	git branch &> /dev/null
 	if [ $? -eq 0 ]
 	then
-		BRANCH=`git branch | cut -f 2 -d ' '`
-		echo " ($BRANCH)"
+		echo ' ('`git branch | grep '^*' | cut -f 2 -d ' '`')'
 	fi
 }
 
