@@ -30,7 +30,7 @@ alias mkdir="mkdir -p"
 alias path="echo -e ${PATH//:/\\n}"
 
 # Mysql with fancy pager
-alias mysql="mysql --pager='nice_tables | grcat dotfiles/etc/grcat.conf | less -RFSinX'"
+alias mysql="mysql --pager='nice_tables | grcat ~/dotfiles/etc/grcat.conf | less -RFSinX'"
 
 alias head='head -n $((${LINES:-12}-2))' #as many as possible without scrolling
 alias tail='tail -n $((${LINES:-12}-2)) -s.1' #Likewise, also more responsive -f
