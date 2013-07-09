@@ -18,7 +18,6 @@ then
 fi
 
 echo $USER $BRANCH
-exit 1
 
 #
 # Get dotfiles, if they aren't already here
