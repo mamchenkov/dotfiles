@@ -17,16 +17,9 @@ is a good idea, since:
 
 ```
 cd ~
+export GITHUB_USER=mamchenkov
+export GITHUB_BRANCH=master
 wget -O - https://raw.github.com/mamchenkov/dotfiles/master/bin/dotfiles-install.sh | /bin/bash
-source .bashrc
-```
-
-If you have cloned the repository and want to use your own username and/or branch, you can
-specify that as arguments to dotfiles-install.sh script.  The defaults values are:
-
-```
-cd ~
-wget -O - https://raw.github.com/mamchenkov/dotfiles/master/bin/dotfiles-install.sh mamchenkov master | /bin/bash
 source .bashrc
 ```
 

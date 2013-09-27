@@ -4,20 +4,10 @@
 # SAFETY NOTE : installation is done in the CURRENT directory
 # COMPATIBILITY NOTE: commands are running in the CURRENT shell
 
-USER=$1
-BRANCH=$2
-
-if [ -z "$USER" ]
-then
-	USER=mamchenkov
-fi
-
-if [ -z "$BRANCH" ]
-then
-	BRANCH=master
-fi
-
-echo $USER $BRANCH
+# Assume GitHub user from environment variable GITHUB_USER (or mamchenkov)
+USER=${GITHUB_USER:=mamchenkov}
+# Assume GitHub branch from environment variable GITHUB_BRANCH (or master)
+BRANCH=${GITHUB_BRANCH:=master}
 
 #
 # Get dotfiles, if they aren't already here
