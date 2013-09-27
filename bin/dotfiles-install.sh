@@ -80,6 +80,9 @@ ln -s dotfiles/misc/ackrc .ackrc
 rm -f .gitconfig
 ln -s dotfiles/misc/gitconfig .gitconfig
 
+rm -f .gitignore
+ln -s dotfiles/misc/gitignore .gitignore
+
 rm -f .vimrc
 ln -s dotfiles/vim/vimrc .vimrc
 
