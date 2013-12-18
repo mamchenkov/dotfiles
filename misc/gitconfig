@@ -20,6 +20,7 @@
 [core]
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	editor = vim
+	excludesfile = ~/.gitignore
 [alias]
 	st = status
 	ci = commit

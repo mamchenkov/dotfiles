@@ -6,6 +6,9 @@
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+" Change mapleader to ,
+let mapleader = ","
+
 " JavaScript and HTML indentation plugin settings
 let html_indent_inctags = "html,body,head,tbody"
 let html_indent_script1 = "inc"

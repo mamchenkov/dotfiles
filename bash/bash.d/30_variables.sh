@@ -3,7 +3,7 @@
 # 
 export PATH=$PATH:$HOME/bin:$HOME/dotfiles/bin
 export PAGER=`which --skip-alias less -RFSinX 2> /dev/null`
-export EDITOR=`which --skip-alias vim 2> /dev/null`
+export EDITOR=`which --skip-alias vim -X 2> /dev/null`
 export SVN_EDITOR=$EDITOR
 export LC_TIME=en_US
 export HISTTIMEFORMAT=" (%F %T) "

@@ -17,12 +17,28 @@ is a good idea, since:
 
 ```
 cd ~
+export GITHUB_USER=mamchenkov
+export GITHUB_BRANCH=master
 wget -O - https://raw.github.com/mamchenkov/dotfiles/master/bin/dotfiles-install.sh | /bin/bash
 source .bashrc
 ```
 
+Use your GitHub username instead of 'mamchenkov' and your desired branch instead of 'master'.
+
 Known Issues
 ------------
+
+### Untracked changes in vim submodules
+
+When you run Vim, documentation for plugins is automatically generated, which results in doc/tags files created all
+around submodules.  This annoyingly is being reported by git.  To solve this issue, you can update submodules to not
+report untracked files changes.  Remove all those doc/tags files and run the following command:
+
+```
+for s in `git submodule  --quiet foreach 'echo $name'` ; do git config submodule.$s.ignore untracked ; done
+```
+
+Thanks to: http://stackoverflow.com/questions/4343544/generating-tags-to-different-location-by-pathogen
 
 ### Missing bash completions
 
