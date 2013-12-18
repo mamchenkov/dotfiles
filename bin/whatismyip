@@ -22,7 +22,7 @@ else {
 
 sub local_ip {
 	my @ifconfig = `ip addr`;
-	foreach my $_ (@ifconfig) {
+	foreach (@ifconfig) {
 		if (m/inet\s/ && !m/127.0.0.1/) {
 			s/^\s*inet\s+(\d.*?)\/.*?\s(\S+)$/$1 $2/;
 			print;
@@ -40,7 +40,7 @@ sub remote_ip {
 	if ($remote_ip) {
 		my @whois = `whois $remote_ip`;
 		my $printed = 0;
-		foreach my $_ (@whois) {
+		foreach (@whois) {
 			chomp;
 			if (m/^netname:/) {
 				s/^netname:\s+//;
