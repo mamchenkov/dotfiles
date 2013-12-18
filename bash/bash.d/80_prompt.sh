@@ -69,7 +69,7 @@ function fancyprompt {
 
 	if [ "$EUID" -eq "0" ]
 	then
-		PS1="$(terminal_title)$(ssh_flag)$(bgcolor 124)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_branch)$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
+		PS1="$(terminal_title)$(ssh_flag)$(bgcolor 124)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_branch)$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]#$(resetcolor) "
 	else
 		PS1="$(terminal_title)$(ssh_flag)$(bgcolor 17)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_branch)$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
 	fi
@@ -79,7 +79,7 @@ function dullprompt {
     PROMPT_COMMAND=""
 	if [ "$EUID" -eq "0" ]
 	then
-		PS1="[\t][\u@\h:\w\$(__git_branch)\$(__git_dirty)]\$ "
+		PS1="[\t][\u@\h:\w\$(__git_branch)\$(__git_dirty)]# "
 	else
 		PS1="[\t][\u@\h:\w\$(__git_branch)\$(__git_dirty)]\$ "
 	fi
