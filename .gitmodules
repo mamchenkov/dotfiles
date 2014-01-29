@@ -1,66 +1,88 @@
 [submodule "vim/bundle/tagbar"]
 	path = vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
+	ignore = untracked
 [submodule "vim/bundle/closetag"]
 	path = vim/bundle/closetag
 	url = https://github.com/docunext/closetag.vim.git
+	ignore = untracked
 [submodule "vim/bundle/nerdcommenter"]
 	path = vim/bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
+	ignore = untracked
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+	ignore = untracked
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
 	url = https://github.com/tpope/vim-surround.git
+	ignore = untracked
 [submodule "vim/bundle/better-css-syntax"]
 	path = vim/bundle/better-css-syntax
 	url = https://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
+	ignore = untracked
 [submodule "vim/bundle/nerdtree"]
 	path = vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
+	ignore = untracked
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+	ignore = untracked
 [submodule "vim/bundle/javascript"]
 	path = vim/bundle/javascript
 	url = https://github.com/pangloss/vim-javascript.git
+	ignore = untracked
 [submodule "vim/bundle/matchit"]
 	path = vim/bundle/matchit
 	url = https://github.com/tsaleh/vim-matchit.git
+	ignore = untracked
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
 	url = https://github.com/msanders/snipmate.vim.git
+	ignore = untracked
 [submodule "vim/bundle/colorschemes"]
 	path = vim/bundle/colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
+	ignore = untracked
 [submodule "vim/bundle/phpDocumentor"]
 	path = vim/bundle/phpDocumentor
 	url = https://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git
+	ignore = untracked
 [submodule "vim/bundle/search-complete"]
 	path = vim/bundle/search-complete
 	url = https://github.com/vim-scripts/SearchComplete.git
+	ignore = untracked
 [submodule "vim/bundle/php"]
 	path = vim/bundle/php
 	url = https://github.com/vim-scripts/php.vim--Garvin.git
+	ignore = untracked
 [submodule "vim/bundle/PHP-Indenting-for-Vim"]
 	path = vim/bundle/PHP-Indenting-for-Vim
 	url = https://github.com/2072/PHP-Indenting-for-VIm.git
+	ignore = untracked
 [submodule "vim/bundle/Smart-Tabs"]
 	path = vim/bundle/Smart-Tabs
 	url = https://github.com/vim-scripts/Smart-Tabs.git
+	ignore = untracked
 [submodule "vim/bundle/jQuery"]
 	path = vim/bundle/jQuery
 	url = https://github.com/vim-scripts/jQuery.git
+	ignore = untracked
 [submodule "vim/bundle/Gist"]
 	path = vim/bundle/Gist
 	url = https://github.com/mattn/gist-vim.git
+	ignore = untracked
 [submodule "vim/bundle/webapi-vim"]
 	path = vim/bundle/webapi-vim
 	url = https://github.com/mattn/webapi-vim.git
+	ignore = untracked
 [submodule "vim/bundle/vim-cakephp"]
 	path = vim/bundle/vim-cakephp
 	url = https://github.com/ndreynolds/vim-cakephp.git
+	ignore = untracked
 [submodule "vim/bundle/vim-powerline"]
 	path = vim/bundle/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
+	ignore = untracked
