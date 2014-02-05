@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# This is the greatest TODO list ever!
+# It is heavily based on the idea and the code
+# from here: 
+# 
+# https://github.com/holman/dotfiles/blob/master/bin/todo
+# 
+# But, instead of using empty files, I use empty folders.
+# This is useful for those TODO items which might need 
+# some extra files grouped for the task complition.
+# 
+# I also have a "TODO: " prefix for the folder name, so that
+# I won't get confused as easily, and also so that I could
+# actually list my TODO items by running the script without
+# any parameters.
+
+set -e
+
+if [ "$#" -eq 0 ]
+then
+	# Remove the prefix when listing.  But annoying when you
+	# try to tab-complete the filename for deletion.
+	#ls -d -1 ~/Desktop/TODO:* | sed -e 's#.*/##' -e 's/TODO: //'
+	ls -d -1 ~/Desktop/TODO:* | sed -e 's#.*/##' 
+else
+	mkdir ~/Desktop/"TODO: $*"
+fi
