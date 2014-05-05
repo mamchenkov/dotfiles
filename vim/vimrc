@@ -9,6 +9,12 @@ call pathogen#helptags()
 " Change mapleader to ,
 let mapleader = ","
 
+" Syntax
+" 
+syntax on					" switch on syntax highlighting
+syntax enable
+set t_Co=256				" Must be BEFORE the colorscheme
+
 " PHP-Indenting-for-Vim plugin
 " To indent 'case:' and 'default:' statements in switch() blocks: >
 let g:PHP_vintage_case_default_indent = 1
@@ -37,12 +43,12 @@ let php_folding=0
 "
 " Options : basic
 "
-
-syntax on					" switch on syntax highlighting
 filetype plugin on
 filetype indent on
+set autoread		" Reload files changed outside of Vim
+set splitright		" Open vertical splits to the right of current window
+set splitbelow		" Open horizontal splits below the current window
 
-set t_Co=256				" Must be BEFORE the colorscheme
 
 "
 " Options : GUI
