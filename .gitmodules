@@ -34,10 +34,6 @@
 	path = vim/bundle/javascript
 	url = https://github.com/pangloss/vim-javascript.git
 	ignore = untracked
-[submodule "vim/bundle/matchit"]
-	path = vim/bundle/matchit
-	url = https://github.com/tsaleh/vim-matchit.git
-	ignore = untracked
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
 	url = https://github.com/msanders/snipmate.vim.git
@@ -85,4 +81,8 @@
 [submodule "vim/bundle/vim-powerline"]
 	path = vim/bundle/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
+	ignore = untracked
+[submodule "vim/bundle/vim-gitgutter"]
+	path = vim/bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
 	ignore = untracked
