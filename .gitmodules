@@ -94,7 +94,3 @@
 	path = vim/bundle/gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
 	ignore = untracked
-[submodule "vim/bundle/supertab"]
-	path = vim/bundle/supertab
-	url = https://github.com/ervandew/supertab.git
-	ignore = untracked
