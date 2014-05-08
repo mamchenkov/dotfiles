@@ -83,49 +83,25 @@ On_IWhite='\e[0;107m'   # White
 # Used in bash prompt
 function __git_dirty {
 	git diff --quiet HEAD &>/dev/null 
-	[ $? == 1 ] && echo "M"
+	[ $? == 1 ] && echo "*"
 }
 
 function __git_branch {
-	git branch &> /dev/null
-	if [ $? -eq 0 ]
+	GIT_BRANCH=$(git branch 2>/dev/null | grep '^*' | cut -f 2 -d ' ')
+	if [ ! -z "$GIT_BRANCH" ]
 	then
-		echo ' ('`git branch | grep '^*' | cut -f 2 -d ' '`')'
+		# Bright yellow for master branch, purple for everything else
+		if [ "$GIT_BRANCH" == "master" ]
+		then
+			GIT_BRANCH_COLOR=$BIYellow
+		else
+			GIT_BRANCH_COLOR=$Purple
+		fi
+		echo -e " $Cyan(${GIT_BRANCH_COLOR}$GIT_BRANCH$BIRed$(__git_dirty)$Cyan)"
 	fi
-}
 
-function smart_pwd {
-    local pwdmaxlen=25
-    local trunc_symbol=".."
-    local dir=${PWD##*/}
-    local tmp=""
-    pwdmaxlen=$(( ( pwdmaxlen < ${#dir} ) ? ${#dir} : pwdmaxlen ))
-    NEW_PWD=${PWD/#$HOME/\~}
-    local pwdoffset=$(( ${#NEW_PWD} - pwdmaxlen ))
-    if [ ${pwdoffset} -gt "0" ]
-    then
-        tmp=${NEW_PWD:$pwdoffset:$pwdmaxlen}
-        tmp=${trunc_symbol}/${tmp#*/}
-        if [ "${#tmp}" -lt "${#NEW_PWD}" ]; then
-            NEW_PWD=$tmp
-        fi
-    fi
-}
-
-function boldtext {
-    echo "\\[\\033[1m\\]"$1"\\[\\033[0m\\]"
-}
-
-function bgcolor {
-    echo "\\[\\033[48;5;"$1"m\\]"
-}
-
-function fgcolor {
-    echo "\\[\\033[38;5;"$1"m\\]"
-}
-
-function resetcolor {
-    echo "\\[\\e[0m\\]"
+	# Cleanup
+	unset GIT_BRANCH GIT_BRANCH_COLOR
 }
 
 function terminal_title {
@@ -135,19 +111,78 @@ function terminal_title {
 function ssh_flag {
 	if [ ! -z "$SSH_CLIENT" ]
 	then
-		echo "$(bgcolor 126)$(fgcolor 114)[SSH]"
+		echo "[SSH]"
 	fi
 }
 
-function fancyprompt {
-    PROMPT_COMMAND="smart_pwd"
+function timer_start {
+	timer=${timer:-$SECONDS}
+}
 
+function timer_stop {
+	timer_show=$(($SECONDS - $timer))
+	unset timer
+}
+
+function fancyprompt {
+	local RETVAL=$?
+
+	timer_stop
+
+	# Last command successful - green, otherwise bright red
+	if [ "$RETVAL" -eq "0" ]
+	then
+		LAST_COLOR=$Green
+	else
+		LAST_COLOR=$BIRed
+	fi
+
+	# Root is bright red, everyone else is green
 	if [ "$EUID" -eq "0" ]
 	then
-		PS1="$(terminal_title)$(ssh_flag)$(bgcolor 124)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_branch)$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]#$(resetcolor) "
+		USER_COLOR=$BIRed
+		PROMPT_COLOR=$BIRed
+		FEEL_COLOR=$Red
 	else
-		PS1="$(terminal_title)$(ssh_flag)$(bgcolor 17)$(fgcolor 114)[$(fgcolor 117)\t$(fgcolor 114)][$(fgcolor 190)\u$(fgcolor 114)@$(fgcolor 190)\h$(fgcolor 114):$(fgcolor 86)\w$(fgcolor 190)\$(__git_branch)$(fgcolor 196)\$(__git_dirty)$(fgcolor 114)]\$$(resetcolor) "
+		USER_COLOR=$Green
+		PROMPT_COLOR=$Cyan
+		FEEL_COLOR=$Cyan
 	fi
+
+	# Load average green, or bright yellow, or bright red
+	CPUS=$(grep -c vendor_id /proc/cpuinfo)
+	CPUS=$(printf "%.0f" $CPUS)
+	read ONE REST < /proc/loadavg
+	LOAD=$(printf "%.0f" $ONE)
+	if [ "$LOAD" -lt "$CPUS" ]
+	then 
+		LOAD_COLOR=$Green
+	elif [ "$LOAD" -eq "$CPUS" ]
+	then 
+		LOAD_COLOR=$BIYellow
+	else 
+		LOAD_COLOR=$BIRed
+	fi
+
+	# .com|.org|.net hostnames are bright yellow, everything else is green
+	if [[ $HOSTNAME =~ ".com" || $HOSTNAME =~ ".org" || $HOSTNAME =~ ".net" ]]
+	then
+		HOST_COLOR=$BIYellow
+	else
+		HOST_COLOR=$Green
+	fi
+
+	PS1="$(terminal_title)\n"
+	PS1="$PS1$BIPurple$(ssh_flag)"
+	PS1="$PS1$FEEL_COLOR[$BIWhite\d \t$FEEL_COLOR] "
+	PS1="$PS1[$USER_COLOR\u$FEEL_COLOR@$HOST_COLOR\H$FEEL_COLOR] "
+	PS1="$PS1[load:$LOAD_COLOR$ONE$FEEL_COLOR] "
+	PS1="$PS1[procs:$Purple$(ps aux | wc -l)$FEEL_COLOR]\n"
+	PS1="$PS1[$Purple$(pwd)\$(__git_branch)$FEEL_COLOR]\n"
+	PS1="$PS1[${LAST_COLOR}last$FEEL_COLOR:$Purple${timer_show}${FEEL_COLOR}s]$PROMPT_COLOR\$ $Color_Off"
+
+	# Cleanup
+	unset FEEL_COLOR USER_COLOR HOST_COLOR LOAD_COLOR LAST_COLOR PROMPT_COLOR 
 }
 
 function dullprompt {
@@ -160,12 +195,14 @@ function dullprompt {
 	fi
 }
 
+trap 'timer_start' DEBUG
+
 case "$TERM" in
 xterm-color|xterm-256color|rxvt*|screen*)
-        fancyprompt
+        PROMPT_COMMAND=fancyprompt
     ;;
 *)
-        dullprompt
+        PROMPT_COMMAND=dullprompt
     ;;
 esac
 
