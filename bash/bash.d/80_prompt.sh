@@ -179,7 +179,7 @@ function fancyprompt {
 	PS1="$PS1[load:$LOAD_COLOR$ONE$FEEL_COLOR] "
 	PS1="$PS1[procs:$Purple$(ps aux | wc -l)$FEEL_COLOR]\n"
 	PS1="$PS1[$Purple$(pwd)\$(__git_branch)$FEEL_COLOR]\n"
-	PS1="$PS1[${LAST_COLOR}last$FEEL_COLOR:$Purple${timer_show}${FEEL_COLOR}s]$PROMPT_COLOR\$ $Color_Off"
+	PS1="$PS1[${LAST_COLOR}last$FEEL_COLOR:$Purple${timer_show}${FEEL_COLOR}s]$PROMPT_COLOR\\$ $Color_Off"
 
 	# Cleanup
 	unset FEEL_COLOR USER_COLOR HOST_COLOR LOAD_COLOR LAST_COLOR PROMPT_COLOR 
@@ -189,9 +189,9 @@ function dullprompt {
     PROMPT_COMMAND=""
 	if [ "$EUID" -eq "0" ]
 	then
-		PS1="[\t][\u@\h:\w\$(__git_branch)\$(__git_dirty)]# "
+		PS1="[\t][\u@\h:\w\$(__git_branch)\$(__git_dirty)]\\$ "
 	else
-		PS1="[\t][\u@\h:\w\$(__git_branch)\$(__git_dirty)]\$ "
+		PS1="[\t][\u@\h:\w\$(__git_branch)\$(__git_dirty)]\\$ "
 	fi
 }
 
