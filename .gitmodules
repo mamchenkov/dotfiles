@@ -34,10 +34,6 @@
 	path = vim/bundle/javascript
 	url = https://github.com/pangloss/vim-javascript.git
 	ignore = untracked
-[submodule "vim/bundle/snipmate"]
-	path = vim/bundle/snipmate
-	url = https://github.com/msanders/snipmate.vim.git
-	ignore = untracked
 [submodule "vim/bundle/colorschemes"]
 	path = vim/bundle/colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
