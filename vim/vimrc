@@ -14,6 +14,7 @@ let mapleader = ","
 syntax on					" switch on syntax highlighting
 syntax enable
 set t_Co=256				" Must be BEFORE the colorscheme
+colorscheme lucius
 
 " PHP-Indenting-for-Vim plugin
 " To indent 'case:' and 'default:' statements in switch() blocks: >
@@ -61,9 +62,6 @@ if has("gui_running")
 	set guioptions+=c " Use console dialogs where possible
 	set guioptions+=lrb " Enable left, right, and bottom scrollbars
 	set guioptions-=lrb " Disable left, right, and bottom scrollbars (retarded, but has to be set first)
-	colorscheme wombat256mod
-else
-	colorscheme wombat256mod
 endif
 
 
