@@ -14,10 +14,6 @@
 	path = vim/bundle/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 	ignore = untracked
-[submodule "vim/bundle/surround"]
-	path = vim/bundle/surround
-	url = https://github.com/tpope/vim-surround.git
-	ignore = untracked
 [submodule "vim/bundle/better-css-syntax"]
 	path = vim/bundle/better-css-syntax
 	url = https://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
