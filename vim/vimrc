@@ -16,6 +16,7 @@ syntax on					" switch on syntax highlighting
 syntax enable
 set t_Co=256				" Must be BEFORE the colorscheme
 colorscheme lucius
+hi Normal           ctermfg=253             ctermbg=none cterm=none " Set transparent background
 
 " PHP-Indenting-for-Vim plugin
 " To indent 'case:' and 'default:' statements in switch() blocks: >
