@@ -158,12 +158,17 @@ function fancyprompt {
 		LOAD_COLOR=$BIRed
 	fi
 
-	# .com|.org|.net hostnames are bright yellow, everything else is green
+	# .com|.org|.net hostnames are bright red
 	if [[ $HOSTNAME =~ ".com" || $HOSTNAME =~ ".org" || $HOSTNAME =~ ".net" ]]
 	then
-		HOST_COLOR=$BIYellow
-	else
+		HOST_COLOR=$IYellow
+	# localhost|localdomain hostnames are green
+	elif [[ $HOSTNAME =~ "localhost" || $HOSTNAME =~ "localdomain" ]]
+	then
 		HOST_COLOR=$IGreen
+	# everything else yellow
+	else
+		HOST_COLOR=$IYellow
 	fi
 
 	GIT_BRANCH=$(__git_branch)
