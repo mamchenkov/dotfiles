@@ -125,10 +125,10 @@ function fancyprompt {
 	if [ "$RETVAL" -eq "0" ]
 	then
 		LAST_COLOR=$IGreen
-		LAST_SYMBOL="☺"
+		LAST_SYMBOL=":)"
 	else
-		LAST_COLOR=$BIRed
-		LAST_SYMBOL="☹"
+		LAST_COLOR=$IRed
+		LAST_SYMBOL=":("
 	fi
 
 	# Root is bright red, everyone else is green
