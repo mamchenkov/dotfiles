@@ -107,19 +107,8 @@ function ssh_flag {
 	fi
 }
 
-function timer_start {
-	timer=${timer:-$SECONDS}
-}
-
-function timer_stop {
-	timer_show=$(($SECONDS - $timer))
-	unset timer
-}
-
 function fancyprompt {
 	local RETVAL=$?
-
-	timer_stop
 
 	# Last command successful - green, otherwise bright red
 	if [ "$RETVAL" -eq "0" ]
@@ -197,7 +186,7 @@ function fancyprompt {
 	PS1="$PS1[load:$LOAD_COLOR$ONE$FEEL_COLOR] "
 	PS1="$PS1[procs:$FEEL_COLOR$(ps aux | wc -l)$FEEL_COLOR]\n"
 	PS1="$PS1├[$IBlue$(pwd) $GIT_BRANCH$FEEL_COLOR]\n"
-	PS1="$PS1└[$FEEL_COLOR${timer_show}${FEEL_COLOR}s ${LAST_COLOR}${LAST_SYMBOL}${FEEL_COLOR}]$PROMPT_COLOR\\$ $Color_Off"
+	PS1="$PS1└[${LAST_COLOR}${LAST_SYMBOL}${FEEL_COLOR}]$PROMPT_COLOR\\$ $Color_Off"
 
 	# Cleanup
 	unset FEEL_COLOR USER_COLOR HOST_COLOR LOAD_COLOR LAST_COLOR PROMPT_COLOR 
@@ -212,8 +201,6 @@ function dullprompt {
 		PS1="[\t][\u@\h:\w\$(__git_branch)\$(__git_dirty)]\\$ "
 	fi
 }
-
-trap 'timer_start' DEBUG
 
 case "$TERM" in
 xterm-color|xterm-256color|rxvt*|screen*)
