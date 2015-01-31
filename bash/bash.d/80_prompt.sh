@@ -103,26 +103,26 @@ function terminal_title {
 function fancyprompt {
 	local RETVAL=$?
 
-	# Last command successful - green, otherwise bright red
+	# Last command successful - green, otherwise red
 	if [ "$RETVAL" -eq "0" ]
 	then
-		LAST_COLOR=$IGreen
+		LAST_COLOR=$Green
 		LAST_SYMBOL="\\$"
 	else
-		LAST_COLOR=$IRed
+		LAST_COLOR=$Red
 		LAST_SYMBOL="\\$"
 	fi
 
 	# Root is bright red, everyone else is green
 	if [ "$EUID" -eq "0" ]
 	then
-		USER_COLOR=$BIRed
-		PROMPT_COLOR=$BIRed
-		FEEL_COLOR=$IRed
+		USER_COLOR=$IRed
+		PROMPT_COLOR=$IRed
+		FEEL_COLOR=$IBlack
 	else
-		USER_COLOR=$IGreen
+		USER_COLOR=$Green
 		PROMPT_COLOR=$IWhite
-		FEEL_COLOR=$IWhite
+		FEEL_COLOR=$IBlack
 	fi
 
 	# Load average green, or bright yellow, or bright red
@@ -132,22 +132,22 @@ function fancyprompt {
 	LOAD=$(printf "%.0f" $ONE)
 	if [ "$LOAD" -lt "$CPUS" ]
 	then 
-		LOAD_COLOR=$IGreen
+		LOAD_COLOR=$Green
 	elif [ "$LOAD" -eq "$CPUS" ]
 	then 
-		LOAD_COLOR=$BIYellow
+		LOAD_COLOR=$IYellow
 	else 
-		LOAD_COLOR=$BIRed
+		LOAD_COLOR=$IRed
 	fi
 
 	# .com|.org|.net hostnames are bright red
 	if [[ $HOSTNAME =~ ".com" || $HOSTNAME =~ ".org" || $HOSTNAME =~ ".net" ]]
 	then
-		HOST_COLOR=$IYellow
+		HOST_COLOR=$IRed
 	# localhost|localdomain hostnames are green
 	elif [[ $HOSTNAME =~ "localhost" || $HOSTNAME =~ "localdomain" ]]
 	then
-		HOST_COLOR=$IGreen
+		HOST_COLOR=$Green
 	# everything else yellow
 	else
 		HOST_COLOR=$IYellow
@@ -159,12 +159,12 @@ function fancyprompt {
 		GIT_DIRTY=$(__git_dirty)
 		if [ ! -z "$GIT_DIRTY" ]
 		then
-			GIT_DIRTY="$BIRed$GIT_DIRTY"
+			GIT_DIRTY="$IRed$GIT_DIRTY"
 		fi
 		# Bright yellow for master branch, purple for everything else
 		if [ "$GIT_BRANCH" == "master" ]
 			then
-				GIT_BRANCH_COLOR=$BIYellow
+				GIT_BRANCH_COLOR=$IYellow
 			else
 				GIT_BRANCH_COLOR=$Purple
 		fi
