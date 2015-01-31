@@ -100,13 +100,6 @@ function terminal_title {
 	echo "\\[\\033]0;\\u@\\H:\\w\\007\\]"
 }
 
-function ssh_flag {
-	if [ ! -z "$SSH_CLIENT" ]
-	then
-		echo "[SSH]"
-	fi
-}
-
 function fancyprompt {
 	local RETVAL=$?
 
@@ -114,10 +107,10 @@ function fancyprompt {
 	if [ "$RETVAL" -eq "0" ]
 	then
 		LAST_COLOR=$IGreen
-		LAST_SYMBOL=":)"
+		LAST_SYMBOL="\\$"
 	else
 		LAST_COLOR=$IRed
-		LAST_SYMBOL=":("
+		LAST_SYMBOL="\\$"
 	fi
 
 	# Root is bright red, everyone else is green
@@ -175,18 +168,20 @@ function fancyprompt {
 			else
 				GIT_BRANCH_COLOR=$Purple
 		fi
-		GIT_BRANCH="$FEEL_COLOR⑂ ${GIT_BRANCH_COLOR}$GIT_BRANCH$GIT_DIRTY$FEEL_COLOR"
+		GIT_BRANCH="$FEEL_COLOR⑂${GIT_BRANCH_COLOR}$GIT_BRANCH$GIT_DIRTY$FEEL_COLOR"
 	fi
 
 
+	# Terminal title and new online separator for each prompt
 	PS1="$(terminal_title)\n"
-	PS1="$PS1$BIPurple$(ssh_flag)"
-	PS1="$PS1$FEEL_COLOR┌[$BIWhite\d \t$FEEL_COLOR] "
-	PS1="$PS1[$USER_COLOR\u$FEEL_COLOR@$HOST_COLOR\H$FEEL_COLOR] "
-	PS1="$PS1[load:$LOAD_COLOR$ONE$FEEL_COLOR] "
-	PS1="$PS1[procs:$FEEL_COLOR$(ps aux | wc -l)$FEEL_COLOR]\n"
-	PS1="$PS1├[$IBlue$(pwd) $GIT_BRANCH$FEEL_COLOR]\n"
-	PS1="$PS1└[${LAST_COLOR}${LAST_SYMBOL}${FEEL_COLOR}]$PROMPT_COLOR\\$ $Color_Off"
+	# Time with color by load
+	PS1="$PS1$FEEL_COLOR[$LOAD_COLOR\t$FEEL_COLOR|"
+	# User with color by username at host with color by hostname
+	PS1="$PS1$USER_COLOR\u$FEEL_COLOR@$HOST_COLOR\H$FEEL_COLOR:"
+	# Current folder and git branch with color by branch name and modified
+	PS1="$PS1$IBlue\w$GIT_BRANCH$FEEL_COLOR]"
+	# Prompt with color by last status
+	PS1="$PS1${LAST_COLOR}${LAST_SYMBOL}${FEEL_COLOR} $Color_Off"
 
 	# Cleanup
 	unset FEEL_COLOR USER_COLOR HOST_COLOR LOAD_COLOR LAST_COLOR PROMPT_COLOR 
