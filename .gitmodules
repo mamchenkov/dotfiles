@@ -62,10 +62,6 @@
 	path = vim/bundle/webapi-vim
 	url = https://github.com/mattn/webapi-vim.git
 	ignore = untracked
-[submodule "vim/bundle/vim-cakephp"]
-	path = vim/bundle/vim-cakephp
-	url = https://github.com/ndreynolds/vim-cakephp.git
-	ignore = untracked
 [submodule "vim/bundle/vim-powerline"]
 	path = vim/bundle/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
