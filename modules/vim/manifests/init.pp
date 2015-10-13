@@ -223,4 +223,14 @@ class vim ($home = '/home/leonid') {
 		require => File["$home/.vim/bundle"],
 	}
 
+	# TODO : Automate the installation command
+	# cd .vim/bundle/editorconfig/plugin/editorconfig-core-py
+	# sudo python setup.py install
+	vcsrepo { "$home/.vim/bundle/editorconfig":
+		ensure => latest,
+		provider => git,
+		source => 'https://github.com/editorconfig/editorconfig-vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
 }
