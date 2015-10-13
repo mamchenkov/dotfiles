@@ -216,4 +216,11 @@ class vim ($home = '/home/leonid') {
 		require => File["$home/.vim/bundle"],
 	}
 
+	vcsrepo { "$home/.vim/bundle/ack":
+		ensure => latest,
+		provider => git,
+		source => 'https://github.com/mileszs/ack.vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
 }
