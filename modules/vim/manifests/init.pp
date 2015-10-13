@@ -209,4 +209,11 @@ class vim ($home = '/home/leonid') {
 		require => File["$home/.vim/bundle"],
 	}
 
+	vcsrepo { "$home/.vim/bundle/ctrlp":
+		ensure => latest,
+		provider => git,
+		source => 'https://github.com/kien/ctrlp.vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
 }
