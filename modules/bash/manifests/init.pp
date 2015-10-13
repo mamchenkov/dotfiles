@@ -2,6 +2,7 @@ class bash (String $home = '/home/leonid') {
 	
 	if $id == 'root' {
 		$packages = [
+			'ack',
 			'bash',
 			'bash-completion',
 		]
@@ -40,6 +41,11 @@ class bash (String $home = '/home/leonid') {
 	file { "$home/.inputrc":
 		ensure => 'present',
 		source => 'puppet:///modules/bash/inputrc',
+	}
+
+	file { "$home/.ackrc":
+		ensure => 'present',
+		source => 'puppet:///modules/bash/ackrc',
 	}
 
 }
