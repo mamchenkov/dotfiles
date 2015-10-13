@@ -1,6 +1,6 @@
 [user]
-	name = Leonid Mamchenkov
-	email = leonid@mamchenkov.net
+	name = <%= @user_name %>
+	email = <%= @user_email %>
 [color]
 	ui = true
 [color "branch"]
@@ -36,4 +36,4 @@
 	fullchangelog = log ORIG_HEAD.. --reverse --no-merges
 	changelog = log ORIG_HEAD.. --reverse --no-merges --pretty=format:'* %s'
 [github]
-	user = mamchenkov
+	user = <%= @github_user %>
