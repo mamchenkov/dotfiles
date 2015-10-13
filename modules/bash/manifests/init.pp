@@ -53,4 +53,9 @@ class bash ($home = '/home/leonid') {
 		source => 'puppet:///modules/bash/grcatrc',
 	}
 
+	file { "$home/.editorconfig":
+		ensure => 'present',
+		source => 'puppet:///modules/bash/editorconfig',
+	}
+
 }
