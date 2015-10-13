@@ -14,6 +14,14 @@ class bash (String $home = '/home/leonid') {
 		warning("Skipping package installation for non-root user")
 	}
 
+	file { "$home/bin":
+		ensure => 'directory',
+		source => 'puppet:///modules/bash/bin',
+		recurse => true,
+		purge => true,
+		mode => '0775',
+	}
+
 	file { "$home/.bash_logout":
 		ensure => 'present',
 		source => 'puppet:///modules/bash/bash_logout',
