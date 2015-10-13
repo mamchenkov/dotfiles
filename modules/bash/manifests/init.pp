@@ -1,4 +1,4 @@
-class bash (String $home = '/home/leonid') {
+class bash ($home = '/home/leonid') {
 	
 	if $id == 'root' {
 		$packages = [
