@@ -83,6 +83,13 @@ class vim ($home = '/home/leonid') {
 		require => File["$home/.vim/bundle"],
 	}
 
+	vcsrepo { "$home/.vim/bundle/nerdtree-git-plugin":
+		ensure => latest,
+		provider => git,
+		source => 'https://github.com/Xuyuanp/nerdtree-git-plugin.git',
+		require => File["$home/.vim/bundle"],
+	}
+
 	vcsrepo { "$home/.vim/bundle/better-css-syntax":
 		ensure => latest,
 		provider => git,
