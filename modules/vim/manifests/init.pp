@@ -83,6 +83,13 @@ class vim ($home = '/home/leonid') {
 		require => File["$home/.vim/bundle"],
 	}
 
+	vcsrepo { "$home/.vim/bundle/nerdtree-git-plugin":
+		ensure => latest,
+		provider => git,
+		source => 'https://github.com/Xuyuanp/nerdtree-git-plugin.git',
+		require => File["$home/.vim/bundle"],
+	}
+
 	vcsrepo { "$home/.vim/bundle/better-css-syntax":
 		ensure => latest,
 		provider => git,
@@ -192,6 +199,27 @@ class vim ($home = '/home/leonid') {
 		ensure => latest,
 		provider => git,
 		source => 'https://github.com/chriskempson/base16-vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/airline":
+		ensure => latest,
+		provider => git,
+		source => 'https://github.com/bling/vim-airline.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/ctrlp":
+		ensure => latest,
+		provider => git,
+		source => 'https://github.com/kien/ctrlp.vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/ack":
+		ensure => latest,
+		provider => git,
+		source => 'https://github.com/mileszs/ack.vim.git',
 		require => File["$home/.vim/bundle"],
 	}
 
