@@ -48,4 +48,9 @@ class bash (String $home = '/home/leonid') {
 		source => 'puppet:///modules/bash/ackrc',
 	}
 
+	file { "$home/.grcatrc":
+		ensure => 'present',
+		source => 'puppet:///modules/bash/grcatrc',
+	}
+
 }
