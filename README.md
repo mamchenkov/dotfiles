@@ -7,53 +7,27 @@ for bash shell, git version control, and Vim text editor.
 Installation
 ------------
 
-Download and run the install script, which will fetch all the necessary modules and create
-all the necessary links.  Switching to your home directory and backing up your current setup
-is a good idea, since:
-
-1. The installation script will create symlinks in your CURRENT directory.
-2. The installation script will remove necessary files in your CURRENT directory.
-
+Clone the repository:
 
 ```
-cd ~
-export GITHUB_USER=mamchenkov
-export GITHUB_BRANCH=master
-wget -O - https://raw.github.com/mamchenkov/dotfiles/master/bin/dotfiles-install.sh | /bin/bash
-source .bashrc
+$ git clone https://github.com/mamchenkov/dotfiles.git
+$ cd dotfiles
 ```
 
-Use your GitHub username instead of 'mamchenkov' and your desired branch instead of 'master'.
+**DANGER** This will overwrite your current dot files!
 
-Known Issues
-------------
-
-### Untracked changes in vim submodules
-
-When you run Vim, documentation for plugins is automatically generated, which results in doc/tags files created all
-around submodules.  This annoyingly is being reported by git.  To solve this issue, you can update submodules to not
-report untracked files changes.  Remove all those doc/tags files and run the following command:
+Run puppet as root or with sudo to install dotfiles to your root user, and make
+sure that all the necessary packages are available on the system:
 
 ```
-for s in `git submodule  --quiet foreach 'echo $name'` ; do git config submodule.$s.ignore untracked ; done
+$ sudo puppet apply --modulepath=modules/ manifests/site.pp
 ```
 
-Thanks to: http://stackoverflow.com/questions/4343544/generating-tags-to-different-location-by-pathogen
-
-### Missing bash completions
+Run as a regular user to install everything for current user:
 
 ```
--bash: __git_ps1: command not found
+$ puppet apply --modulepath=modules/ manifests/site.pp
 ```
-
-If you see the above message after installation, you are missing bash completions.  Gladly, the issue
-is easily solved by installing bash-completion package.  On Fedora / Red Hat / CentOS do the following:
-
-```
-$ sudo yum install bash-completion
-```
-
-Once the package is installed, exit your current bash shell and start a new instance.
 
 Features
 --------
