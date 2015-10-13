@@ -55,4 +55,144 @@ class vim (String $home = '/home/leonid') {
 		source => 'puppet:///modules/vim/vimrc',
 	}
 
+	vcsrepo { "$home/.vim/bundle/tagbar":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/majutsushi/tagbar.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/closetag":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/docunext/closetag.vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/nerdcommenter":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/scrooloose/nerdcommenter.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/nerdtree":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/scrooloose/nerdtree.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/better-css-syntax":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/syntastic":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/scrooloose/syntastic.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/javascript":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/pangloss/vim-javascript.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/colorschemes":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/flazz/vim-colorschemes.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/phpdocumentor":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/search-complete":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/vim-scripts/SearchComplete.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/php":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/vim-scripts/php.vim--Garvin.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/php-indent":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/2072/PHP-Indenting-for-VIm.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/smart-tabs":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/vim-scripts/Smart-Tabs.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/jquery":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/vim-scripts/jQuery.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/gist":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/mattn/gist-vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/webapi":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/mattn/webapi-vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/gitgutter":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/airblade/vim-gitgutter.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/matchit":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/tmhedberg/matchit.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/supertab":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/ervandew/supertab.git',
+		require => File["$home/.vim/bundle"],
+	}
+
+	vcsrepo { "$home/.vim/bundle/base16":
+		ensure => present,
+		provider => git,
+		source => 'https://github.com/chriskempson/base16-vim.git',
+		require => File["$home/.vim/bundle"],
+	}
+
 }
