@@ -1,0 +1,6 @@
+# top-most EditorConfig file
+root = true
+
+# All files should be in utf-8
+charset = utf-8
+
