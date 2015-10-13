@@ -1,11 +1,15 @@
-class vim {
+class vim (String $home = '/home/leonid') {
 
-	$packages = [
-		'vim-enhanced',
-	]
+	if $id == 'root' {
+		$packages = [
+			'vim-enhanced',
+		]
 
-	package { $packages:
-		ensure => 'latest'
+		package { $packages:
+			ensure => 'latest'
+		}
+	} else {
+		warning("Skipping package installation for non-root user")
 	}
 
 }
