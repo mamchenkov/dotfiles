@@ -1,8 +1,8 @@
 class git (
-	String $home = '/home/leonid',
-	String $user_name = 'Leonid Mamchenkov',
-	String $user_email = 'leonid@mamchenkov.net',
-	String $github_user = 'mamchenkov',
+	$home = '/home/leonid',
+	$user_name = 'Leonid Mamchenkov',
+	$user_email = 'leonid@mamchenkov.net',
+	$github_user = 'mamchenkov',
 ) {
 
 	if $id == 'root' {

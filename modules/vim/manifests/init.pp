@@ -1,4 +1,4 @@
-class vim (String $home = '/home/leonid') {
+class vim ($home = '/home/leonid') {
 
 	if $id == 'root' {
 		$packages = [

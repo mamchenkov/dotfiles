@@ -1,4 +1,4 @@
-class fonts (String $home = '/home/leonid') {
+class fonts ($home = '/home/leonid') {
 
 	file { "$home/.fonts":
 		ensure => 'directory',
