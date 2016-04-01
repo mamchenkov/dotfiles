@@ -26,10 +26,13 @@ vim:
     - https://github.com/mattn/webapi-vim.git
     - https://github.com/mileszs/ack.vim.git
     - https://github.com/pangloss/vim-javascript.git
+    - https://github.com/pearofducks/ansible-vim.git
+    - https://github.com/plasticboy/vim-markdown.git
     - https://github.com/scrooloose/nerdcommenter.git
     - https://github.com/scrooloose/nerdtree.git
     - https://github.com/scrooloose/syntastic.git
     - https://github.com/tmhedberg/matchit.git
+    - https://github.com/vim-airline/vim-airline-themes.git
     - https://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
     - https://github.com/vim-scripts/jQuery.git
     - https://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git
