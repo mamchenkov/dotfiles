@@ -4,3 +4,8 @@ root = true
 # All files should be in utf-8
 charset = utf-8
 
+# YAML files
+[*.yml,*.yaml]
+indent_style = space
+indent_size = 2
+
