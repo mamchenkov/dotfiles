@@ -1,0 +1,31 @@
+---
+- name: Copy .vimrc file
+  copy: src=./vimrc dest={{ ansible_user_dir }}/.vimrc
+  tags:
+    - files
+
+- name: Ensure .vim/ folder structure exists
+  file: path={{ ansible_user_dir}}/{{ item }} state=directory
+  with_items: "{{ vim.folders }}"
+  tags:
+    - files
+
+- name: Install pathogen.vim plugin
+  copy: src=./vim/autoload/pathogen.vim dest={{ ansible_user_dir }}/.vim/autoload/pathogen.vim
+  tags:
+    - files
+
+- name: Install enhanced Vim and plugin dependencies
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items: "{{ vim.dependencies }}"
+  tags:
+    - packages
+    - network
+
+- name: Install Vim plugins
+  git: repo={{ item }} dest={{ ansible_user_dir }}/.vim/bundle/{{ item | basename }}
+  with_items: "{{ vim.plugins }}"
+  tags:
+    - network
+

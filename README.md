@@ -16,17 +16,17 @@ $ cd dotfiles
 
 **DANGER** This will overwrite your current dot files!
 
-Run puppet as root or with sudo to install dotfiles to your root user, and make
-sure that all the necessary packages are available on the system:
+Run Ansible
 
 ```
-$ sudo puppet apply --modulepath=modules/ manifests/site.pp
+$ ansible-playbook site.yml --ask-sudo-pass 
 ```
 
-Run as a regular user to install everything for current user:
+You can skip package installations and/or network operations (Vim plugins cloning, etc)
+with something like:
 
 ```
-$ puppet apply --modulepath=modules/ manifests/site.pp
+$ ansible-playbook site.yml --skip-tags="network,packages"
 ```
 
 Features
@@ -42,11 +42,9 @@ Here is a brief overview of some of the features hidden deep in these dotfiles.
 	background color from blue to red, when working as root user, provided you have installed dotfiles for both
 	your normal user and root.
 2.	Support for 256 color terminals.
-3.	System information on shell start, including hostname, distribution name and version, IP address, load average,
-	number of current processes, available and total disk space, and simplified uptime.
-4.	For root user, an automatically initialized local git repository in /etc folder, with automatic commits of all
+3.	For root user, an automatically initialized local git repository in /etc folder, with automatic commits of all
 	changes upon logout.
-5.  Colors for man pages.
+4.  Colors for man pages.
 
 ### Git version control
 
@@ -63,8 +61,7 @@ Here is a brief overview of some of the features hidden deep in these dotfiles.
 
 ### Miscelanous
 
-1. 	Easier installer, which can also be used to update the setup and all the symlinks.
-2.  MySQL prompt that includes current user, host, and selected database.
+*  MySQL prompt that includes current user, host, and selected database.
 
 Feedback
 --------

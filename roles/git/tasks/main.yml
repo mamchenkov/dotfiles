@@ -1,0 +1,20 @@
+---
+- name: Install git and tools
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items: "{{ git.dependencies }}"
+  tags:
+    - packages
+    - network
+
+- name: Copy dotfiles
+  copy: src={{ item }} dest={{ ansible_user_dir }}/.{{ item | basename }}
+  with_fileglob:
+    - ./dotfiles/*
+  tags:
+    - files
+
+- name: Create .gitconfig file
+  template:  src=gitconfig.j2 dest={{ ansible_user_dir}}/.gitconfig
+  tags:
+    - files
