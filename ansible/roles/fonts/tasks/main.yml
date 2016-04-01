@@ -1,0 +1,13 @@
+---
+- name: Ensure .fonts/ folder exists
+  file: path={{ ansible_user_dir}}/.fonts state=directory
+  tags:
+    - files
+
+- name: Copy .fonts/ files
+  copy: src={{ item }} dest={{ ansible_user_dir }}/.fonts/{{ item | basename }}
+  with_fileglob:
+    - ./fonts/*
+  tags:
+    - files
+
