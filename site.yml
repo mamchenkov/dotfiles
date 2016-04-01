@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Dotfiles
+  hosts: localhost
   roles:
     - dotfiles
     - fonts
