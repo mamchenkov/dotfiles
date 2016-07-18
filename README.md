@@ -19,15 +19,18 @@ $ cd dotfiles
 Run Ansible
 
 ```
-$ ansible-playbook site.yml --ask-sudo-pass 
+$ ansible-playbook all.yml --ask-sudo-pass 
 ```
 
 You can skip package installations and/or network operations (Vim plugins cloning, etc)
 with something like:
 
 ```
-$ ansible-playbook site.yml --skip-tags="network,packages"
+$ ansible-playbook all.yml --skip-tags="network,packages"
 ```
+
+If you want to install/configure only certain parts, replace `all.yml` in the commands
+above with of the other playbooks.
 
 Features
 --------
