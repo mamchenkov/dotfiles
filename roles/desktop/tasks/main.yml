@@ -1,0 +1,9 @@
+- name: Install useful desktop tools
+  become: yes
+  dnf: name={{ item }} state=present
+  with_items: "{{ desktop.tools }}"
+  when: ansible_distribution == "Fedora"
+  tags:
+    - packages
+    - network
+
