@@ -1,3 +1,5 @@
+# This playbook takes care of the base things,
+# like bash, vim, and git
 ---
 - name: Base setup
   hosts: localhost

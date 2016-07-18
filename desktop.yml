@@ -1,3 +1,5 @@
+# This playbook is for getting things which
+# are useful on the graphical desktop.
 ---
 - name: Desktop setup
   hosts: localhost
