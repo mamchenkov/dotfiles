@@ -1,8 +1,18 @@
 ---
-- name: Install git and tools
+- name: Install git and tools (Fedora)
   sudo: yes
   dnf: name={{ item }} state=present
   with_items: "{{ git.dependencies }}"
+  when: ansible_distribution == "Fedora"
+  tags:
+    - packages
+    - network
+
+- name: Install git and tools (Red Hat)
+  sudo: yes
+  dnf: name={{ item }} state=present
+  with_items: "{{ git.dependencies }}"
+  when: ansible_os_family == "RedHat" and ansible_distribution != "Fedora"
   tags:
     - packages
     - network
