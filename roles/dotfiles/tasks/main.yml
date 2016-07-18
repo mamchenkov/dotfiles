@@ -11,6 +11,11 @@
   tags:
     - files
 
+- name: Ensure ~/Work folder exists
+  file: path=~/Work state=directory
+  tags:
+    - files
+
 - name: Copy bin/ files
   copy: src={{ item }} dest={{ ansible_user_dir }}/bin/{{ item | basename }}
   with_fileglob:

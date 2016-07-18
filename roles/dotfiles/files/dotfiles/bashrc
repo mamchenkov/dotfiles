@@ -68,7 +68,7 @@ export MOZ_NO_REMOTE=1
 export MYSQL_PS1='[\R:\m:\s][\U:\d]> '
 
 # Shorten and simplify cd
-export CDPATH=.:~:~/Development/mamchenkov:~/Development/ImpreStyle:~/Development/Exwebris:~/Development:/var/www/html:/var/www/vhosts
+export CDPATH=.:~:~/Work:~/Development:/var/www/html:/var/www/vhosts
 # Do not save these commands to history
 export HISTIGNORE="bg:fg:h:history"
 # Ignore files matching this suffixes from completion
