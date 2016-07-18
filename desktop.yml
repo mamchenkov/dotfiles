@@ -1,0 +1,7 @@
+---
+- name: Desktop setup
+  hosts: localhost
+  roles:
+    - fonts
+    - desktop
+    - cmprescott.chrome
