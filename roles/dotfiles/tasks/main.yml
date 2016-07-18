@@ -23,20 +23,20 @@
   tags:
     - files
 
-- name: Install useful tools (Fedora)
+- name: Install useful tools (dnf)
   sudo: yes
   dnf: name={{ item }} state=present
   with_items: "{{ dotfiles.dependencies }}"
-  when: ansible_distribution == "Fedora"
+  when: ansible_pkg_mgr == "dnf"
   tags:
     - packages
     - network
 
-- name: Install useful tools (Red Hat)
+- name: Install useful tools (yum)
   sudo: yes
-  dnf: name={{ item }} state=present
+  yum: name={{ item }} state=present
   with_items: "{{ dotfiles.dependencies }}"
-  when: ansible_os_family == "RedHat" and ansible_distribution != "Fedora"
+  when: ansible_pkg_mgr == "yum"
   tags:
     - packages
     - network

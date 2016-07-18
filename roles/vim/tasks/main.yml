@@ -15,20 +15,20 @@
   tags:
     - files
 
-- name: Install enhanced Vim and plugin dependencies (Fedora)
+- name: Install enhanced Vim and plugin dependencies (dnf)
   sudo: yes
   dnf: name={{ item }} state=present
   with_items: "{{ vim.dependencies }}"
-  when: ansible_distribution == "Fedora"
+  when: ansible_pkg_mgr == "dnf"
   tags:
     - packages
     - network
 
-- name: Install enhanced Vim and plugin dependencies (Red Hat)
+- name: Install enhanced Vim and plugin dependencies (yum)
   sudo: yes
   yum: name={{ item }} state=present
   with_items: "{{ vim.dependencies }}"
-  when: ansible_os_family == "RedHat" and ansible_distribution != "Fedora"
+  when: ansible_pkg_mgr == "yum"
   tags:
     - packages
     - network
