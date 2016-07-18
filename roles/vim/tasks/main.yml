@@ -16,7 +16,7 @@
     - files
 
 - name: Install enhanced Vim and plugin dependencies (Fedora)
-  become: yes
+  sudo: yes
   dnf: name={{ item }} state=present
   with_items: "{{ vim.dependencies }}"
   when: ansible_distribution == "Fedora"
@@ -25,7 +25,7 @@
     - network
 
 - name: Install enhanced Vim and plugin dependencies (Red Hat)
-  become: yes
+  sudo: yes
   yum: name={{ item }} state=present
   with_items: "{{ vim.dependencies }}"
   when: ansible_os_family == "RedHat" and ansible_distribution != "Fedora"

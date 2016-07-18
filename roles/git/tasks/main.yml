@@ -1,6 +1,6 @@
 ---
 - name: Install git and tools (Fedora)
-  become: yes
+  sudo: yes
   dnf: name={{ item }} state=present
   with_items: "{{ git.dependencies }}"
   when: ansible_distribution == "Fedora"
@@ -9,7 +9,7 @@
     - network
 
 - name: Install git and tools (Red Hat)
-  become: yes
+  sudo: yes
   dnf: name={{ item }} state=present
   with_items: "{{ git.dependencies }}"
   when: ansible_os_family == "RedHat" and ansible_distribution != "Fedora"
