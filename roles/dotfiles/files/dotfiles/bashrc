@@ -57,7 +57,7 @@ function top10() {
 # 
 # Export some useful variables
 # 
-export PATH=$PATH:$HOME/bin:$HOME/dotfiles/bin
+export PATH=$PATH:./bin/:./vendor/bin:$HOME/bin:$HOME/dotfiles/bin
 export PAGER=`which --skip-alias less -RFSinX 2> /dev/null`
 export EDITOR=`which --skip-alias vim -X 2> /dev/null`
 export SVN_EDITOR=$EDITOR
