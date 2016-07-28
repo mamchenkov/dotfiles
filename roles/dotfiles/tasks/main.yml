@@ -17,7 +17,7 @@
     - files
 
 - name: Copy bin/ files
-  copy: src={{ item }} dest={{ ansible_user_dir }}/bin/{{ item | basename }}
+  copy: src={{ item }} dest={{ ansible_user_dir }}/bin/{{ item | basename }} mode=ug+rwx,o+rx
   with_fileglob:
     - ./bin/*
   tags:
