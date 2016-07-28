@@ -16,3 +16,5 @@
     - packages
     - network
 
+- name: Install user image from Gravatar
+  get_url: url=https://s.gravatar.com/avatar/54bfadc28c22bf76402608db646cd031?s=100 dest=~/.face
