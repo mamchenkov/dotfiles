@@ -36,7 +36,18 @@ let html_indent_style1 = "inc"
 " Open NERDTree if no files were specified for vim startup
 autocmd vimenter * if !argc() | NERDTree | endif
 
+" Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " Disable PHP coding style check with Syntastic
+let g:syntastic_php_checkers=['php']
 let g:syntastic_phpcs_disable=1
 
 
@@ -85,7 +96,9 @@ set history=50				" keep last 50 commands
 set laststatus=2			" always display the status line
 set matchtime=5				" Show match for half a second
 set mouse=a					" Mouse support
+set nowritebackup           " do not write backup files
 set nobackup				" do not create backup files
+set noswapfile 				" do not create swap files
 set nowrap					" No line wrapping
 set number 					" Set line numbering
 set numberwidth=4			" Number of columns in line numbering
@@ -122,6 +135,9 @@ set wrapscan				" wrap search around the end of file
 "
 " Shortcuts
 "
+map <Leader>/ <plug>NERDCommenterToggle<CR>
+imap <Leader>/ <Esc><plug>NERDCommenterToggle<CR>i
+
 map <F3> :NERDTreeToggle<CR>
 map <F4> :q<CR>
 map <F5> :SyntasticCheck<CR>
