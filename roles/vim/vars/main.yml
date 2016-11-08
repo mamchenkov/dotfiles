@@ -33,6 +33,7 @@ vim:
     - https://github.com/scrooloose/syntastic.git
     - https://github.com/tmhedberg/matchit.git
     - https://github.com/tpope/vim-fugitive.git
+    - https://github.com/tpope/vim-unimpaired.git
     - https://github.com/vim-airline/vim-airline.git
     - https://github.com/vim-airline/vim-airline-themes.git
     - https://github.com/vim-php/tagbar-phpctags.vim.git
