@@ -135,6 +135,9 @@ set wrapscan				" wrap search around the end of file
 "
 " Shortcuts
 "
+let NERDCommentEmptyLines = 1
+let NERDDefaultAlign = 'left'
+let NERDCommentWholeLinesInVMode = 1
 map <Leader>/ <plug>NERDCommenterToggle<CR>
 imap <Leader>/ <Esc><plug>NERDCommenterToggle<CR>i
 
