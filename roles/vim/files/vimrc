@@ -138,6 +138,11 @@ set wrapscan				" wrap search around the end of file
 " Shortcuts
 "
 
+" Update gitgutter signs and such every 250ms instead of default 4s
+set updatetime=250
+" Don't show gitgutter signs in files with more than 500 changes
+let g:gitgutter_max_signs = 500
+
 " https://vimrcfu.com/snippet/19
 " Maps 'K' to open vim help for the word under cursor when editing vim files.
 autocmd FileType vim setlocal keywordprg=:help
@@ -165,7 +170,6 @@ imap <Leader>/ <Esc><plug>NERDCommenterToggle<CR>i
 
 map <F3> :NERDTreeToggle<CR>
 map <F4> :q<CR>
-map <F5> :SyntasticCheck<CR>
 map <F9> :TagbarToggle<CR>
 map <F10> :wq<CR>
 
