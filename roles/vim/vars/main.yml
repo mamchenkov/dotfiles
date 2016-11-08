@@ -43,4 +43,5 @@ vim:
     - https://github.com/vim-scripts/php.vim--Garvin.git
     - https://github.com/vim-scripts/SearchComplete.git
     - https://github.com/vim-scripts/Smart-Tabs.git
+    - https://github.com/vim-scripts/ZoomWin.git
     - https://github.com/Xuyuanp/nerdtree-git-plugin.git
