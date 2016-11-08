@@ -14,7 +14,6 @@ vim:
   plugins:
     - https://github.com/2072/PHP-Indenting-for-VIm.git
     - https://github.com/airblade/vim-gitgutter.git
-    - https://github.com/bling/vim-airline.git
     - https://github.com/chriskempson/base16-vim.git
     - https://github.com/ctrlpvim/ctrlp.vim
     - https://github.com/docunext/closetag.vim.git
@@ -32,6 +31,7 @@ vim:
     - https://github.com/scrooloose/nerdtree.git
     - https://github.com/scrooloose/syntastic.git
     - https://github.com/tmhedberg/matchit.git
+    - https://github.com/vim-airline/vim-airline.git
     - https://github.com/vim-airline/vim-airline-themes.git
     - https://github.com/vim-php/tagbar-phpctags.vim.git
     - https://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
