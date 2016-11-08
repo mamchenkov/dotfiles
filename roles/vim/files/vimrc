@@ -65,6 +65,8 @@ let php_folding=0
 filetype plugin on
 filetype indent on
 set autoread		" Reload files changed outside of Vim
+
+" https://vimrcfu.com/snippet/68
 set splitright		" Open vertical splits to the right of current window
 set splitbelow		" Open horizontal splits below the current window
 
@@ -135,6 +137,26 @@ set wrapscan				" wrap search around the end of file
 "
 " Shortcuts
 "
+
+" https://vimrcfu.com/snippet/19
+" Maps 'K' to open vim help for the word under cursor when editing vim files.
+autocmd FileType vim setlocal keywordprg=:help
+
+" https://vimrcfu.com/snippet/14
+" Don't lose visual selection when shifting, so that >>>>>>>>> works
+xnoremap <  <gv
+xnoremap >  >gv
+
+" https://vimrcfu.com/snippet/186
+" let terminal resize scale the internal windows
+autocmd VimResized * :wincmd =
+
+" https://vimrcfu.com/snippet/77
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" NERDComment plugin
 let NERDCommentEmptyLines = 1
 let NERDDefaultAlign = 'left'
 let NERDCommentWholeLinesInVMode = 1
@@ -152,6 +174,3 @@ imap <C-o> <ESC>:set paste<CR>:call PhpDoc()<CR>:set nopaste<CR>
 " exit to normal mode with 'jj'
 inoremap jj <ESC>
 
-" Don't lose visual selection when shifting, so that >>>>>>>>> works
-xnoremap <  <gv
-xnoremap >  >gv
