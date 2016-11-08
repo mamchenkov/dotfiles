@@ -39,6 +39,7 @@ vim:
     - https://github.com/vim-php/tagbar-phpctags.vim.git
     - https://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
     - https://github.com/vim-scripts/jQuery.git
+    - https://github.com/vim-scripts/nginx.vim.git
     - https://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git
     - https://github.com/vim-scripts/php.vim--Garvin.git
     - https://github.com/vim-scripts/SearchComplete.git
