@@ -17,6 +17,7 @@ vim:
     - https://github.com/chriskempson/base16-vim.git
     - https://github.com/ctrlpvim/ctrlp.vim
     - https://github.com/docunext/closetag.vim.git
+    - https://github.com/duff/vim-scratch.git
     - https://github.com/editorconfig/editorconfig-vim.git
     - https://github.com/ervandew/supertab.git
     - https://github.com/flazz/vim-colorschemes.git
@@ -42,4 +43,3 @@ vim:
     - https://github.com/vim-scripts/SearchComplete.git
     - https://github.com/vim-scripts/Smart-Tabs.git
     - https://github.com/Xuyuanp/nerdtree-git-plugin.git
-
