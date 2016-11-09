@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Fetch PHP manual for a given function
+FUNCTION=`echo $1 | sed 's/_/-/g'`
+
+# 1. Fetch the function reference with links,
+#    render to text, and print out on the STDOUT.
+# 2. Remove everything from the beginning of the output until
+#    (and including) the string 'Edit Report a Bug'.
+# 3. Remove everything from the 'add a note add a note' string
+#    (and including) until the end.
+links -no-g -dump http://php.net/manual/en/function.$FUNCTION.php \
+	| perl -p0e 's/^.*Edit Report a Bug//smg' \
+	| perl -p0e 's/add a note add a note.*$//smg'
+
