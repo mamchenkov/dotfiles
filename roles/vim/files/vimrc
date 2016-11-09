@@ -150,19 +150,29 @@ let g:gitgutter_max_signs = 500
 " Maps 'K' to open vim help for the word under cursor when editing vim files.
 autocmd FileType vim setlocal keywordprg=:help
 
-" https://vimrcfu.com/snippet/14
-" Don't lose visual selection when shifting, so that >>>>>>>>> works
-xnoremap <  <gv
-xnoremap >  >gv
-
-" https://vimrcfu.com/snippet/186
-" let terminal resize scale the internal windows
-autocmd VimResized * :wincmd =
+" Remap keys for split window ease of use.
+nmap <C-j> <C-W>j
+nmap <C-k> <C-W>k
+nmap <C-h> <C-W>h
+nmap <C-l> <C-W>l
 
 " https://vimrcfu.com/snippet/77
 " Move visual block
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
+" Move single line
+nmap <C-Up> [e
+nmap <C-Down> e]
+
+" https://vimrcfu.com/snippet/14
+" Don't lose visual selection when shifting, so that >>>>>>>>> works
+xnoremap <BS>  <gv
+xnoremap <TAB>  >gv
+
+" https://vimrcfu.com/snippet/186
+" let terminal resize scale the internal windows
+autocmd VimResized * :wincmd =
 
 " NERDComment plugin
 let NERDCommentEmptyLines = 1
