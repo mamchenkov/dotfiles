@@ -4,4 +4,5 @@ dotfiles:
     - bash
     - bash-completion
     - ack
+    - links
 
