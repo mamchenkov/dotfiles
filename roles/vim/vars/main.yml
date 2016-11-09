@@ -20,6 +20,7 @@ vim:
     - https://github.com/editorconfig/editorconfig-vim.git
     - https://github.com/ervandew/supertab.git
     - https://github.com/flazz/vim-colorschemes.git
+    - https://github.com/gko/vim-coloresque.git
     - https://github.com/gregsexton/gitv.git
     - https://github.com/majutsushi/tagbar.git
     - https://github.com/mattn/gist-vim.git
