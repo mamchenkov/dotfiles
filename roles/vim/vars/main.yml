@@ -38,6 +38,7 @@ vim:
     - https://github.com/vim-airline/vim-airline-themes.git
     - https://github.com/vim-php/tagbar-phpctags.vim.git
     - https://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
+    - https://github.com/vim-scripts/CSApprox.git
     - https://github.com/vim-scripts/jQuery.git
     - https://github.com/vim-scripts/nginx.vim.git
     - https://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git
