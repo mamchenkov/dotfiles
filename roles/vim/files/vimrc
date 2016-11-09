@@ -190,9 +190,16 @@ set updatetime=250
 " Don't show gitgutter signs in files with more than 500 changes
 let g:gitgutter_max_signs = 500
 
+" Open help in the horizontal split window
+cnoremap help split help
+
 " https://vimrcfu.com/snippet/19
 " Maps 'K' to open vim help for the word under cursor when editing vim files.
 autocmd FileType vim setlocal keywordprg=:help
+
+" Maps 'K' to open PHP function manual for the word under cursor when editing
+" PHP files.
+autocmd FileType php setlocal keywordprg=phpdoc
 
 " Remap keys for split window ease of use.
 nmap <C-j> <C-W>j
@@ -224,16 +231,40 @@ autocmd VimResized * :wincmd =
 let NERDCommentEmptyLines = 1
 let NERDDefaultAlign = 'left'
 let NERDCommentWholeLinesInVMode = 1
-map <Leader>/ <plug>NERDCommenterToggle<CR>
-imap <Leader>/ <Esc><plug>NERDCommenterToggle<CR>i
+map <Leader>c <plug>NERDCommenterToggle<CR>
+imap <Leader>c <Esc><plug>NERDCommenterToggle<CR>i
 
+" Toggle the file browser
 map <F3> :NERDTreeToggle<CR>
+" Quit without saving. Helps quick file viewing in Midnight Commander
 map <F4> :q<CR>
 
+" Toggle left column (numbers, git gutter, syntastic)
+" Useful for selecting with the mouse and for simple files
+" Vim 8 supports 'set signcolumn=yes|no', but we are not there yet
+function! ToggleLeftColumn()
+	if &number == 1
+		set nonumber
+		GitGutterDisable
+		echo "Left column is off"
+	else
+		set number
+		GitGutterEnable
+		echo "Left column is on"
+	endif
+	return
+endfunc
+nnoremap <F6> :call ToggleLeftColumn()<CR>
+vnoremap <F6> :call ToggleLeftColumn()<CR>
+inoremap <F6> <ESC>:call ToggleLeftColumn()<CR>i
+
+" Show tag bar
 let g:tagbar_autofocus = 1
 map <F9> :TagbarToggle<CR>
+" Save and exit
 map <F10> :wq<CR>
 
+" PHPDocument the current line
 imap <C-o> <ESC>:set paste<CR>:call PhpDoc()<CR>:set nopaste<CR>
 
 " exit to normal mode with 'jj'
