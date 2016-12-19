@@ -2,5 +2,5 @@ desktop:
 
   tools:
     - terminator
-    - xchat
+    - hexchat
 
