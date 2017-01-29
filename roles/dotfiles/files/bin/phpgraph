@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# This script generates a diagram of PHP classes and the inheritance
+# between them, using one of the GraphViz tools.
+# 
+# Thanks to:
+# http://chapman.id.au/generate-php-class-inheritance-diagrams-in-graphviz
+
+# Name of file to use (first parameter, or temporary)
+RESULT=${1:-`mktemp`}
+# Which GraphViz script to use (or sfdp as the default)
+# You can try: fdp, sfdp, dot, circo, neato
+SCRIPT=${2:-sfdp}
+
+# Generate the .dot file
+echo 'digraph code {' > $RESULT.dot;
+grep -r --include="*.php" "^class \|^abstract class " ./ | sed 's/.*://' | sed 's/^abstract //' | sed 's/class /    /' | sed 's/ extends / -> /' | sed 's/ implements .*//'  | sed 's/ \?{.*$//' | sort >> $RESULT.dot  
+echo '}' >> $RESULT.dot; 
+
+# Create the image
+$SCRIPT -Tpng -o$RESULT.png $RESULT.dot 2> /dev/null # Ignore syntax error
+
+# Let me know where's the result
+echo "OK. Result is in $RESULT.png"; 
