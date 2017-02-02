@@ -15,15 +15,16 @@ set bg=dark					" use colors for the dark background
 syntax on					" switch on syntax highlighting
 syntax enable
 set t_Co=256				" Must be BEFORE the colorscheme
+let g:lucius_no_term_bg=1   " Transparent background
 colorscheme lucius
-hi Normal           ctermfg=253             ctermbg=none cterm=none " Set transparent background
+" hi Normal           ctermfg=253             ctermbg=none cterm=none " Set transparent background
 
 " PHP-Indenting-for-Vim plugin
 " To indent 'case:' and 'default:' statements in switch() blocks: >
 let g:PHP_vintage_case_default_indent = 1
 
 " Airline
-" let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
