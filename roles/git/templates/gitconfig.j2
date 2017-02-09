@@ -21,6 +21,11 @@
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	editor = vim
 	excludesfile = ~/.gitignore
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
 [alias]
 	st = status
 	ci = commit
