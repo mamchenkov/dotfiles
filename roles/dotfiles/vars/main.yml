@@ -5,4 +5,6 @@ dotfiles:
     - bash-completion
     - ack
     - links
+    - tmux
+    - screen
 
