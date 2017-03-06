@@ -374,11 +374,11 @@ function dullprompt {
 case "$TERM" in
 xterm-color|xterm-256color|rxvt*|screen*)
 		# Update history on each command
-        PROMPT_COMMAND="history -a && fancyprompt"
+        PROMPT_COMMAND="fancyprompt && history -a"
     ;;
 *)
 		# Update history on each command
-        PROMPT_COMMAND="history -a && dullprompt"
+        PROMPT_COMMAND="dullprompt && history -a"
     ;;
 esac
 
