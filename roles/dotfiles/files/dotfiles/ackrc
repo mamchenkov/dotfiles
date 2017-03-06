@@ -1,3 +1,6 @@
+# Follow symbolic links
+--follow
+
 # Always sort the files
 --sort-files
 
