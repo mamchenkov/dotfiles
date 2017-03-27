@@ -15,10 +15,10 @@ vim:
     - https://github.com/airblade/vim-gitgutter.git
     - https://github.com/ctrlpvim/ctrlp.vim
     - https://github.com/docunext/closetag.vim.git
-    - https://github.com/duff/vim-scratch.git
     - https://github.com/editorconfig/editorconfig-vim.git
     - https://github.com/ervandew/supertab.git
     - https://github.com/flazz/vim-colorschemes.git
+    - https://github.com/garbas/vim-snipmate
     - https://github.com/gko/vim-coloresque.git
     - https://github.com/gregsexton/gitv.git
     - https://github.com/majutsushi/tagbar.git
@@ -31,14 +31,10 @@ vim:
     - https://github.com/sheerun/vim-polyglot.git
     - https://github.com/tmhedberg/matchit.git
     - https://github.com/tpope/vim-fugitive.git
-    - https://github.com/tpope/vim-unimpaired.git
     - https://github.com/vim-airline/vim-airline.git
     - https://github.com/vim-airline/vim-airline-themes.git
     - https://github.com/vim-php/tagbar-phpctags.vim.git
     - https://github.com/vim-scripts/CSApprox.git
     - https://github.com/vim-scripts/jQuery.git
-    - https://github.com/vim-scripts/PDV--phpDocumentor-for-Vim.git
     - https://github.com/vim-scripts/SearchComplete.git
-    - https://github.com/vim-scripts/Smart-Tabs.git
-    - https://github.com/vim-scripts/ZoomWin.git
     - https://github.com/Xuyuanp/nerdtree-git-plugin.git
