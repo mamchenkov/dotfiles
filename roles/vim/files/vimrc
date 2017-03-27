@@ -8,6 +8,8 @@ call pathogen#helptags()
 
 " Change mapleader to ,
 let mapleader = ","
+" Search down into subfolders
+set path+=**
 
 " Syntax
 "
@@ -18,10 +20,6 @@ set t_Co=256				" Must be BEFORE the colorscheme
 let g:lucius_no_term_bg=1   " Transparent background
 colorscheme lucius
 " hi Normal           ctermfg=253             ctermbg=none cterm=none " Set transparent background
-
-" PHP-Indenting-for-Vim plugin
-" To indent 'case:' and 'default:' statements in switch() blocks: >
-let g:PHP_vintage_case_default_indent = 1
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -113,6 +111,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 filetype plugin on
 filetype indent on
 set autoread		" Reload files changed outside of Vim
+set nocompatible    " Don't pretend to be vi
 
 " https://vimrcfu.com/snippet/68
 set splitright		" Open vertical splits to the right of current window
@@ -259,6 +258,8 @@ nnoremap <F6> :call ToggleLeftColumn()<CR>
 vnoremap <F6> :call ToggleLeftColumn()<CR>
 inoremap <F6> <ESC>:call ToggleLeftColumn()<CR>i
 
+" Use phpctags for tagbar
+let g:tagbar_phpctags_bin="~/bin/phpctags"
 " Show tag bar
 let g:tagbar_autofocus = 1
 map <F9> :TagbarToggle<CR>
