@@ -190,9 +190,6 @@ set updatetime=250
 " Don't show gitgutter signs in files with more than 500 changes
 let g:gitgutter_max_signs = 500
 
-" Open help in the horizontal split window
-cnoremap help split help
-
 " https://vimrcfu.com/snippet/19
 " Maps 'K' to open vim help for the word under cursor when editing vim files.
 autocmd FileType vim setlocal keywordprg=:help
@@ -265,9 +262,6 @@ let g:tagbar_autofocus = 1
 map <F9> :TagbarToggle<CR>
 " Save and exit
 map <F10> :wq<CR>
-
-" PHPDocument the current line
-imap <C-o> <ESC>:set paste<CR>:call PhpDoc()<CR>:set nopaste<CR>
 
 " exit to normal mode with 'jj'
 inoremap jj <ESC>
