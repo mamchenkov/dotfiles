@@ -13,15 +13,6 @@ fi
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# Import local identity file
-if [ ! -f ~/.identity ]
-then
-	echo "export FACTER_GIT_USER_NAME='Leonid Mamchenkov'" >> ~/.identity
-	echo "export FACTER_GIT_USER_EMAIL='leonid@mamchenkov.net'" >> ~/.identity
-	echo "export FACTER_GIT_GITHUB_USER='mamchenkov'" >> ~/.identity
-fi
-source ~/.identity
-
 #
 # Switch terminal to support 256 colors, if possible
 # 
