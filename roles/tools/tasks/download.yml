@@ -1,0 +1,8 @@
+# This task downloads a list of given URLs and stores them locally.
+# For more information, see:
+# - http://docs.ansible.com/ansible/get_url_module.html
+- name: Downloading URLs
+  get_url: "{{ item }}"
+  with_items: "{{ urls }}"
+  tags:
+    - network

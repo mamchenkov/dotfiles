@@ -1,0 +1,23 @@
+# This task manages a given list of RPMs with dnf
+# For more information, see:
+# - http://docs.ansible.com/ansible/dnf_module.html
+- name: Manage RPM packages (dnf)
+  become: yes
+  dnf: "{{ item }}"
+  with_items: "{{ rpms }}"
+  when: ansible_pkg_mgr == "dnf"
+  tags:
+    - packages
+    - network
+
+# This task manages a given list of RPMs with yum
+# For more information, see:
+# - http://docs.ansible.com/ansible/yum_module.html
+- name: Manage RPM packages (yum)
+  become: yes
+  yum: "{{ item }}"
+  with_items: "{{ rpms }}"
+  when: ansible_pkg_mgr == "yum"
+  tags:
+    - packages
+    - network
