@@ -1,0 +1,26 @@
+# This playbook synchronizes SSH keys in
+# ~/.ssh/authorized_keys with the public
+# keys of the user's GitHub profile
+---
+- name: SSH keys
+  hosts: localhost
+  pre_tasks:
+
+    - name: Find GitHub username from git config
+      shell: git config github.user
+      register: __default_github_user
+      when: (github_username is undefined) or (github_username is none) or (github_username | trim == '')
+
+    - name: Set GitHub username from git config
+      set_fact: github_username="{{ __default_github_user.stdout }}"
+      when: ((github_username is undefined) or (github_username is none) or (github_username | trim == '')) and ((__default_github_user|succeeded) and (__default_github_user.stdout | trim != ''))
+
+    - name: Validate GitHub username presence
+      fail: msg="github_username variable is not set and 'git config github.user' is not helpful"
+      when: (github_username is undefined) or (github_username is none) or (github_username | trim == '')
+
+    - name: Adding some verbosity
+      debug: msg="Adding SSH keys from https://github.com/{{ github_username }}.keys to {{ ansible_user }}"
+
+    - name: Fetching GitHub keys
+      authorized_key: key="https://github.com/{{ github_username }}.keys" user="{{ ansible_user }}"
