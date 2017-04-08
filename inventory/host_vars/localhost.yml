@@ -70,6 +70,8 @@ desktop_packages:
   # Desktop
   - { name: "hexchat", state: "{{ package_state_default }}" }
   - { name: "terminator", state: "{{ package_state_default }}" }
+  # GNOME Desktop Manager (systemctl disable lightdm.service && systemctl enable gdm.service)
+  - { name: "gdm", state: "{{ package_state_default }}" }
   # MATE Desktop Manager
   - { name: "mate-screenshot", state: "{{ package_state_default }}" }
   - { name: "eom", state: "{{ package_state_default }}" }
@@ -84,6 +86,7 @@ desktop_packages:
   - { name: "network-manager-applet", state: "{{ package_state_default }}" }
   - { name: "pulseaudio-utils", state: "{{ package_state_default }}" }
   - { name: "xbacklight", state: "{{ package_state_default }}" }
+  - { name: "arandr", state: "{{ package_state_default }}" }
 
 # GUI related files to download on desktops
 # For parameters see:
