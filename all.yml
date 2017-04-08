@@ -3,3 +3,4 @@
 ---
 - include: base.yml
 - include: desktop.yml
+- include: devel.yml
