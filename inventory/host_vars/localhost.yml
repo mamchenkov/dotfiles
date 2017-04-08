@@ -36,9 +36,6 @@ vim:
     - https://github.com/editorconfig/editorconfig-vim.git
     - https://github.com/ervandew/supertab.git
     - https://github.com/flazz/vim-colorschemes.git
-    - https://github.com/garbas/vim-snipmate
-    - https://github.com/gko/vim-coloresque.git
-    - https://github.com/gregsexton/gitv.git
     - https://github.com/majutsushi/tagbar.git
     - https://github.com/MarcWeber/vim-addon-mw-utils.git
     - https://github.com/mattn/gist-vim.git
@@ -56,7 +53,5 @@ vim:
     - https://github.com/vim-php/tagbar-phpctags.vim.git
     - https://github.com/vim-scripts/CSApprox.git
     - https://github.com/vim-scripts/jQuery.git
-    - https://github.com/vim-scripts/SearchComplete.git
-    - https://github.com/xolox/vim-easytags.git
     - https://github.com/xolox/vim-misc.git
     - https://github.com/Xuyuanp/nerdtree-git-plugin.git
