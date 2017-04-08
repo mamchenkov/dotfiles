@@ -1,0 +1,20 @@
+# This playbook is for getting things which
+# are used for the development.
+---
+- name: Development setup
+  hosts: localhost
+  become: yes
+  pre_tasks:
+
+    - name: Install development packages
+      include_role:
+        name: tools
+        tasks_from: rpm
+      vars:
+        rpms: "{{ devel_packages }}"
+
+    - name: Start MariaDB service
+      service: name=mariadb state=started enabled=true
+
+  roles:
+    - geerlingguy.composer

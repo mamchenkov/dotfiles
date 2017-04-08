@@ -95,3 +95,34 @@ desktop_downloads:
   # Gravatar image login/screensaver lock/etc
   - { url: "https://s.gravatar.com/avatar/54bfadc28c22bf76402608db646cd031?s=100", dest: "~/.face" }
 
+# Development packages to be installed on development workstations
+# For parameters see:
+# - http://docs.ansible.com/ansible/dnf_module.html
+# - http://docs.ansible.com/ansible/yum_module.html
+devel_packages:
+  # PHP
+  - { name: "php", state: "{{ package_state_default }}" }
+  - { name: "php-bcmath", state: "{{ package_state_default }}" }
+  - { name: "php-cli", state: "{{ package_state_default }}" }
+  - { name: "php-common", state: "{{ package_state_default }}" }
+  - { name: "php-gd", state: "{{ package_state_default }}" }
+  - { name: "php-intl", state: "{{ package_state_default }}" }
+  - { name: "php-ldap", state: "{{ package_state_default }}" }
+  - { name: "php-mbstring", state: "{{ package_state_default }}" }
+  - { name: "php-mcrypt", state: "{{ package_state_default }}" }
+  - { name: "php-mysqlnd", state: "{{ package_state_default }}" }
+  - { name: "php-opcache", state: "{{ package_state_default }}" }
+  - { name: "php-pdo", state: "{{ package_state_default }}" }
+  - { name: "php-pecl-apcu", state: "{{ package_state_default }}" }
+  - { name: "php-process", state: "{{ package_state_default }}" }
+  - { name: "php-soap", state: "{{ package_state_default }}" }
+  - { name: "php-xml", state: "{{ package_state_default }}" }
+  # MySQL/MariaDB
+  - { name: "mariadb", state: "{{ package_state_default }}" }
+  - { name: "mariadb-server", state: "{{ package_state_default }}" }
+
+# geerlingguy.composer : Put in /usr/bin/
+composer_path: /usr/bin/composer
+# geerlingguy.composer : Keep updated to prevent outdated warnings
+composer_keep_updated: true
+
