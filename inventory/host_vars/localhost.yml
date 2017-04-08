@@ -1,62 +1,79 @@
 ---
 ansible_connection: local
 
-dotfiles:
-  dependencies:
-    - bash
-    - bash-completion
-    - ack
-    - grep
-    - links
-    - tmux
-    - screen
-    - git
-    - mc
-    - sysstat
-    - telnet
-    - mutt
-    - htop
+# Default state for the RPM packages
+package_state_default: "present"
 
-vim:
-  folders:
-    - .vim
-    - .vim/autoload
-    - .vim/bundle
-    - .vim/sessions
-    - .vim/undodir
-  dependencies:
-    - vim-enhanced
-    - ctags
-    - git
-    - ack
-  plugins:
-    - https://github.com/airblade/vim-gitgutter.git
-    - https://github.com/ctrlpvim/ctrlp.vim
-    - https://github.com/docunext/closetag.vim.git
-    - https://github.com/editorconfig/editorconfig-vim.git
-    - https://github.com/ervandew/supertab.git
-    - https://github.com/flazz/vim-colorschemes.git
-    - https://github.com/majutsushi/tagbar.git
-    - https://github.com/MarcWeber/vim-addon-mw-utils.git
-    - https://github.com/mattn/gist-vim.git
-    - https://github.com/mattn/webapi-vim.git
-    - https://github.com/mileszs/ack.vim.git
-    - https://github.com/scrooloose/nerdcommenter.git
-    - https://github.com/scrooloose/nerdtree.git
-    - https://github.com/scrooloose/syntastic.git
-    - https://github.com/sheerun/vim-polyglot.git
-    - https://github.com/tmhedberg/matchit.git
-    - https://github.com/tomtom/tlib_vim.git
-    - https://github.com/tpope/vim-fugitive.git
-    - https://github.com/vim-airline/vim-airline.git
-    - https://github.com/vim-airline/vim-airline-themes.git
-    - https://github.com/vim-php/tagbar-phpctags.vim.git
-    - https://github.com/vim-scripts/CSApprox.git
-    - https://github.com/vim-scripts/jQuery.git
-    - https://github.com/xolox/vim-misc.git
-    - https://github.com/Xuyuanp/nerdtree-git-plugin.git
+# Base packages to be installed everywhere
+# For parameters see:
+# - http://docs.ansible.com/ansible/dnf_module.html
+# - http://docs.ansible.com/ansible/yum_module.html
+base_packages:
+  # Base
+  - { name: "bash-completion", state: "{{ package_state_default }}" }
+  - { name: "bash", state: "{{ package_state_default }}" }
+  - { name: "grep", state: "{{ package_state_default }}" }
+  - { name: "htop", state: "{{ package_state_default }}" }
+  - { name: "links", state: "{{ package_state_default }}" }
+  - { name: "mc", state: "{{ package_state_default }}" }
+  - { name: "mutt", state: "{{ package_state_default }}" }
+  - { name: "screen", state: "{{ package_state_default }}" }
+  - { name: "sysstat", state: "{{ package_state_default }}" }
+  - { name: "telnet", state: "{{ package_state_default }}" }
+  - { name: "tmux", state: "{{ package_state_default }}" }
+  # Git
+  - { name: "git", state: "{{ package_state_default }}" }
+  - { name: "tig", state: "{{ package_state_default }}" }
+  # Vim
+  - { name: "ack", state: "{{ package_state_default }}" }
+  - { name: "ctags", state: "{{ package_state_default }}" }
+  - { name: "vim-enhanced", state: "{{ package_state_default }}" }
 
-desktop:
-  tools:
-    - terminator
-    - hexchat
+# Where Vim plugins live
+vim_plugin_base: "~/.vim/bundle"
+
+# Vim plugins to be installed everywhere
+# For parameters see:
+# - http://docs.ansible.com/ansible/git_module.html
+vim_plugins:
+  - { repo: "https://github.com/airblade/vim-gitgutter.git", dest: "{{ vim_plugin_base }}/gitgutter" }
+  - { repo: "https://github.com/ctrlpvim/ctrlp.vim", dest: "{{ vim_plugin_base }}/ctrlp" }
+  - { repo: "https://github.com/docunext/closetag.vim.git", dest: "{{ vim_plugin_base }}/closetag" }
+  - { repo: "https://github.com/editorconfig/editorconfig-vim.git", dest: "{{ vim_plugin_base }}/editorconfig" }
+  - { repo: "https://github.com/ervandew/supertab.git", dest: "{{ vim_plugin_base }}/supertab" }
+  - { repo: "https://github.com/flazz/vim-colorschemes.git", dest: "{{ vim_plugin_base }}/colorschemes" }
+  - { repo: "https://github.com/majutsushi/tagbar.git", dest: "{{ vim_plugin_base }}/tagbar" }
+  - { repo: "https://github.com/MarcWeber/vim-addon-mw-utils.git", dest: "{{ vim_plugin_base }}/mv-utils" }
+  - { repo: "https://github.com/mattn/gist-vim.git", dest: "{{ vim_plugin_base }}/gist" }
+  - { repo: "https://github.com/mattn/webapi-vim.git", dest: "{{ vim_plugin_base }}/webapi" }
+  - { repo: "https://github.com/mileszs/ack.vim.git", dest: "{{ vim_plugin_base }}/ack" }
+  - { repo: "https://github.com/scrooloose/nerdcommenter.git", dest: "{{ vim_plugin_base }}/nerdcommenter" }
+  - { repo: "https://github.com/scrooloose/nerdtree.git", dest: "{{ vim_plugin_base }}/nerdtree" }
+  - { repo: "https://github.com/scrooloose/syntastic.git", dest: "{{ vim_plugin_base }}/syntastic" }
+  - { repo: "https://github.com/sheerun/vim-polyglot.git", dest: "{{ vim_plugin_base }}/polyglot" }
+  - { repo: "https://github.com/tmhedberg/matchit.git", dest: "{{ vim_plugin_base }}/matchit" }
+  - { repo: "https://github.com/tomtom/tlib_vim.git", dest: "{{ vim_plugin_base }}/tlib" }
+  - { repo: "https://github.com/tpope/vim-fugitive.git", dest: "{{ vim_plugin_base }}/fugitive" }
+  - { repo: "https://github.com/vim-airline/vim-airline.git", dest: "{{ vim_plugin_base }}/airline" }
+  - { repo: "https://github.com/vim-airline/vim-airline-themes.git", dest: "{{ vim_plugin_base }}/airline-themes" }
+  - { repo: "https://github.com/vim-php/tagbar-phpctags.vim.git", dest: "{{ vim_plugin_base }}/tagbar-phpctags" }
+  - { repo: "https://github.com/vim-scripts/CSApprox.git", dest: "{{ vim_plugin_base }}/CSApprox" }
+  - { repo: "https://github.com/vim-scripts/jQuery.git", dest: "{{ vim_plugin_base }}/jquery" }
+  - { repo: "https://github.com/xolox/vim-misc.git", dest: "{{ vim_plugin_base }}/misc" }
+  - { repo: "https://github.com/Xuyuanp/nerdtree-git-plugin.git", dest: "{{ vim_plugin_base }}/nerdtree-git" }
+
+# GUI related packages to be installed on desktops
+# For parameters see:
+# - http://docs.ansible.com/ansible/dnf_module.html
+# - http://docs.ansible.com/ansible/yum_module.html
+desktop_packages:
+  - { name: "hexchat", state: "{{ package_state_default }}" }
+  - { name: "terminator", state: "{{ package_state_default }}" }
+
+# GUI related files to download on desktops
+# For parameters see:
+# - http://docs.ansible.com/ansible/get_url_module.html
+desktop_downloads:
+  # Gravatar image login/screensaver lock/etc
+  - { url: "https://s.gravatar.com/avatar/54bfadc28c22bf76402608db646cd031?s=100", dest: "~/.face" }
+

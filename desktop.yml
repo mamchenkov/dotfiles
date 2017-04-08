@@ -3,7 +3,29 @@
 ---
 - name: Desktop setup
   hosts: localhost
+  pre_tasks:
+
+    - name: Install desktop tools
+      include_role:
+        name: tools
+        tasks_from: rpm
+      vars:
+        rpms: "{{ desktop_packages }}"
+
+    - name: Setup desktop files in /home folder
+      include_role:
+        name: tools
+        tasks_from: file
+      vars:
+        files_src: "home/desktop/"
+        files_dst: "/tmp/home-test"
+
+    - name: Download avatar image
+      include_role:
+        name: tools
+        tasks_from: download
+      vars:
+        urls: "{{ desktop_downloads }}"
+
   roles:
-    - fonts
-    - desktop
     - cmprescott.chrome

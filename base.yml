@@ -3,7 +3,27 @@
 ---
 - name: Base setup
   hosts: localhost
-  roles:
-    - dotfiles
-    - vim
-    - git
+  pre_tasks:
+
+    - name: Install base packages
+      include_role:
+        name: tools
+        tasks_from: rpm
+      vars:
+        rpms: "{{ base_packages }}"
+
+    - name: Setup base /home folder
+      include_role:
+        name: tools
+        tasks_from: file
+      vars:
+        files_src: "home/base/"
+        files_dst: "/tmp/home-test"
+
+    - name: Get Vim plugins
+      include_role:
+        name: tools
+        tasks_from: git
+      vars:
+        git_repos: "{{ vim_plugins }}"
+
