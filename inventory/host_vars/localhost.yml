@@ -12,15 +12,19 @@ base_packages:
   # Base
   - { name: "bash-completion", state: "{{ package_state_default }}" }
   - { name: "bash", state: "{{ package_state_default }}" }
+  - { name: "bind-utils", state: "{{ package_state_default }}" }
   - { name: "grep", state: "{{ package_state_default }}" }
   - { name: "htop", state: "{{ package_state_default }}" }
   - { name: "links", state: "{{ package_state_default }}" }
   - { name: "mc", state: "{{ package_state_default }}" }
+  - { name: "mtr", state: "{{ package_state_default }}" }
   - { name: "mutt", state: "{{ package_state_default }}" }
   - { name: "screen", state: "{{ package_state_default }}" }
   - { name: "sysstat", state: "{{ package_state_default }}" }
+  - { name: "tcpdump", state: "{{ package_state_default }}" }
   - { name: "telnet", state: "{{ package_state_default }}" }
   - { name: "tmux", state: "{{ package_state_default }}" }
+  - { name: "wget", state: "{{ package_state_default }}" }
   # Git
   - { name: "git", state: "{{ package_state_default }}" }
   - { name: "tig", state: "{{ package_state_default }}" }
