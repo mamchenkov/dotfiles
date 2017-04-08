@@ -55,3 +55,8 @@ vim:
     - https://github.com/vim-scripts/jQuery.git
     - https://github.com/xolox/vim-misc.git
     - https://github.com/Xuyuanp/nerdtree-git-plugin.git
+
+desktop:
+  tools:
+    - terminator
+    - hexchat
