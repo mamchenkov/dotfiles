@@ -67,8 +67,23 @@ vim_plugins:
 # - http://docs.ansible.com/ansible/dnf_module.html
 # - http://docs.ansible.com/ansible/yum_module.html
 desktop_packages:
+  # Desktop
   - { name: "hexchat", state: "{{ package_state_default }}" }
   - { name: "terminator", state: "{{ package_state_default }}" }
+  # MATE Desktop Manager
+  - { name: "mate-screenshot", state: "{{ package_state_default }}" }
+  - { name: "eom", state: "{{ package_state_default }}" }
+  # i3 Window Manager
+  - { name: "i3", state: "{{ package_state_default }}" }
+  - { name: "i3status", state: "{{ package_state_default }}" }
+  - { name: "i3lock", state: "{{ package_state_default }}" }
+  - { name: "dmenu", state: "{{ package_state_default }}" }
+  - { name: "feh", state: "{{ package_state_default }}" }
+  - { name: "xcompmgr", state: "{{ package_state_default }}" }
+  - { name: "xorg-x11-xkb-utils", state: "{{ package_state_default }}" }
+  - { name: "network-manager-applet", state: "{{ package_state_default }}" }
+  - { name: "pulseaudio-utils", state: "{{ package_state_default }}" }
+  - { name: "xbacklight", state: "{{ package_state_default }}" }
 
 # GUI related files to download on desktops
 # For parameters see:
