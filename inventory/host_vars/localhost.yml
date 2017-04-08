@@ -10,7 +10,6 @@ dotfiles:
     - links
     - tmux
     - screen
-    - python-editorconfig
     - git
     - mc
     - sysstat
@@ -30,7 +29,6 @@ vim:
     - ctags
     - git
     - ack
-    - python-editorconfig
   plugins:
     - https://github.com/airblade/vim-gitgutter.git
     - https://github.com/ctrlpvim/ctrlp.vim
