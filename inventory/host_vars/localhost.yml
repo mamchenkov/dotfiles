@@ -114,6 +114,7 @@ devel_packages:
   - { name: "php-opcache", state: "{{ package_state_default }}" }
   - { name: "php-pdo", state: "{{ package_state_default }}" }
   - { name: "php-pecl-apcu", state: "{{ package_state_default }}" }
+  - { name: "php-pecl-xdebug", state: "{{ package_state_default }}" }
   - { name: "php-process", state: "{{ package_state_default }}" }
   - { name: "php-soap", state: "{{ package_state_default }}" }
   - { name: "php-xml", state: "{{ package_state_default }}" }
