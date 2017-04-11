@@ -43,8 +43,8 @@ bindsym $mod+Delete mode "$mode_system"
 bindsym Print exec mate-screenshot --interactive
 # pulse audio volume control
 # thanks to: https://i3wm.org/docs/user-contributed/lzap-config.html
-bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 '-5%'
-bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 0 '+5%'
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 '-10%'
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 0 '+10%'
 bindsym XF86AudioMute exec /usr/bin/pactl set-sink-volume 0 0
 bindsym XF86Launch1 exec /usr/bin/pactl play-sample that_was_easy
 bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
