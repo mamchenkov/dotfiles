@@ -94,8 +94,8 @@ bind '"\e[D": backward-char'
 # 
 # Aliases
 # 
-alias vi="vim -X"
-alias vim="vim -X"
+alias vi="$EDITOR"
+alias vim="$EDITOR"
 alias ll="ls -al --group-directories-first"
 alias df="df -kTh"
 alias du="du -kh"
@@ -108,7 +108,7 @@ alias mkdir="mkdir -p"
 alias path="echo -e ${PATH//:/\\n}"
 
 # Mysql with fancy pager
-alias mysql="mysql --pager='nice_tables | grcat ~/.grcatrc | less -RFSinX'"
+alias mysql="mysql --pager='nice_tables | grcat ~/.grcatrc | $PAGER'"
 
 alias head='head -n $((${LINES:-12}-2))' #as many as possible without scrolling
 alias tail='tail -n $((${LINES:-12}-2)) -s.1' #Likewise, also more responsive -f
