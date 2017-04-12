@@ -88,6 +88,7 @@ desktop_packages:
   - { name: "xcompmgr", state: "{{ package_state_default }}" }
   - { name: "xorg-x11-xkb-utils", state: "{{ package_state_default }}" }
   - { name: "network-manager-applet", state: "{{ package_state_default }}" }
+  - { name: "alsa-utils", state: "{{ package_state_default }}" }
   - { name: "pulseaudio-utils", state: "{{ package_state_default }}" }
   - { name: "xbacklight", state: "{{ package_state_default }}" }
   - { name: "arandr", state: "{{ package_state_default }}" }
