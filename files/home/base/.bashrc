@@ -306,14 +306,14 @@ function fancyprompt {
 		LOAD_COLOR=$IRed
 	fi
 
-	# .com|.org|.net hostnames are bright red
-	if [[ $HOSTNAME =~ ".com" || $HOSTNAME =~ ".org" || $HOSTNAME =~ ".net" ]]
-	then
-		HOST_COLOR=$IRed
-	# localhost|localdomain hostnames are green
-	elif [[ $HOSTNAME =~ "localhost" || $HOSTNAME =~ "localdomain" ]]
+	# localhost|localdomain hostnames are green, as well as anything with .ppl. (people)
+	if [[ $HOSTNAME =~ "localhost" || $HOSTNAME =~ "localdomain" || $HOSTNAME =~ ".ppl." ]]
 	then
 		HOST_COLOR=$Green
+	# .com|.org|.net hostnames are bright red
+	elif [[ $HOSTNAME =~ ".com" || $HOSTNAME =~ ".org" || $HOSTNAME =~ ".net" ]]
+	then
+		HOST_COLOR=$IRed
 	# everything else yellow
 	else
 		HOST_COLOR=$IYellow
