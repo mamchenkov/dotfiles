@@ -49,8 +49,8 @@ function top10() {
 # Export some useful variables
 # 
 export PATH=$PATH:./bin/:./vendor/bin:$HOME/bin:$HOME/dotfiles/bin
-export PAGER=`which --skip-alias less -RFSinX 2> /dev/null`
-export EDITOR=`which --skip-alias vim -X 2> /dev/null`
+export PAGER="$(which --skip-alias less) -RFSinX"
+export EDITOR="$(which --skip-alias vim) -X"
 export LC_TIME=en_US
 export HISTTIMEFORMAT="%F %T"
 export HISTCONTROL=ignoredups:ignorespace
