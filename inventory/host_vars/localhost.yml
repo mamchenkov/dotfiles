@@ -72,6 +72,7 @@ vim_plugins:
 # - http://docs.ansible.com/ansible/yum_module.html
 desktop_packages:
   # Desktop
+  - { name: "graphviz", state: "{{ package_state_default }}" }
   - { name: "hexchat", state: "{{ package_state_default }}" }
   - { name: "terminator", state: "{{ package_state_default }}" }
   # GNOME Desktop Manager (systemctl disable lightdm.service && systemctl enable gdm.service)
