@@ -25,7 +25,6 @@
   [[default]]
     allow_bold = False
     background_darkness = 0.82
-    background_type = transparent
     copy_on_selection = True
     cursor_color = "#839496"
     font = Source Code Pro Semi-Bold 12
