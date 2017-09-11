@@ -232,7 +232,16 @@ map <Leader>c <plug>NERDCommenterToggle<CR>
 imap <Leader>c <Esc><plug>NERDCommenterToggle<CR>i
 
 " Toggle the file browser
-map <F3> :NERDTreeToggle<CR>
+" Thanks to: https://stackoverflow.com/a/31631030/151647
+function! ToggleNERDTreeFind()
+    if g:NERDTree.IsOpen()
+        execute ':NERDTreeClose'
+    else
+        execute ':NERDTreeFind'
+    endif
+endfunction
+nnoremap <F3> :call ToggleNERDTreeFind()<CR>
+"map <F3> :NERDTreeFind<CR>
 " Quit without saving. Helps quick file viewing in Midnight Commander
 map <F4> :q<CR>
 
