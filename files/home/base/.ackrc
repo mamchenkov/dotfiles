@@ -9,3 +9,8 @@
 
 # Add .ctp (CakePHP view templates) to PHP type
 --type-add=php=.ctp
+
+# Ignore common directories
+--ignore-dir=.git
+--ignore-dir=build
+--ignore-dir=cache
