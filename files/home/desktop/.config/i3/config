@@ -17,7 +17,7 @@ set $mod Mod1
 # Click to focus
 focus_follows_mouse no
 # Transparency and window fading
-exec --no-startup-id "xcompmgr -c -f -n"
+#exec --no-startup-id "xcompmgr -c -f -n"
 # US/RU keyboard layouts (switch with Right Ctrl)
 exec --no-startup-id "setxkbmap -model pc105 -layout us,ru -variant ,legacy -option grp:rctrl_toggle"
 # Start NetworkManager applet
