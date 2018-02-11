@@ -272,6 +272,11 @@ map <F9> :TagbarToggle<CR>
 " Save and exit
 map <F10> :wq<CR>
 
+" Zeal offline documentation
+let g:zv_file_types = {
+	\ 'php': 'cakephp,php',
+	\ }
+
 " exit to normal mode with 'jj'
 inoremap jj <ESC>
 

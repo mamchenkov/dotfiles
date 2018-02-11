@@ -65,6 +65,7 @@ vim_plugins:
   - { repo: "https://github.com/vim-scripts/jQuery.git", dest: "{{ vim_plugin_base }}/jquery" }
   - { repo: "https://github.com/xolox/vim-misc.git", dest: "{{ vim_plugin_base }}/misc" }
   - { repo: "https://github.com/Xuyuanp/nerdtree-git-plugin.git", dest: "{{ vim_plugin_base }}/nerdtree-git" }
+  - { repo: "https://github.com/KabbAmine/zeavim.vim.git", dest: "{{ vim_plugin_base }}/zealvim" }
 
 # GUI related packages to be installed on desktops
 # For parameters see:
@@ -75,6 +76,7 @@ desktop_packages:
   - { name: "graphviz", state: "{{ package_state_default }}" }
   - { name: "hexchat", state: "{{ package_state_default }}" }
   - { name: "terminator", state: "{{ package_state_default }}" }
+  - { name: "zeal", state: "{{ package_state_default }}" }
   # GNOME Desktop Manager (systemctl disable lightdm.service && systemctl enable gdm.service)
   - { name: "gdm", state: "{{ package_state_default }}" }
   # MATE Desktop Manager
