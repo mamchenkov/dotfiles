@@ -85,7 +85,7 @@ alias h="history"
 alias traceroute="traceroute -I"
 alias who="who -HT"
 alias mkdir="mkdir -p"
-alias path="echo -e ${PATH//:/\\n}"
+alias path="echo -e ${PATH//:/\\\\n}"
 
 # Mysql with fancy pager
 alias mysql="mysql --pager='nice_tables | grcat ~/.grcatrc | $PAGER'"
@@ -342,15 +342,16 @@ function dullprompt {
 	fi
 }
 
+# Set prompt and history saving
 case "$TERM" in
-xterm-color|xterm-256color|rxvt*|screen*)
-		# Update history on each command
-        PROMPT_COMMAND="fancyprompt && history -a"
-    ;;
-*)
-		# Update history on each command
-        PROMPT_COMMAND="dullprompt && history -a"
-    ;;
+	xterm-color|xterm-256color|rxvt*|screen*)
+			# Update history on each command
+			PROMPT_COMMAND="fancyprompt && history -a"
+		;;
+	*)
+			# Update history on each command
+			PROMPT_COMMAND="dullprompt && history -a"
+		;;
 esac
 
 # 
