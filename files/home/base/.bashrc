@@ -26,6 +26,7 @@ case $TERM in
 		fi
 		;;
 	*)
+		export TERM='linux'
 		;;
 esac
 
