@@ -128,7 +128,7 @@ set -o notify 			# Notify when jobs in background terminate
 #set -o nounset 		# Errors if using undefined variable
 set -o vi 				# Vi-style command editing
 
-
+# See all with: shopt -p
 shopt -s cdable_vars 	# directory to cd is in variable
 shopt -s autocd 		# Prepend cd to directory names automatically
 shopt -s dirspell 		# correct spelling mistakes during tab completion
@@ -143,23 +143,6 @@ unset MAILCHECK
 
 # Load git prompt script
 source ~/bin/git-prompt.sh
-
-# SMARTER TAB-COMPLETION (Readline bindings) ##
-
-# Perform file completion in a case insensitive fashion
-bind "set completion-ignore-case on"
-# Treat hyphens and underscores as equivalent
-bind "set completion-map-case on"
-# Display matches for ambiguous patterns at first tab press
-bind "set show-all-if-ambiguous on"
-# Immediately add a trailing slash when autocompleting symlinks to directories
-bind "set mark-symlinked-directories on"
-# Enable incremental history search with up/down arrows (also Readline goodness)
-# Learn more about this here: http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
-bind '"\e[C": forward-char'
-bind '"\e[D": backward-char'
 
 #
 # Build shell prompt

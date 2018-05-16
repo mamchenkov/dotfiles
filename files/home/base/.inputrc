@@ -1,9 +1,54 @@
-set blink-matching-paren on
+# GNU Readline configuration
+#
+# For more information, have a look here:
+# https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html#Readline-Init-File-Syntax
+
+#
+# Defaults and globals
+#
+
+# Include system-wide configuration first
+$include /etc/inputrc
+
+# Set Vi editing mode
+set editing-mode vi
+
+#
+# Smarter tab completion
+#
+
+# Perform file completion in a case insensitive fashion
 set completion-ignore-case on
+# Treat hyphens and underscores as equivalent
+set completion-map-case on
+# Display matches for ambiguous patterns at first tab press
+set show-all-if-ambiguous on
+# Immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+#
+# Incremental history search with up/down arrows
+# Learn more about this here: 
+# http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
+#
 
 "\e[A": history-search-backward
 "\e[B": history-search-forward
-"\eOA": history-search-backward
-"\eOB": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
+
+#
+# Visual hints
+#
+
+# Briefly jump to a matching parenthesis
+set blink-matching-paren on
+
+# Use visual bell
+set bell-style visible
+
+#
+# Other mappings
+#
 
 "\C-w": backward-kill-word
