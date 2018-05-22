@@ -15,6 +15,7 @@ base_packages:
   - { name: "bind-utils", state: "{{ package_state_default }}" }
   - { name: "grep", state: "{{ package_state_default }}" }
   - { name: "htop", state: "{{ package_state_default }}" }
+  - { name: "httpie", state: "{{ package_state_default }}" }
   - { name: "links", state: "{{ package_state_default }}" }
   - { name: "mc", state: "{{ package_state_default }}" }
   - { name: "mtr", state: "{{ package_state_default }}" }
