@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#
+# Ping default IP if no parameters given
+#
+
+PING="/usr/bin/ping"
+DEFAULT="8.8.8.8"
+
+if [ "$#" -gt 0 ]
+then
+	$PING $*
+else
+	$PING $DEFAULT
+fi
