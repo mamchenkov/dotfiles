@@ -49,7 +49,7 @@ function top10() {
 # 
 # Export some useful variables
 # 
-export PATH=$PATH:./bin/:./vendor/bin:$HOME/bin:$HOME/dotfiles/bin
+export PATH=./bin/:./vendor/bin:$HOME/bin:$HOME/dotfiles/bin:$PATH
 export PAGER="$(which --skip-alias less) -RFSinX"
 export EDITOR="$(which --skip-alias vim) -X"
 export LC_TIME=en_US
