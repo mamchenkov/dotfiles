@@ -64,110 +64,27 @@ let mapleader = ","
 " Search down into subfolders
 set path+=**
 
-" Syntax
+" Update gitgutter, matchit, polyglot, etc every 250ms instead of default 4s
+set updatetime=250
+
+"
+" Vim UI
 "
 set bg=dark					" use colors for the dark background
 syntax on					" switch on syntax highlighting
 syntax enable
 set t_Co=256				" Must be BEFORE the colorscheme
-let g:lucius_no_term_bg=1   " Transparent background
+" hi Normal           ctermfg=253             ctermbg=none cterm=none " Set transparent background
 " Use colorscheme if installed
 if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/lucius.vim"))
+	let g:lucius_no_term_bg=1   " Transparent background
 	colorscheme lucius
 endif
-" hi Normal           ctermfg=253             ctermbg=none cterm=none " Set transparent background
-
-" Airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline_skip_empty_sections = 1
-let g:airline_theme='powerlineish'
-"let g:airline_left_sep=''
-"let g:airline_right_sep=''
-let g:airline_symbols = {}
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_left_sep          = '▶'
-let g:airline_left_alt_sep      = '»'
-let g:airline_right_sep         = '◀'
-let g:airline_right_alt_sep     = '«'
-let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-let g:airline#extensions#readonly#symbol   = '⊘'
-let g:airline#extensions#linecolumn#prefix = '¶'
-let g:airline#extensions#paste#symbol      = 'ρ'
-let g:airline_symbols.linenr    = '␊'
-let g:airline_symbols.branch    = '⎇'
-let g:airline_symbols.paste     = 'ρ'
-let g:airline_symbols.paste     = 'Þ'
-let g:airline_symbols.paste     = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-
-"let g:airline_solarized_reduced = 0
-" Only show the column number.
-"let g:airline_section_z = 'c:%c'
-" Use short forms for common modes.
-"let g:airline_mode_map = {
-"    \ 'n'  : 'N',
-"    \ 'i'  : 'I',
-"    \ 'R'  : 'R',
-"    \ 'v'  : 'V',
-"    \ 's'  : 'S',
-"    \ 't'  : 'T',
-"    \ }
-
-
-" Disable folding for Markdown
-let g:vim_markdown_folding_disabled = 1
-
-" JavaScript and HTML indentation plugin settings
-let html_indent_inctags = "html,body,head,tbody"
-let html_indent_script1 = "inc"
-let html_indent_style1 = "inc"
-
-" Open NERDTree if no files were specified for vim startup
-autocmd vimenter * if !argc() | NERDTree | endif
-
-" Syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
-
-
-" Disable PHP coding style check with Syntastic
-let g:syntastic_php_checkers=['php']
-let g:syntastic_phpcs_disable=1
-
-
-" Syntax highlighting in PHP files
-let php_sql_query=0
-let php_parent_error_close=1
-let php_parent_error_open=1
-let php_htmlInStrings=0
-let php_noShortTags=1
-let php_folding=0
-
-" EditorConfig exclude patterns
-let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 "
 " Options : basic
 "
-filetype plugin on
-filetype indent on
 set autoread		" Reload files changed outside of Vim
-set nocompatible    " Don't pretend to be vi
 
 " https://vimrcfu.com/snippet/68
 set splitright		" Open vertical splits to the right of current window
@@ -201,6 +118,7 @@ set history=50				" keep last 50 commands
 set laststatus=2			" always display the status line
 set matchtime=5				" Show match for half a second
 set mouse=a					" Mouse support
+set mousehide 				" Hide mouse cursor while typing
 set nowritebackup           " do not write backup files
 set nobackup				" do not create backup files
 set noswapfile 				" do not create swap files
@@ -241,19 +159,6 @@ set wrapscan				" wrap search around the end of file
 " Shortcuts
 "
 
-" Update gitgutter signs and such every 250ms instead of default 4s
-set updatetime=250
-" Don't show gitgutter signs in files with more than 500 changes
-let g:gitgutter_max_signs = 500
-
-" https://vimrcfu.com/snippet/19
-" Maps 'K' to open vim help for the word under cursor when editing vim files.
-autocmd FileType vim setlocal keywordprg=:help
-
-" Maps 'K' to open PHP function manual for the word under cursor when editing
-" PHP files.
-autocmd FileType php setlocal keywordprg=phpdoc
-
 " Remap keys for split window ease of use.
 nmap <C-j> <C-W>j
 nmap <C-k> <C-W>k
@@ -264,6 +169,7 @@ nmap <C-l> <C-W>l
 " Move visual block
 vnoremap <C-Up> :m '<-2<CR>gv=gv
 vnoremap <C-Down> :m '>+1<CR>gv=gv
+
 " http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
 " Move single line
 nnoremap <C-Up> :m -2<CR>==
@@ -280,24 +186,6 @@ xnoremap <TAB>  >gv
 " let terminal resize scale the internal windows
 autocmd VimResized * :wincmd =
 
-" NERDComment plugin
-let NERDCommentEmptyLines = 1
-let NERDDefaultAlign = 'left'
-let NERDCommentWholeLinesInVMode = 1
-map <Leader>c <plug>NERDCommenterToggle<CR>
-imap <Leader>c <Esc><plug>NERDCommenterToggle<CR>i
-
-" Toggle the file browser
-" Thanks to: https://stackoverflow.com/a/31631030/151647
-function! ToggleNERDTreeFind()
-    if g:NERDTree.IsOpen()
-        execute ':NERDTreeClose'
-    else
-        execute ':NERDTreeFind'
-    endif
-endfunction
-nnoremap <F3> :call ToggleNERDTreeFind()<CR>
-"map <F3> :NERDTreeFind<CR>
 " Quit without saving. Helps quick file viewing in Midnight Commander
 map <F4> :q<CR>
 
@@ -307,11 +195,15 @@ map <F4> :q<CR>
 function! ToggleLeftColumn()
 	if &number == 1
 		set nonumber
-		GitGutterDisable
+		if filereadable(expand("~/.vim/bundle/vim-gitgutter/plugin/gitgutter.vim"))
+			GitGutterDisable
+		endif
 		echo "Left column is off"
 	else
 		set number
-		GitGutterEnable
+		if filereadable(expand("~/.vim/bundle/vim-gitgutter/plugin/gitgutter.vim"))
+			GitGutterEnable
+		endif
 		echo "Left column is on"
 	endif
 	return
@@ -320,19 +212,168 @@ nnoremap <F6> :call ToggleLeftColumn()<CR>
 vnoremap <F6> :call ToggleLeftColumn()<CR>
 inoremap <F6> <ESC>:call ToggleLeftColumn()<CR>i
 
-" Use phpctags for tagbar
-let g:tagbar_phpctags_bin="~/bin/phpctags"
-" Show tag bar
-let g:tagbar_autofocus = 1
-map <F9> :TagbarToggle<CR>
 " Save and exit
 map <F10> :wq<CR>
-
-" Zeal offline documentation
-let g:zv_file_types = {
-	\ 'php': 'cakephp,php',
-	\ }
 
 " exit to normal mode with 'jj'
 inoremap jj <ESC>
 
+"
+" File Types
+"
+
+" Instead of reverting the cursor to the last position in the buffer, we
+" set it to the first line when editing a git commit message
+au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+
+" https://vimrcfu.com/snippet/19
+" Maps 'K' to open vim help for the word under cursor when editing vim files.
+autocmd FileType vim setlocal keywordprg=:help
+
+" Maps 'K' to open PHP function manual for the word under cursor when editing
+" PHP files.
+autocmd FileType php setlocal keywordprg=phpdoc
+
+"
+" Plugin configurations
+"
+
+" Airline
+if filereadable(expand("~/.vim/bundle/vim-airline/plugin/airline.vim"))
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline#extensions#syntastic#enabled = 1
+	let g:airline#extensions#branch#enabled = 1
+	let g:airline#extensions#tagbar#enabled = 1
+	let g:airline_skip_empty_sections = 1
+	let g:airline_theme='powerlineish'
+	"let g:airline_left_sep=''
+	"let g:airline_right_sep=''
+	let g:airline_symbols = {}
+	let g:airline#extensions#tabline#left_sep = ' '
+	let g:airline#extensions#tabline#left_alt_sep = '|'
+	let g:airline_left_sep          = '▶'
+	let g:airline_left_alt_sep      = '»'
+	let g:airline_right_sep         = '◀'
+	let g:airline_right_alt_sep     = '«'
+	let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+	let g:airline#extensions#readonly#symbol   = '⊘'
+	let g:airline#extensions#linecolumn#prefix = '¶'
+	let g:airline#extensions#paste#symbol      = 'ρ'
+	let g:airline_symbols.linenr    = '␊'
+	let g:airline_symbols.branch    = '⎇'
+	let g:airline_symbols.paste     = 'ρ'
+	let g:airline_symbols.paste     = 'Þ'
+	let g:airline_symbols.paste     = '∥'
+	let g:airline_symbols.whitespace = 'Ξ'
+
+	"let g:airline_solarized_reduced = 0
+	" Only show the column number.
+	"let g:airline_section_z = 'c:%c'
+	" Use short forms for common modes.
+	"let g:airline_mode_map = {
+	"    \ 'n'  : 'N',
+	"    \ 'i'  : 'I',
+	"    \ 'R'  : 'R',
+	"    \ 'v'  : 'V',
+	"    \ 's'  : 'S',
+	"    \ 't'  : 'T',
+	"    \ }
+endif
+
+" EditorConfig
+if filereadable(expand("~/.vim/bundle/editorconfig-vim/plugin/editorconfig.vim"))
+	" EditorConfig exclude patterns
+	let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+endif
+
+" GitGutter
+if filereadable(expand("~/.vim/bundle/vim-gitgutter/plugin/gitgutter.vim"))
+	" Don't show gitgutter signs in files with more than 500 changes
+	let g:gitgutter_max_signs = 500
+endif
+
+
+" NERDComment
+if filereadable(expand("~/.vim/bundle/nerdcommenter/plugin/NERD_commenter.vim"))
+	let NERDCommentEmptyLines = 1
+	let NERDDefaultAlign = 'left'
+	let NERDCommentWholeLinesInVMode = 1
+	map <Leader>c <plug>NERDCommenterToggle<CR>
+	imap <Leader>c <Esc><plug>NERDCommenterToggle<CR>i
+endif
+
+" NERDTree
+if filereadable(expand("~/.vim/bundle/nerdtree/plugin/NERD_tree.vim"))
+	" Open NERDTree if no files were specified for vim startup
+	autocmd vimenter * if !argc() | NERDTree | endif
+
+	" Toggle the file browser
+	" Thanks to: https://stackoverflow.com/a/31631030/151647
+	function! ToggleNERDTreeFind()
+		if g:NERDTree.IsOpen()
+			execute ':NERDTreeClose'
+		else
+			execute ':NERDTreeFind'
+		endif
+	endfunction
+	"map <F3> :NERDTreeFind<CR>
+	nnoremap <F3> :call ToggleNERDTreeFind()<CR>
+endif
+
+" Polyglot
+if filereadable(expand("~/.vim/bundle/vim-polyglot/ftdetect/polyglot.vim"))
+	" JavaScript and HTML indentation plugin settings
+	let html_indent_inctags = "html,body,head,tbody"
+	let html_indent_script1 = "inc"
+	let html_indent_style1 = "inc"
+
+	" Syntax highlighting in PHP files
+	let php_sql_query=0
+	let php_parent_error_close=1
+	let php_parent_error_open=1
+	let php_htmlInStrings=0
+	let php_noShortTags=1
+	let php_folding=0
+endif
+
+" Syntastic 
+if filereadable(expand("~/.vim/bundle/syntastic/plugin/syntastic.vim"))
+	set statusline+=%#warningmsg#
+	set statusline+=%{SyntasticStatuslineFlag()}
+	set statusline+=%*
+
+	let g:syntastic_always_populate_loc_list = 1
+	let g:syntastic_auto_loc_list = 0
+	let g:syntastic_check_on_open = 1
+	let g:syntastic_check_on_wq = 0
+
+	let g:syntastic_error_symbol='✗'
+	let g:syntastic_warning_symbol='⚠'
+	let g:syntastic_style_error_symbol = '✗'
+	let g:syntastic_style_warning_symbol = '⚠'
+
+
+	" Disable PHP coding style check with Syntastic
+	let g:syntastic_php_checkers=['php']
+	let g:syntastic_phpcs_disable=1
+endif
+
+" Tagbar
+if filereadable(expand("~/.vim/bundle/tagbar/plugin/tagbar.vim"))
+	" Show tag bar
+	let g:tagbar_autofocus = 1
+	map <F9> :TagbarToggle<CR>
+endif
+
+" Tagbar PHP ctags
+if filereadable(expand("~/.vim/bundle/tagbar-phpctags.vim/plugin/tagbar-phpctags.vim"))
+	" Use phpctags for tagbar
+	let g:tagbar_phpctags_bin="~/bin/phpctags"
+endif
+
+" Zeal
+if filereadable(expand("~/.vim/bundle/zeavim.vim/plugin/zeavim.vim"))
+	" Zeal offline documentation
+	let g:zv_file_types = {'php':'cakephp,php'}
+	autocmd FileType php setlocal keywordprg=zeal
+endif
