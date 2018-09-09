@@ -27,3 +27,6 @@
       vars:
         git_repos: "{{ vim_plugins }}"
 
+    - name: Install Vim plugins
+      shell: vim +PluginInstall +qall
+

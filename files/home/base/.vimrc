@@ -1,10 +1,63 @@
-"
-" Plugins
-"
+"  This is my Vim.
+"  There are many like this,
+"  But this one is mine.
+"  Without me, my Vim is useless.
+"  Without Vim, I am useless.
 
-" Load all bundles via Pathogen vim plugin
-call pathogen#infect()
-call pathogen#helptags()
+" Vundle plugin manager requirements
+set nocompatible
+filetype off
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
+" Run :PluginInstall to install everything
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+
+" Libraries and utils used by other plugins
+Plugin 'tomtom/tlib_vim'
+Plugin 'mattn/webapi-vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'xolox/vim-misc'
+
+" Beautifiers
+Plugin 'flazz/vim-colorschemes'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-scripts/CSApprox'
+
+" General utilities
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'ervandew/supertab'
+Plugin 'mileszs/ack.vim'
+
+" General programming
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/syntastic'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'tmhedberg/matchit'
+Plugin 'KabbAmine/zeavim.vim'
+
+" Git
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mattn/gist-vim' " requieres: mattn/webapi-vim
+Plugin 'Xuyuanp/nerdtree-git-plugin' " requires: scrooloose/nerdtree
+
+" HTML/XML
+Plugin 'docunext/closetag.vim'
+
+" JavaScript
+Plugin 'vim-scripts/jQuery'
+
+" PHP
+Plugin 'vim-php/tagbar-phpctags.vim'
+
+call vundle#end()
+" To ignore plugin indent changes use 'filetype plugin on' instead
+filetype plugin indent on
 
 " Change mapleader to ,
 let mapleader = ","
@@ -18,7 +71,10 @@ syntax on					" switch on syntax highlighting
 syntax enable
 set t_Co=256				" Must be BEFORE the colorscheme
 let g:lucius_no_term_bg=1   " Transparent background
-colorscheme lucius
+" Use colorscheme if installed
+if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/lucius.vim"))
+	colorscheme lucius
+endif
 " hi Normal           ctermfg=253             ctermbg=none cterm=none " Set transparent background
 
 " Airline
