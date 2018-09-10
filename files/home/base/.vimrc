@@ -355,7 +355,7 @@ if filereadable(expand("~/.vim/bundle/supertab/plugin/supertab.vim"))
 	\ endif
 endif
 
-" Syntastic 
+" Syntastic
 if filereadable(expand("~/.vim/bundle/syntastic/plugin/syntastic.vim"))
 	set statusline+=%#warningmsg#
 	set statusline+=%{SyntasticStatuslineFlag()}
@@ -396,5 +396,3 @@ if filereadable(expand("~/.vim/bundle/zeavim.vim/plugin/zeavim.vim"))
 	let g:zv_file_types = {'php':'cakephp,php'}
 	autocmd FileType php setlocal keywordprg=zeal
 endif
-
-
