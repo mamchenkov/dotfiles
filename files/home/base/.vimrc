@@ -29,6 +29,7 @@ Plugin 'vim-scripts/CSApprox'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ervandew/supertab'
 Plugin 'mileszs/ack.vim'
+Plugin 'tyru/open-browser.vim'
 
 " General programming
 Plugin 'scrooloose/nerdcommenter'
@@ -39,6 +40,8 @@ Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'tmhedberg/matchit'
 Plugin 'KabbAmine/zeavim.vim'
+Plugin 'tyru/open-browser-github.vim' " requires tyru/open-browser.vim
+Plugin 'tyru/open-browser-unicode.vim' " requires tyru/open-browser.vim
 
 " Git
 Plugin 'airblade/vim-gitgutter'
@@ -55,6 +58,9 @@ Plugin 'vim-scripts/jQuery'
 " PHP
 Plugin 'vim-php/tagbar-phpctags.vim'
 Plugin 'shawncplus/phpcomplete.vim'
+
+" WordPress
+" Plugin 'dsawardekar/wordpress.vim'
 
 call vundle#end()
 " To ignore plugin indent changes use 'filetype plugin on' instead
@@ -390,3 +396,5 @@ if filereadable(expand("~/.vim/bundle/zeavim.vim/plugin/zeavim.vim"))
 	let g:zv_file_types = {'php':'cakephp,php'}
 	autocmd FileType php setlocal keywordprg=zeal
 endif
+
+
