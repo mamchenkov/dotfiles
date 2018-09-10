@@ -54,6 +54,7 @@ Plugin 'vim-scripts/jQuery'
 
 " PHP
 Plugin 'vim-php/tagbar-phpctags.vim'
+Plugin 'shawncplus/phpcomplete.vim'
 
 call vundle#end()
 " To ignore plugin indent changes use 'filetype plugin on' instead
@@ -334,6 +335,18 @@ if filereadable(expand("~/.vim/bundle/vim-polyglot/ftdetect/polyglot.vim"))
 	let php_htmlInStrings=0
 	let php_noShortTags=1
 	let php_folding=0
+endif
+
+" Supertab
+if filereadable(expand("~/.vim/bundle/supertab/plugin/supertab.vim"))
+	" Close Scratch buffer when popup closes
+	let g:SuperTabClosePreviewOnPopupClose = 1
+
+	" Add omnicomplition to supertab if there is one
+	autocmd FileType *
+	\ if &omnifunc != '' |
+	\   call SuperTabChain(&omnifunc, "<c-p>") |
+	\ endif
 endif
 
 " Syntastic 
