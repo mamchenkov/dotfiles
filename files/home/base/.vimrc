@@ -225,6 +225,15 @@ map <F10> :wq<CR>
 " exit to normal mode with 'jj'
 inoremap jj <ESC>
 
+" DiffOrig - see the changes you made in the current file
+" More info in ":help DiffOrig" and https://vimrcfu.com/snippet/214
+if !exists(":DiffOrig")
+	command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+endif
+
+" See what's changed with <Leader>?
+map <Leader>? :DiffOrig<CR>
+
 "
 " File Types
 "
