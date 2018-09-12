@@ -24,6 +24,7 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/CSApprox'
+Plugin 'ryanoasis/vim-devicons'
 
 " General utilities
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -109,7 +110,7 @@ set splitbelow		" Open horizontal splits below the current window
 "
 if has("gui_running")
 	" GUI options {{{
-	set guifont=Fixedsys\ Excelsior\ 3.01\ 12
+	set guifont=SauceCodePro\ Nerd\ Font\ Semi-Bold\ 10
 	set guioptions-=m " No menu
 	set guioptions-=T " No toolbar
 	set guioptions+=c " Use console dialogs where possible
@@ -125,7 +126,7 @@ endif
 set autowrite					" saves unwritten buffers
 set backspace=indent,eol,start 	" backspace over everything in insert mode
 set complete-=k					" Do not complete from dictionaries
-set encoding=utf-8				" Set encoding
+set encoding=UTF-8				" Set encoding
 set formatoptions=croq
 set history=50					" keep last 50 commands
 set laststatus=2				" always display the status line
