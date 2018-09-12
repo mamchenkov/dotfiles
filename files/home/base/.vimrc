@@ -30,6 +30,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ervandew/supertab'
 Plugin 'mileszs/ack.vim'
 Plugin 'tyru/open-browser.vim'
+Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-eunuch'
 
 " General programming
 Plugin 'scrooloose/nerdcommenter'
@@ -61,6 +63,9 @@ Plugin 'shawncplus/phpcomplete.vim'
 
 " WordPress
 " Plugin 'dsawardekar/wordpress.vim'
+
+" Databases
+Plugin 'tpope/vim-dadbod'
 
 call vundle#end()
 " To ignore plugin indent changes use 'filetype plugin on' instead
@@ -116,30 +121,30 @@ endif
 " Options : misc
 "
 
-set autowrite				" saves unwritten buffers
-set bs=2					" backspace over everything in insert mode
-set complete-=k				" Do not complete from dictionaries
-set encoding=utf-8			" Set encoding
+set autowrite					" saves unwritten buffers
+set backspace=indent,eol,start 	" backspace over everything in insert mode
+set complete-=k					" Do not complete from dictionaries
+set encoding=utf-8				" Set encoding
 set formatoptions=croq
-set history=50				" keep last 50 commands
-set laststatus=2			" always display the status line
-set matchtime=5				" Show match for half a second
-set mouse=a					" Mouse support
-set mousehide 				" Hide mouse cursor while typing
-set nowritebackup           " do not write backup files
-set nobackup				" do not create backup files
-set noswapfile 				" do not create swap files
-set nowrap					" No line wrapping
-set number 					" Set line numbering
-set numberwidth=4			" Number of columns in line numbering
-set ruler					" show cursor position in the file
-set showcmd					" show command autocompletion
-set showmatch				" Show matching opening bracket
+set history=50					" keep last 50 commands
+set laststatus=2				" always display the status line
+set matchtime=5					" Show match for half a second
+set mouse=a						" Mouse support
+set mousehide 					" Hide mouse cursor while typing
+set nowritebackup           	" do not write backup files
+set nobackup					" do not create backup files
+set noswapfile 					" do not create swap files
+set nowrap						" No line wrapping
+set number 						" Set line numbering
+set numberwidth=4				" Number of columns in line numbering
+set ruler						" show cursor position in the file
+set showcmd						" show command autocompletion
+set showmatch					" Show matching opening bracket
 set statusline=%F%m%r%h%w\ [EOL=%{&ff}]\ [TYPE=%Y]\ [ENC=%{(&fenc==\"\"?&enc:&fenc)}]\ %=[POS=%04l,%04v]\ [LEN=%L][%p%%]
 set title titlestring=vim\ -\ %F\ %h
-set visualbell				" Don't beep me, you beep!
-set wildmenu				" show autocompetion in status menu
-set wrapmargin=1			" margin from the right to show wrapping
+set visualbell					" Don't beep me, you beep!
+set wildmenu					" show autocompetion in status menu
+set wrapmargin=1				" margin from the right to show wrapping
 
 "
 " Options : tabulation

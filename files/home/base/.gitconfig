@@ -1,6 +1,18 @@
-[user]
-	name = Leonid Mamchenkov
-	email = leonid@mamchenkov.net
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	lg = log -p
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	ls = ls-files
+	info = remote -v
+	tags = tag --sort=creatordate
+	diffstat = diff --stat
+	fullchangelog = log ORIG_HEAD.. --reverse --no-merges
+	changelog = log ORIG_HEAD.. --reverse --no-merges --pretty=format:'* %s'
 [color]
 	ui = true
 [color "branch"]
@@ -21,25 +33,15 @@
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	editor = vim
 	excludesfile = ~/.gitignore
+[diff "image"]
+	textconv = identify
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
 [mergetool]
 	prompt = false
-[alias]
-	st = status
-	ci = commit
-	br = branch
-	co = checkout
-	df = diff
-	lg = log -p
-	lol = log --graph --decorate --pretty=oneline --abbrev-commit
-	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	ls = ls-files
-	info = remote -v
-	tags = tag --sort=creatordate
-	diffstat = diff --stat
-	fullchangelog = log ORIG_HEAD.. --reverse --no-merges
-	changelog = log ORIG_HEAD.. --reverse --no-merges --pretty=format:'* %s'
 [github]
 	user = mamchenkov
+[user]
+	name = Leonid Mamchenkov
+	email = leonid@mamchenkov.net
