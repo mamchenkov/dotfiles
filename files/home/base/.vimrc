@@ -44,6 +44,7 @@ Plugin 'tmhedberg/matchit'
 Plugin 'KabbAmine/zeavim.vim'
 Plugin 'tyru/open-browser-github.vim' " requires tyru/open-browser.vim
 Plugin 'tyru/open-browser-unicode.vim' " requires tyru/open-browser.vim
+Plugin 'ludovicchabant/vim-gutentags'
 
 " Git
 Plugin 'airblade/vim-gitgutter'
@@ -313,6 +314,17 @@ if filereadable(expand("~/.vim/bundle/vim-gitgutter/plugin/gitgutter.vim"))
 	let g:gitgutter_max_signs = 500
 endif
 
+" Gutentags
+if filereadable(expand("~/.vim/bundle/vim-gutentags/plugin/gutentags.vim"))
+	" Where to store tag files
+	let g:gutentags_cache_dir = '~/.vim/gutentags'
+	let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
+		\ '*.phar', '*.ini', '*.rst', '*.md',
+		\ '*vendor/*/test*', '*vendor/*/Test*',
+		\ '*vendor/*/fixture*', '*vendor/*/Fixture*',
+		\ '*var/cache*', '*var/log*']
+	map <silent> <leader>jd :CtrlPTag<cr><C-\>w
+endif
 
 " NERDComment
 if filereadable(expand("~/.vim/bundle/nerdcommenter/plugin/NERD_commenter.vim"))
