@@ -38,13 +38,13 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'tmhedberg/matchit'
 Plugin 'KabbAmine/zeavim.vim'
 Plugin 'tyru/open-browser-github.vim' " requires tyru/open-browser.vim
 Plugin 'tyru/open-browser-unicode.vim' " requires tyru/open-browser.vim
 Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'w0rp/ale'
 
 " Git
 Plugin 'airblade/vim-gitgutter'
@@ -202,7 +202,7 @@ autocmd VimResized * :wincmd =
 " Quit without saving. Helps quick file viewing in Midnight Commander
 map <F4> :q<CR>
 
-" Toggle left column (numbers, git gutter, syntastic)
+" Toggle left column (numbers, git gutter, etc)
 " Useful for selecting with the mouse and for simple files
 " Vim 8 supports 'set signcolumn=yes|no', but we are not there yet
 function! ToggleLeftColumn()
@@ -263,7 +263,7 @@ autocmd FileType php setlocal keywordprg=phpdoc
 " Airline
 if filereadable(expand("~/.vim/bundle/vim-airline/plugin/airline.vim"))
 	let g:airline#extensions#tabline#enabled = 1
-	let g:airline#extensions#syntastic#enabled = 1
+	let g:airline#extensions#ale#enabled = 1
 	let g:airline#extensions#branch#enabled = 1
 	let g:airline#extensions#tagbar#enabled = 1
 	let g:airline_skip_empty_sections = 1
@@ -300,6 +300,15 @@ if filereadable(expand("~/.vim/bundle/vim-airline/plugin/airline.vim"))
 	"    \ 's'  : 'S',
 	"    \ 't'  : 'T',
 	"    \ }
+endif
+
+" ALE
+if filereadable(expand("~/.vim/bundle/ale/plugin/ale.vim"))
+	let g:ale_linters = {
+		\   'php': ['php'],
+		\}
+	let g:ale_lint_on_save = 1
+	let g:ale_lint_on_text_changed = 0
 endif
 
 " EditorConfig
@@ -379,28 +388,6 @@ if filereadable(expand("~/.vim/bundle/supertab/plugin/supertab.vim"))
 	\ if &omnifunc != '' |
 	\   call SuperTabChain(&omnifunc, "<c-p>") |
 	\ endif
-endif
-
-" Syntastic
-if filereadable(expand("~/.vim/bundle/syntastic/plugin/syntastic.vim"))
-	set statusline+=%#warningmsg#
-	set statusline+=%{SyntasticStatuslineFlag()}
-	set statusline+=%*
-
-	let g:syntastic_always_populate_loc_list = 1
-	let g:syntastic_auto_loc_list = 0
-	let g:syntastic_check_on_open = 1
-	let g:syntastic_check_on_wq = 0
-
-	let g:syntastic_error_symbol='✗'
-	let g:syntastic_warning_symbol='⚠'
-	let g:syntastic_style_error_symbol = '✗'
-	let g:syntastic_style_warning_symbol = '⚠'
-
-
-	" Disable PHP coding style check with Syntastic
-	let g:syntastic_php_checkers=['php']
-	let g:syntastic_phpcs_disable=1
 endif
 
 " Tagbar
