@@ -25,6 +25,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/CSApprox'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'mhinz/vim-startify'
 
 " General utilities
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -348,7 +349,7 @@ endif
 " NERDTree
 if filereadable(expand("~/.vim/bundle/nerdtree/plugin/NERD_tree.vim"))
 	" Open NERDTree if no files were specified for vim startup
-	autocmd vimenter * if !argc() | NERDTree | endif
+	" autocmd vimenter * if !argc() | NERDTree | endif
 
 	" Toggle the file browser
 	" Thanks to: https://stackoverflow.com/a/31631030/151647
@@ -387,7 +388,7 @@ if filereadable(expand("~/.vim/bundle/supertab/plugin/supertab.vim"))
 	" Add omnicomplition to supertab if there is one
 	autocmd FileType *
 	\ if &omnifunc != '' |
-	\   call SuperTabChain(&omnifunc, "<c-p>") |
+	\   call SuperTabChain(&omnifunc, "<c-n>") |
 	\ endif
 endif
 
