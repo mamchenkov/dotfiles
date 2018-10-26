@@ -28,9 +28,10 @@ Plugin 'ryanoasis/vim-devicons'
 Plugin 'mhinz/vim-startify'
 
 " General utilities
+Plugin 'yssl/QFEnter'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ervandew/supertab'
-Plugin 'mileszs/ack.vim'
+Plugin 'mhinz/vim-grepper'
 Plugin 'tyru/open-browser.vim'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-eunuch'
@@ -325,6 +326,11 @@ if filereadable(expand("~/.vim/bundle/vim-gitgutter/plugin/gitgutter.vim"))
 	let g:gitgutter_max_signs = 500
 endif
 
+" Grepper
+if filereadable(expand("~/.vim/bundle/vim-grepper/plugin/grepper.vim"))
+	nnoremap <leader>g :Grepper -cword -noprompt<cr>
+endif
+
 " Gutentags
 if filereadable(expand("~/.vim/bundle/vim-gutentags/plugin/gutentags.vim"))
 	" Where to store tag files
@@ -362,6 +368,14 @@ if filereadable(expand("~/.vim/bundle/nerdtree/plugin/NERD_tree.vim"))
 	endfunction
 	"map <F3> :NERDTreeFind<CR>
 	nnoremap <F3> :call ToggleNERDTreeFind()<CR>
+endif
+
+" QFEnter
+if filereadable(expand("~/.vim/bundle/QFEnter/plugin/QFEnter.vim"))
+	let g:qfenter_keymap = {}
+	let g:qfenter_keymap.vopen = ['<C-v>']
+	let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>']
+	let g:qfenter_keymap.topen = ['<C-t>']
 endif
 
 " Polyglot
