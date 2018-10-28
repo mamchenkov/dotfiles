@@ -149,6 +149,7 @@ set statusline=%F%m%r%h%w\ [EOL=%{&ff}]\ [TYPE=%Y]\ [ENC=%{(&fenc==\"\"?&enc:&fe
 set title titlestring=vim\ -\ %F\ %h
 set visualbell					" Don't beep me, you beep!
 set wildmenu					" show autocompetion in status menu
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wrapmargin=1				" margin from the right to show wrapping
 
 "
@@ -315,6 +316,17 @@ if filereadable(expand("~/.vim/bundle/ale/plugin/ale.vim"))
 	let g:ale_lint_on_text_changed = 0
 endif
 
+" CtrlP
+if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
+	" Ignore files from .gitignore
+	" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+	let g:ctrlp_use_caching = 1
+	let g:ctrlp_clear_cache_on_exit = 0
+	let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
+		\ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+	map <silent> <leader>d :CtrlPTag<cr><C-\>w
+endif
+
 " EditorConfig
 if filereadable(expand("~/.vim/bundle/editorconfig-vim/plugin/editorconfig.vim"))
 	" EditorConfig exclude patterns
@@ -341,7 +353,6 @@ if filereadable(expand("~/.vim/bundle/vim-gutentags/plugin/gutentags.vim"))
 		\ '*vendor/*/test*', '*vendor/*/Test*',
 		\ '*vendor/*/fixture*', '*vendor/*/Fixture*',
 		\ '*var/cache*', '*var/log*']
-	map <silent> <leader>jd :CtrlPTag<cr><C-\>w
 endif
 
 " NERDComment
