@@ -20,6 +20,3 @@ then
 		--git-dir=/etc/.git \
 		commit -a -m "Logout commit `date +%c`" >/dev/null 2>&1
 fi
-
-# Save directory bookmarks for the next time
-have mdump && mdump
