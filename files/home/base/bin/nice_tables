@@ -1,4 +1,18 @@
 #!/bin/sed -f
+#
+# This is a filter script that takes input from
+# the STDIN, transforms it, and pipes to STDOUT.
+#
+# The transformation is a replacement of the
+# basic ASCII characters (dash, plus, pipe, etc),
+# used to draw tables, into something a little
+# bit more fancy.
+#
+# One particularly useful application of this is
+# for paging MySQL output.
+#
+# Source: https://habr.com/post/151406/
+#
 s!^|!║!g;s!|$!║!g;s!|!│!g;
 /^+/bp;b
 :p x;/^╔/bm;/^╟/bl
