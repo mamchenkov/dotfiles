@@ -70,7 +70,7 @@ Plugin 'shawncplus/phpcomplete.vim'
 " Plugin 'dsawardekar/wordpress.vim'
 
 " Databases
-Plugin 'tpope/vim-dadbod'
+" Plugin 'tpope/vim-dadbod'
 
 call vundle#end()
 " To ignore plugin indent changes use 'filetype plugin on' instead
@@ -81,8 +81,8 @@ let mapleader = ","
 " Search down into subfolders
 set path+=**
 
-" Update gitgutter, matchit, polyglot, etc every 250ms instead of default 4s
-set updatetime=250
+" Update gitgutter, matchit, polyglot, etc every 500ms instead of default 4s
+set updatetime=500
 
 "
 " Vim UI
@@ -350,9 +350,9 @@ if filereadable(expand("~/.vim/bundle/vim-gutentags/plugin/gutentags.vim"))
 	let g:gutentags_cache_dir = '~/.vim/gutentags'
 	let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
 		\ '*.phar', '*.ini', '*.rst', '*.md',
-		\ '*vendor/*/test*', '*vendor/*/Test*',
+		\ '*bin/*', '*vendor/*/test*', '*vendor/*/Test*',
 		\ '*vendor/*/fixture*', '*vendor/*/Fixture*',
-		\ '*var/cache*', '*var/log*']
+		\ '*tmp/*', '*var/cache*', '*var/log*']
 endif
 
 " NERDComment
