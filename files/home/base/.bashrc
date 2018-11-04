@@ -56,7 +56,6 @@ export LC_TIME=en_US
 export HISTTIMEFORMAT="%F %T"
 export HISTCONTROL=ignoredups:ignorespace
 export MOZ_NO_REMOTE=1
-export MYSQL_PS1='[\R:\m:\s][\U:\d]> '
 
 # Shorten and simplify cd
 export CDPATH=.:~:~/Work:~/Development:/var/www/html:/var/www/vhosts
@@ -88,9 +87,6 @@ alias traceroute="traceroute -I"
 alias who="who -HT"
 alias mkdir="mkdir -p"
 alias path="echo -e ${PATH//:/\\\\n}"
-
-# Mysql with fancy pager
-alias mysql="mysql --pager='nice_tables | grcat ~/.grcatrc | $PAGER'"
 
 alias head='head -n $((${LINES:-12}-2))' #as many as possible without scrolling
 alias tail='tail -n $((${LINES:-12}-2)) -s.1' #Likewise, also more responsive -f
