@@ -74,8 +74,10 @@ PROMPT_COMMAND='history -a'
 # 
 # Aliases
 # 
+alias v="$EDITOR"
 alias vi="$EDITOR"
 alias vim="$EDITOR"
+alias vd="$EDITOR -d"
 alias ll="ls -al --group-directories-first"
 alias df="df -kTh"
 alias du="du -kh"
