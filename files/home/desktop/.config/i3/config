@@ -128,19 +128,17 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
+# split in horizontal orientation (*n*ext to current)
 bindsym $mod+n split h
 
-# split in vertical orientation
-bindsym $mod+v split v
+# split in vertical orientation (*u*nder current)
+bindsym $mod+u split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+p layout stacking
-bindsym $mod+t layout tabbed
-bindsym $mod+s layout toggle split
+# change container layout / *o*rder (stacked, tabbed, toggle split)
+bindsym $mod+o layout toggle all
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -164,10 +162,13 @@ set $ws3 "3: Extra"
 set $ws4 "4: Extra"
 set $ws5 "5: Extra"
 set $ws6 "6: Skype"
-set $ws7 "7: Misc"
+set $ws7 "7: Video"
 set $ws8 "8: Misc"
 set $ws9 "9: Misc"
 set $ws10 "10: Misc"
+
+# allow workspace renaming
+bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'new name: '
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -230,6 +231,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
+		tray_output none
 		#output primary
 		colors {
 			background $col-bg-inactive
@@ -242,5 +244,9 @@ bar {
 		}
 }
 
-# Allow floating window for Gnome/MATE Calendar popup
-for_window [class="clock-calendar"] floating enable
+for_window [window_role="task_dialog|app|bubble|pop-up|page-info|Preferences"] floating enable
+for_window [title="Pages Unresponsive"] floating enable
+for_window [class="Shutter"] floating enable
+for_window [class="Nm-connection-editor" instance="nm-connection-editor"] floating enable
+
+assign [class="Skype"] $ws6
