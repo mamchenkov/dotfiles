@@ -156,16 +156,17 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $ws1 "1: Browser"
-set $ws2 "2: Work"
-set $ws3 "3: Extra"
-set $ws4 "4: Extra"
-set $ws5 "5: Extra"
-set $ws6 "6: Skype"
-set $ws7 "7: Video"
-set $ws8 "8: Misc"
-set $ws9 "9: Misc"
-set $ws10 "10: Misc"
+# Icons: https://nerdfonts.com/#cheat-sheet
+set $ws1 "1: Web "
+set $ws2 "2: Editor "
+set $ws3 "3: PHP "
+set $ws4 "4: Shell ﲵ"
+set $ws5 "5: Remote "
+set $ws6 "6: Skype "
+set $ws7 "7: Video "
+set $ws8 "8: Misc "
+set $ws9 "9: Misc "
+set $ws10 "10: Misc "
 
 # allow workspace renaming
 bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'new name: '
