@@ -41,7 +41,7 @@ function have() {
 	type "$1" &> /dev/null; 
 }
 
-# Show top 10 used commands in history
+# Show top 10 commands in history
 function top10() {
 	history | awk '{a[$4]++ } END{for(i in a){print a[i] " " i}}'|sort -rn |head -n 10
 }
@@ -53,14 +53,14 @@ export PATH=./bin/:./vendor/bin:$HOME/bin:$HOME/dotfiles/bin:$PATH
 export PAGER="$(which --skip-alias less) -RFSinX"
 export EDITOR="$(which --skip-alias vim) -X"
 export LC_TIME=en_US
-export HISTTIMEFORMAT="%F %T"
+export HISTTIMEFORMAT="%F %T " # Always inclulde space before final quote
 export HISTCONTROL=ignoredups:ignorespace
 export MOZ_NO_REMOTE=1
 
 # Shorten and simplify cd
 export CDPATH=.:~:~/Work:~/Development:/var/www/html:/var/www/vhosts
 # Do not save these commands to history
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:h:history:clear"
+export HISTIGNORE="&:[ ]*:exit:ls:ll:bg:fg:h:history:clear"
 # Ignore files matching this suffixes from completion
 export FIGNORE="$FIGNORE:.svn"
 # Automatically trim long paths in prompt (requries Bash 4.x)
@@ -138,9 +138,6 @@ shopt -s histappend histreedit histverify # better history management
 
 shopt -u mailwarn
 unset MAILCHECK
-
-# Load git prompt script
-source ~/bin/git-prompt.sh
 
 #
 # Build shell prompt
@@ -226,7 +223,7 @@ On_IWhite="\[\e[0;107m\]"   # White
 # Used in bash prompt
 function __git_dirty {
 	git diff --quiet HEAD &>/dev/null 
-	[ $? == 1 ] && echo "+"
+	[ $? == 1 ] && echo "•"
 }
 
 function __git_branch {
@@ -247,14 +244,14 @@ function terminal_title {
 function fancyprompt {
 	local RETVAL=$?
 
+	# Show $ for regular user and # for root
+	LAST_SYMBOL="\\$"
 	# Last command successful - green, otherwise red
 	if [ "$RETVAL" -eq "0" ]
 	then
 		LAST_COLOR=$Green
-		LAST_SYMBOL="\\$"
 	else
 		LAST_COLOR=$Red
-		LAST_SYMBOL="\\$"
 	fi
 
 	# Root is bright red, everyone else is green
