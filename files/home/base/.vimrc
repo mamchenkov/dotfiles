@@ -53,6 +53,7 @@ Plugin 'w0rp/ale'
 " Git
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
+Plugin 'gregsexton/gitv'
 Plugin 'mattn/gist-vim' " requieres: mattn/webapi-vim
 Plugin 'Xuyuanp/nerdtree-git-plugin' " requires: scrooloose/nerdtree
 
