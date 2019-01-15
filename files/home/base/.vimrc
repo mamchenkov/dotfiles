@@ -152,6 +152,8 @@ set visualbell					" Don't beep me, you beep!
 set wildmenu					" show autocompetion in status menu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wrapmargin=1				" margin from the right to show wrapping
+set undofile 					" enable undo
+set undodir=~/.vim/undodir 		" enable persistent undo
 
 "
 " Options : tabulation
