@@ -352,7 +352,7 @@ if filereadable(expand("~/.vim/bundle/vim-gutentags/plugin/gutentags.vim"))
 	let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
 		\ '*.phar', '*.ini', '*.rst', '*.md',
 		\ '*bin/*', '*vendor/*/test*', '*vendor/*/Test*',
-		\ '*vendor/*/fixture*', '*vendor/*/Fixture*',
+		\ '*vendor/*/fixture*', '*vendor/*/Fixture*', '*node_modules/*',
 		\ '*tmp/*', '*var/cache*', '*var/log*']
 endif
 
