@@ -40,6 +40,8 @@
 	conflictstyle = diff3
 [mergetool]
 	prompt = false
+[diff]
+	noprefix = true
 [github]
 	user = mamchenkov
 [user]
