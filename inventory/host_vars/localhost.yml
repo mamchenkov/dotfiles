@@ -23,6 +23,7 @@ base_packages:
   - { name: "sysstat", state: "{{ package_state_default }}" }
   # Networking
   - { name: "mtr", state: "{{ package_state_default }}" }
+  - { name: "net-tools", state: "{{ package_state_default }}" }
   - { name: "tcpdump", state: "{{ package_state_default }}" }
   - { name: "telnet", state: "{{ package_state_default }}" }
   # Terminal emulation
