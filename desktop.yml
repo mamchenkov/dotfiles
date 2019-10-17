@@ -28,4 +28,4 @@
         urls: "{{ desktop_downloads }}"
 
   roles:
-    - cmprescott.chrome
+    - { role: cmprescott.chrome, become: yes }
