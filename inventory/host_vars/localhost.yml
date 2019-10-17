@@ -1,4 +1,7 @@
 ---
+# Use Python3 on Fedora 30
+ansible_python_interpreter: /usr/bin/python3
+
 ansible_connection: local
 
 # Default state for the RPM packages
