@@ -19,7 +19,8 @@ $ cd dotfiles
 Run Ansible
 
 ```
-$ ansible-playbook all.yml --ask-sudo-pass 
+$ ansible-galaxy install -r requirements.yml
+$ ansible-playbook all.yml -K
 ```
 
 You can skip package installations and/or network operations (Vim plugins cloning, etc)
