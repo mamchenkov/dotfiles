@@ -1,0 +1,7 @@
+---
+#
+# Ansible requirements
+# Install with: ansible-galaxy install -r requirements.yml
+#
+- src: geerlingguy.composer
+- src: cmprescott.chrome
