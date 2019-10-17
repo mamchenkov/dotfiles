@@ -5,3 +5,4 @@
 #
 - src: geerlingguy.composer
 - src: cmprescott.chrome
+- src: andrewrothstein.terraform
