@@ -1,36 +1,39 @@
-#! /usr/bin/python
+#! /usr/bin/env python3
+
+from __future__ import print_function
 
 import os, re, string, sys, getopt, signal
 
+
 def version():
-    print "Generic Colouriser 1.4"
+    print ("Generic Colouriser 1.11.3")
     sys.exit()
 
 def help():
-    print "Generic Colouriser 1.4"
-    print
-    print "grc [options] command [args]"
-    print
-    print "Options:"
-    print "-e --stderr    redirect stderr. If this option is selected, "
-    print "               do not automatically redirect stdout"
-    print "-s --stdout    redirect stdout, even if -e is selected"
-    print "-c name --config=name    use name as configuration file for grcat"
-    print "--colour=word  word is one of: on, off, auto"
-    print
+    print("""Generic Colouriser 1.11.3
+grc [options] command [args]
+Options:
+-e --stderr    redirect stderr. If this option is selected,
+               do not automatically redirect stdout
+-s --stdout    redirect stdout, even if -e is selected
+-c name --config=name    use name as configuration file for grcat
+--colour=word  word is one of: on, off, auto
+--pty          run command in pseudoterminal (experimental)
+""")
     sys.exit()
 
 
-def keybint(signum, frame):
+def catch_signal(signum, frame):
+    "catch signal sent to grc and forward it to the original application"
     global pidp
+#    print('signal')
     try:
-        os.kill(pidp, signal.SIGINT)
+        os.kill(pidp, signum)
     except OSError: # if the subprocess already died
         pass
 
-
 try:
-    optlist, args = getopt.getopt(sys.argv[1:], "sec:", ["stdout", "stderr", "config=", "colour="] )
+    optlist, args = getopt.getopt(sys.argv[1:], "sec:", ["stdout", "stderr", "config=", "colour=", "pty"] )
 except:
     help()
 
@@ -43,12 +46,15 @@ stderrf = 0
 # configure file for grcat
 cfile = ""
 
-colour = 1
+colour = sys.stdout.isatty()
+use_pty = 0
 
 for i in optlist:
     if i[0] in ["--stderr", "-e"]:
+        # redirect stderr
         stderrf = 1
     elif i[0] in ["--stdout", "-s"]:
+        # redirect stdout
         stdoutf = 1
     elif i[0] in ["--config", "-c"]:
         cfile = i[1]
@@ -61,6 +67,8 @@ for i in optlist:
             colour = sys.stdout.isatty()
         else:
             help()
+    elif i[0] == '--pty':
+        use_pty = 1
 
 stdoutff = 1
 stderrff = 0
@@ -70,14 +78,25 @@ if stderrf == 1:
 if stdoutf == 1:
     stdoutff = 1
 
+if use_pty:
+    import pty
+
 conffile = None
 if cfile == "":
-    home = []
-    if os.environ.has_key('HOME'):
-        home = [os.environ['HOME']+"/.grc/grc.conf"]
-    conffilenames = home + ["/etc/grc.conf"]
+    home = os.environ.get('HOME')
+    xdg  = os.environ.get('XDG_CONFIG_HOME')
+    if not xdg and home:
+        xdg = home + '/.config'
+
+    conffilenames = []
+    if xdg:
+        conffilenames += [xdg + '/grc/grc.conf']
+    if home:
+        conffilenames += [home + '/.grc/grc.conf']
+    conffilenames += ['/usr/local/etc/grc.conf', '/etc/grc.conf']
     for i in conffilenames:
-        if os.path.isfile(i):
+        # test if conffile exists, it can be also a pipe
+        if os.path.exists(i) and not os.path.isdir(i):
             conffile = i
             break
     regexplist = []
@@ -90,37 +109,49 @@ if cfile == "":
                 break
             if l[0] == "#" or l[0] == '\012':
                 continue
-            regexp = l[:-1]
-            if re.search(regexp, string.join(args)):
-                cfile = f.readline()[:-1]
+            regexp = l.strip()
+            if re.search(regexp, ' '.join(args)):
+                cfile = f.readline().strip()
                 break
 
-signal.signal(signal.SIGINT, keybint)
+signal.signal(signal.SIGINT, catch_signal)
+
 
 if cfile != "" and colour:
     if stdoutff:
         choo, chio = os.pipe()
     if stderrff:
         choe, chie = os.pipe()
-
-
-    pidp = os.fork()
-    if pidp == 0: # child
+    if use_pty:
+        pidp, pty_fd = pty.fork()
+    else:
+        pidp = os.fork()
+    if pidp == 0: # child, command to run
         if stdoutff:
-            os.dup2(chio, 1)
-            os.close(choo)
-            os.close(chio)
+            # connect child (this) stdout to pipe write end
+            if not use_pty:
+                os.dup2(chio, 1)
+                os.close(choo)
+                os.close(chio)
         if stderrff:
-            os.dup2(chie, 2)
-            os.close(choe)
-            os.close(chie)
-        os.execvp(args[0], args)
+                os.dup2(chie, 2)
+                os.close(choe)
+                os.close(chie)
+        try:
+            os.execvp(args[0], args)
+        except OSError as e:
+            sys.stderr.write('grc: %s: %s\n' % (args[0], e.strerror))
+            sys.exit(1)
 
 
     if stdoutff:
         pido = os.fork()
-        if pido == 0: # child
-            os.dup2(choo, 0)
+        if pido == 0: # child, grcat
+            # connect grcat's stdin to pipe read end, or pty master
+            if use_pty:
+                os.dup2(pty_fd, 0)
+            else:
+                os.dup2(choo, 0)
             os.close(choo)
             os.close(chio)
             if stderrff:
@@ -139,12 +170,15 @@ if cfile != "" and colour:
                 os.close(choo)
                 os.close(chio)
             os.execvp("grcat", ["grcat", cfile])
-
     try:
         status = os.waitpid(pidp, 0)[1]
     except OSError: # interrupted system call
         status = None
         pass # this is probably not correct
+#    except KeyboardInterrupt: # catching SIGINT does not work when using pty...
+#        status = None
+#        os.kill(pidp, signal.SIGINT)
+#        pass
     if stderrff:
         os.close(chie)
         os.waitpid(pide, 0)
@@ -156,9 +190,13 @@ if cfile != "" and colour:
     sys.exit(status and os.WEXITSTATUS(status))
 
 else:
-    pidp = os.fork() 
+    pidp = os.fork()
     if pidp == 0:
-        os.execvp(args[0], args)
+        try:
+            os.execvp(args[0], args)
+        except OSError as e:
+            sys.stderr.write('grc: %s: %s\n' % (args[0], e.strerror))
+            sys.exit(1)
     try:
         status = os.wait()[1]
     except OSError: # interrupted system call
@@ -166,5 +204,4 @@ else:
         pass # this is probably not correct
 
 sys.exit(status and os.WEXITSTATUS(status))
-
 
