@@ -1,6 +1,8 @@
-#! /usr/bin/python
+#! /usr/bin/env python3
 
-import sys, os, string, re, signal
+from __future__ import print_function
+
+import sys, os, string, re, signal, errno
 
 #some default definitions
 colours = {
@@ -39,6 +41,26 @@ colours = {
             'italic'       :    "\033[3m",
             'rapidblink'   :    "\033[6m",
             'strikethrough':    "\033[9m",
+
+            # aixterm bright color codes
+            # prefixed with standard ANSI codes for graceful failure
+            'bright_black'      :    "\033[30;90m",
+            'bright_red'        :    "\033[31;91m",
+            'bright_green'      :    "\033[32;92m",
+            'bright_yellow'     :    "\033[33;93m",
+            'bright_blue'       :    "\033[34;94m",
+            'bright_magenta'    :    "\033[35;95m",
+            'bright_cyan'       :    "\033[36;96m",
+            'bright_white'      :    "\033[37;97m",
+
+            'on_bright_black'   :    "\033[40;100m", 
+            'on_bright_red'     :    "\033[41;101m",
+            'on_bright_green'   :    "\033[42;102m",
+            'on_bright_yellow'  :    "\033[43;103m",
+            'on_bright_blue'    :    "\033[44;104m",
+            'on_bright_magenta' :    "\033[45;105m",
+            'on_bright_cyan'    :    "\033[46;106m",
+            'on_bright_white'   :    "\033[47;107m",
             }
 
 
@@ -54,22 +76,40 @@ def add2list(clist, m, patterncolour):
             clist.append((m.start(group), m.end(group), patterncolour[0]))
 
 def get_colour(x):
-    if colours.has_key(x):
+    if x in colours:
         return colours[x]
     elif len(x)>=2 and x[0]=='"' and x[-1]=='"':
         return eval(x)
     else:
-        raise ValueError, 'Bad colour specified: '+x
+        raise ValueError('Bad colour specified: '+x)
 
 
 home = []
 conffile = None
-if os.environ.has_key('HOME'):
-    home = [os.environ['HOME']+"/.grc/"]
-conffilepath = [""] + home + ["/usr/local/share/grc/", "/usr/share/grc/"]
+xdg_config = os.environ.get('XDG_CONFIG_HOME')
+xdg_data = os.environ.get('XDG_DATA_HOME')
+home = os.environ.get('HOME')
+if home and not xdg_config:
+    xdg_config = home + '/.config'
+if home and not xdg_data:
+    xdg_data = home + '/.local/share'
+
+conffilepath = [""]
+if xdg_data:
+    conffilepath += [xdg_data + '/grc/']
+if xdg_config:
+    conffilepath += [xdg_config + '/grc/']
+if home:
+    conffilepath += [home + '/.grc/']
+conffilepath += ['/usr/local/share/grc/', '/usr/share/grc/']
+if len(sys.argv) != 2:
+    sys.stderr.write("You are not supposed to call grcat directly, but the usage is: grcat conffile\n")
+    sys.exit(1)
+
 conffile_arg = sys.argv[1] # tentative conffile
 for i in conffilepath:
-    if os.path.isfile(i+conffile_arg):
+    # test if conffile exists, it can be also a pipe
+    if os.path.exists(i+conffile_arg) and not os.path.isdir(i+conffile_arg):
         conffile = i+conffile_arg
         break
 
@@ -81,10 +121,9 @@ regexplist = []
 
 f = open(conffile, "r")
 is_last = 0
-split = string.split
-join = string.join
-lower = string.lower
-letters = string.letters
+split = str.split
+lower = str.lower
+letters = string.ascii_letters
 while not is_last:
     ll = {'count':"more"}
     while 1:
@@ -96,10 +135,19 @@ while not is_last:
             continue
         if not l[0] in letters:
             break
-        keyword, value = split(l[:-1], "=", 1)
+        fields = split(l.rstrip('\r\n'), "=", 1)
+        if len(fields) != 2:
+            sys.stderr.write('Error in configuration, I expect keyword=value line\n')
+            sys.stderr.write('But I got instead:\n')
+            sys.stderr.write(repr(l))
+            sys.stderr.write('\n')
+            sys.exit(1)
+        keyword, value = fields
         keyword = lower(keyword)
-        if not keyword in ["regexp", "colours", "count", "command", "skip"]:
-            raise ValueError, "Invalid keyword"
+        if keyword in  ('colors', 'colour', 'color'):
+            keyword = 'colours'
+        if not keyword in ["regexp", "colours", "count", "command", "skip", "replace", "concat"]:
+            raise ValueError("Invalid keyword")
         ll[keyword] = value
 
     # Split string into one string per regex group
@@ -113,17 +161,16 @@ while not is_last:
     #        c = c + colours[i]
     #    colstrings.append(c)
     # do not try to understand the optimized form below :-)
-    if ll.has_key("colours"):
-        colstrings = map(
-                        lambda colgroup:
-                            (join(map(lambda x: get_colour(x), split(colgroup)),'')),
-                        split(ll['colours'], ',')
+    if 'colours' in ll:
+        colstrings = list(
+                        [''.join([get_colour(x) for x in split(colgroup)]) for colgroup in split(ll['colours'], ',')]
                         )
         ll['colours'] = colstrings
 
     cs = ll['count']
-    ll['regexp'] = re.compile(ll['regexp']).search
-    regexplist.append(ll)
+    if 'regexp' in ll:
+        ll['regexp'] = re.compile(ll['regexp']).search
+        regexplist.append(ll)
 
 prevcolour = colours['default']
 prevcount = "more"
@@ -133,17 +180,22 @@ while 1:
     line = freadline()
     if line == "" :
         break
-    line = line[:-1]
+    if line[-1] in '\r\n':
+        line = line[:-1]
     clist = []
     skip = 0
     for pattern in regexplist:
         pos = 0
-        has_key = pattern.has_key
         currcount = pattern['count']
         while 1:
             m = pattern['regexp'](line, pos)
             if m:
-                if has_key('colours'):
+                if 'replace' in pattern:
+                    line = re.sub(m.re, pattern['replace'], line)
+                    #m = pattern['regexp'](line, pos)
+                    #if not m:
+                    #    break
+                if 'colours' in pattern:
                     if currcount == "block":
                         blockflag = 1
                         blockcolour = pattern['colours'][0]
@@ -160,17 +212,28 @@ while 1:
                         break
                     if currcount == "more":
                         prevcount = "more"
-                        pos = m.end(0)
+                        newpos = m.end(0)
+                        # special case, if the regexp matched but did not consume anything,
+                        # advance the position by 1 to escape endless loop
+                        if newpos == pos:
+                            pos += 1
+                        else:
+                            pos = newpos
                     else:
                         prevcount = "once"
                         pos = len(line)
-                if has_key('command'):
-                    os.system(pattern['command'])
-                    if not has_key('colours'):
+                if 'concat' in pattern:
+                    with open(pattern['concat'], 'a') as f :
+                        f.write(line + '\n')
+                    if 'colours' not in pattern:
                         break
-                if has_key('skip'):
+                if 'command' in pattern:
+                    os.system(pattern['command'])
+                    if 'colours' not in pattern:
+                        break
+                if 'skip' in pattern:
                     skip = pattern['skip'] in ("yes", "1", "true")
-                    if not has_key('colours'):
+                    if 'colours' not in pattern:
                         break
             else: break
         if m and currcount == "stop":
@@ -185,7 +248,7 @@ while 1:
         cline = (length_line+1)*[colours['default']]
         for i in clist:
             # each position in the string has its own colour
-            if i[2]  == "prev":
+            if i[2] == "prev":
                 cline[i[0]:i[1]] = [colours['default']+prevcolour]*(i[1]-i[0])
             elif i[2] != "unchanged":
                 cline[i[0]:i[1]] = [colours['default']+i[2]]*(i[1]-i[0])
@@ -209,5 +272,11 @@ while 1:
                 nline = nline + cline[i] + line[i]
                 clineprev = cline[i]
         nline = nline + colours['default']
-        print nline
+        try:
+            print(nline)
+        except IOError as e:
+            if e.errno == errno.EPIPE:
+                break
+            else:
+                raise
 
