@@ -12,6 +12,13 @@
       vars:
         rpms: "{{ desktop_packages }}"
 
+    - name: Install rofi from CORP repository
+      dnf:
+        name: rofi
+        enablerepo: yaroslav/i3desktop
+        state: present
+      become: yes
+
     - name: Setup desktop files in /home folder
       include_role:
         name: tools
