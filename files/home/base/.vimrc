@@ -94,9 +94,8 @@ syntax enable
 set t_Co=256				" Must be BEFORE the colorscheme
 " hi Normal           ctermfg=253             ctermbg=none cterm=none " Set transparent background
 " Use colorscheme if installed
-if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/lucius.vim"))
-	let g:lucius_no_term_bg=1   " Transparent background
-	colorscheme lucius
+if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/oceanblack.vim"))
+	colorscheme oceanblack
 endif
 
 "
