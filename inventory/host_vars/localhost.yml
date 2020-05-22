@@ -13,6 +13,7 @@ package_state_default: "present"
 # - http://docs.ansible.com/ansible/yum_module.html
 base_packages:
   # Base
+  - { name: "bat", state: "{{ package_state_default }}" }
   - { name: "bash-completion", state: "{{ package_state_default }}" }
   - { name: "bash", state: "{{ package_state_default }}" }
   - { name: "bind-utils", state: "{{ package_state_default }}" }
