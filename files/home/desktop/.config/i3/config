@@ -159,16 +159,16 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # Icons: https://nerdfonts.com/#cheat-sheet
-set $ws1 "1: Web "
-set $ws2 "2: Editor "
-set $ws3 "3: PHP "
+set $ws1 "1: Home "
+set $ws2 "2: Web "
+set $ws3 "3: Vim "
 set $ws4 "4: Shell ﲵ"
-set $ws5 "5: Remote "
+set $ws5 "5: PHP "
 set $ws6 "6: Skype "
-set $ws7 "7: Video "
-set $ws8 "8: Misc "
+set $ws7 "7: Remote "
+set $ws8 "8: Video "
 set $ws9 "9: Misc "
-set $ws10 "10: Misc "
+set $ws10 "10: Fun "
 
 # allow workspace renaming
 bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'new name: '
