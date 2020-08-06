@@ -236,15 +236,6 @@ bar {
         status_command i3status
 		tray_output none
 		#output primary
-		colors {
-			background $col-bg-inactive
-			separator $col-bg-inactive
-
-			#                            border           background       text
-			focused_workspace            $col-bg-active   $col-bg-active   $col-text-active
-			inactive_workspace           $col-bg-inactive $col-bg-inactive $col-text-inactive
-			urgent_workspace             $col-bg-urgent   $col-bg-urgent   $col-text-active
-		}
 }
 
 for_window [window_role="task_dialog|app|bubble|pop-up|page-info|Preferences"] floating enable
@@ -252,4 +243,8 @@ for_window [title="Pages Unresponsive"] floating enable
 for_window [class="Shutter"] floating enable
 for_window [class="Nm-connection-editor" instance="nm-connection-editor"] floating enable
 
+# Find the class with: xprop | grep -i class
+assign [class="Google-chrome"] $ws2
+assign [class="Slack"] $ws2
 assign [class="Skype"] $ws6
+
