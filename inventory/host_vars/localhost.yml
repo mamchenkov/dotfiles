@@ -115,6 +115,11 @@ devel_packages:
   # MySQL/MariaDB
   - { name: "mariadb", state: "{{ package_state_default }}" }
   - { name: "mariadb-server", state: "{{ package_state_default }}" }
+  # NodeJS/NPM
+  - { name: "npm", state: "{{ package_state_default }}" }
+  # AWS CLI
+  - { name: "aws", state: "{{ package_state_default }}" }
+  - { name: "awscli", state: "{{ package_state_default }}" }
 
 # geerlingguy.composer : Put in /usr/bin/
 composer_path: /usr/bin/composer
