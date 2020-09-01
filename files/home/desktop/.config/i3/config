@@ -248,3 +248,7 @@ assign [class="Google-chrome"] $ws2
 assign [class="Slack"] $ws2
 assign [class="Skype"] $ws6
 
+# Organize workspaces between multiple monitors
+workspace $ws1 output primary
+workspace $ws2 output HDMI-1 primary
+workspace $ws6 output primary
