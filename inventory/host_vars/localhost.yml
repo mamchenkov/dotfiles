@@ -81,6 +81,7 @@ desktop_packages:
   - { name: "pulseaudio-utils", state: "{{ package_state_default }}" }
   - { name: "xbacklight", state: "{{ package_state_default }}" }
   - { name: "arandr", state: "{{ package_state_default }}" }
+  - { name: "compton", state: "{{ package_state_default }}" }
 
 # GUI related files to download on desktops
 # For parameters see:

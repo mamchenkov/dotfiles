@@ -39,6 +39,7 @@ hide_edge_borders both
 focus_follows_mouse no
 # Transparency and window fading
 #exec --no-startup-id "xcompmgr -c -f -n"
+exec --no-startup-id compton --config ~/.config/i3/compton.conf
 # US/RU keyboard layouts (switch with Right Ctrl)
 exec --no-startup-id "setxkbmap -model pc105 -layout us,ru -variant ,legacy -option grp:rctrl_toggle"
 # Start NetworkManager applet
