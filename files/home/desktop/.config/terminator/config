@@ -1,17 +1,33 @@
 [global_config]
-  broadcast_default = off
-  enabled_plugins = TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   handle_size = 5
-  homogeneous_tabbar = False
-  inactive_color_offset = 1.0
+  broadcast_default = off
   scroll_tabbar = True
-  title_font = SauceCodePro Nerd Font Semi-Bold 8
+  homogeneous_tabbar = False
   title_hide_sizetext = True
+  inactive_color_offset = 1.0
+  enabled_plugins = TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   title_use_system_font = False
+  title_font = SauceCodePro Nerd Font Semi-Bold 8
 [keybindings]
-  full_screen = <Primary><Shift>F11
-  scaled_zoom = <Primary><Shift>z
   toggle_zoom = F11
+  scaled_zoom = <Primary><Shift>z
+  full_screen = <Primary><Shift>F11
+[profiles]
+  [[default]]
+    allow_bold = False
+    background_darkness = 0.49
+    background_type = transparent
+    cursor_color = "#839496"
+    font = SauceCodePro Nerd Font Semi-Bold 10
+    foreground_color = "#ffffff"
+    show_titlebar = False
+    scrollbar_position = hidden
+    scrollback_infinite = True
+    palette = "#000000:#aa0000:#00aa00:#aa5500:#0000aa:#aa00aa:#00aaaa:#aaaaaa:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
+    login_shell = True
+    use_system_font = False
+    copy_on_selection = True
+    background_image = /home/leonid/Pictures/Backgrounds/black-wood.jpg
 [layouts]
   [[default]]
     [[[child1]]]
@@ -21,17 +37,3 @@
       parent = ""
       type = Window
 [plugins]
-[profiles]
-  [[default]]
-    allow_bold = False
-    background_darkness = 0.82
-    copy_on_selection = True
-    cursor_color = "#839496"
-    font = SauceCodePro Nerd Font Semi-Bold 10
-    foreground_color = "#ffffff"
-    login_shell = True
-    palette = "#000000:#aa0000:#00aa00:#aa5500:#0000aa:#aa00aa:#00aaaa:#aaaaaa:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
-    scrollback_infinite = True
-    scrollbar_position = hidden
-    show_titlebar = False
-    use_system_font = False
