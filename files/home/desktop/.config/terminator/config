@@ -14,8 +14,7 @@
   full_screen = <Primary><Shift>F11
 [profiles]
   [[default]]
-    allow_bold = False
-    background_darkness = 0.49
+    background_darkness = 0.9
     background_type = transparent
     cursor_color = "#839496"
     font = SauceCodePro Nerd Font Semi-Bold 10
@@ -28,6 +27,7 @@
     use_system_font = False
     copy_on_selection = True
     background_image = /home/leonid/Pictures/Backgrounds/black-wood.jpg
+    background_alpha = 0.4
 [layouts]
   [[default]]
     [[[child1]]]
