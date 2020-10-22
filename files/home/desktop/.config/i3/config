@@ -37,15 +37,15 @@ hide_edge_borders both
 # 
 # Click to focus
 focus_follows_mouse no
-# Transparency and window fading
-#exec --no-startup-id "xcompmgr -c -f -n"
-exec --no-startup-id compton --config ~/.config/i3/compton.conf
 # US/RU keyboard layouts (switch with Right Ctrl)
 exec --no-startup-id "setxkbmap -model pc105 -layout us,ru -variant ,legacy -option grp:rctrl_toggle"
 # Start NetworkManager applet
 exec --no-startup-id nm-applet
 # Set background image
 exec --no-startup-id feh --bg-scale ~/Pictures/Backgrounds/black-wood.jpg
+# Transparency and window fading
+#exec --no-startup-id "xcompmgr -c -f -n"
+#exec --no-startup-id compton --config ~/.config/i3/compton.conf
 # Shutdown, reboot, and lock with Alt+Delete
 set $Locker i3lock -e -f -t -i ~/Pictures/Backgrounds/Locked/locks.png && sleep 1
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
