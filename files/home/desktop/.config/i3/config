@@ -39,13 +39,19 @@ hide_edge_borders both
 focus_follows_mouse no
 # US/RU keyboard layouts (switch with Right Ctrl)
 exec --no-startup-id "setxkbmap -model pc105 -layout us,ru -variant ,legacy -option grp:rctrl_toggle"
+# Start up MATE stuff
+exec --no-startup-id mate-settings-daemon
+exec --no-startup-id mate-power-manager
+exec --no-startup-id blueman-applet
 # Start NetworkManager applet
 exec --no-startup-id nm-applet
+
 # Set background image
 exec --no-startup-id feh --bg-scale ~/Pictures/Backgrounds/black-wood.jpg
 # Transparency and window fading
 #exec --no-startup-id "xcompmgr -c -f -n"
-#exec --no-startup-id compton --config ~/.config/i3/compton.conf
+exec --no-startup-id compton --config ~/.config/i3/compton.conf
+
 # Shutdown, reboot, and lock with Alt+Delete
 set $Locker i3lock -e -f -t -i ~/Pictures/Backgrounds/Locked/locks.png && sleep 1
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
@@ -61,8 +67,10 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 bindsym $mod+Ctrl+Delete mode "$mode_system"
+
 # Screenshot
 bindsym Print exec mate-screenshot --interactive
+
 # pulse audio volume control
 # thanks to: https://i3wm.org/docs/user-contributed/lzap-config.html
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse set Master 5%- unmute
