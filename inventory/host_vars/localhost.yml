@@ -63,6 +63,7 @@ desktop_packages:
   - { name: "hexchat", state: "{{ package_state_default }}" }
   - { name: "terminator", state: "{{ package_state_default }}" }
   - { name: "zeal", state: "{{ package_state_default }}" }
+  - { name: "pcmanfm", state: "{{ package_state_default }}" }
   # GNOME Desktop Manager (systemctl disable lightdm.service && systemctl enable gdm.service)
   - { name: "gdm", state: "{{ package_state_default }}" }
   # MATE Desktop Manager
