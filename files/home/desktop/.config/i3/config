@@ -50,7 +50,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id feh --bg-scale ~/Pictures/Backgrounds/black-wood.jpg
 # Transparency and window fading
 #exec --no-startup-id "xcompmgr -c -f -n"
-exec --no-startup-id compton --config ~/.config/i3/compton.conf
+#exec --no-startup-id compton --config ~/.config/i3/compton.conf
 
 # Shutdown, reboot, and lock with Alt+Delete
 set $Locker i3lock -e -f -t -i ~/Pictures/Backgrounds/Locked/locks.png && sleep 1
@@ -242,17 +242,29 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
-		tray_output none
+        status_command /home/leonid/bin/i3status.sh
+        #status_command i3status
+		#tray_output none
 		#output primary
 }
 
-for_window [window_role="task_dialog|app|bubble|pop-up|page-info|Preferences"] floating enable
+# popups
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="app"] floating enable
+for_window [window_role="page-info"] floating enable
+for_window [window_role="Preferences"] floating enable
+# Unresponsive pages in Google Chrome
 for_window [title="Pages Unresponsive"] floating enable
+
+# float programs(find the programs'names in "/usr/share/applictions")
 for_window [class="Shutter"] floating enable
+for_window [class="Gimp"] floating enable
 for_window [class="Nm-connection-editor" instance="nm-connection-editor"] floating enable
 
 # Find the class with: xprop | grep -i class
+assign [class="Pcmanfm"] $ws1
 assign [class="Google-chrome"] $ws2
 assign [class="Slack"] $ws2
 assign [class="Skype"] $ws6
