@@ -1,41 +1,44 @@
-#### Conky configuration file
-## to replace the i3status for i3bar
-# This script was partly stolen from a website I can't remember.
-out_to_x no
-own_window no
-out_to_console yes
-background no
-max_text_width 0
+conky.config = {
+--### Conky configuration file
+--# to replace the i3status for i3bar
+-- This script was partly stolen from a website I can't remember.
+	out_to_x = false,
+	own_window = false,
+	out_to_console = true,
+	background = false,
+	max_text_width = 0,
 
-# Update interval in seconds
-update_interval 1.0
+-- Update interval in seconds
+	update_interval = 1.0,
 
-# This is the number of times Conky will update before quitting.
-# Set to zero to run forever.
-total_run_times 0
+-- This is the number of times Conky will update before quitting.
+-- Set to zero to run forever.
+	total_run_times = 0,
 
-# Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
-short_units yes
+-- Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
+	short_units = true,
 
-# How strict should if_up be when testing an interface for being up?
-# The value is one of up, link or address, to check for the interface
-# being solely up, being up and having link or being up, having link
-# and an assigned IP address. 
-if_up_strictness address
+-- How strict should if_up be when testing an interface for being up?
+-- The value is one of up, link or address, to check for the interface
+-- being solely up, being up and having link or being up, having link
+-- and an assigned IP address. 
+	if_up_strictness = 'address',
 
-# Add spaces to keep things from moving about?  This only affects certain objects.
-# use_spacer should have an argument of left, right, or none
-use_spacer left
+-- Add spaces to keep things from moving about?  This only affects certain objects.
+-- use_spacer should have an argument of left, right, or none
+	use_spacer = 'left',
 
-# Force UTF8? note that UTF8 support required XFT
-override_utf8_locale no
+-- Force UTF8? note that UTF8 support required XFT
+	override_utf8_locale = false,
 
-# number of cpu samples to average
-# set to 1 to disable averaging
-cpu_avg_samples 2
+-- number of cpu samples to average
+-- set to 1 to disable averaging
+	cpu_avg_samples = 2,
 
-# Stuff after 'TEXT' will be formatted on screen
-TEXT
+-- Stuff after 'TEXT' will be formatted on screen
+};
+
+conky.text = [=[
 
 # JSON for i3bar
 [
@@ -144,3 +147,4 @@ TEXT
 ### time and date
 ## ${time %a %d.%m.%y} penis ${time %H:%M}\
 #
+]=];
