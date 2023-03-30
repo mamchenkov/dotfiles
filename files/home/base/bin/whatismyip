@@ -3,11 +3,11 @@
 #
 # Print out IP addresses, both internal and external.   The internal 
 # IP addreses DO NOT include the localhost 127.0.0.1.  The remote IP
-# address uses WhatIsMyIp.com service, as well as whois information
-# to show the ISP.
-#
+# address uses ipify.org service.
 
 use strict;
+use warnings;
+use LWP::UserAgent;
 
 if ($ARGV[0] && $ARGV[0] eq 'local') {
 	local_ip();
@@ -32,27 +32,8 @@ sub local_ip {
 
 sub remote_ip {
 
-	my $user_agent_string = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0)';
-	my $remote_ip_url = 'http://automation.whatismyip.com/n09230945.asp';
+	my $ua = new LWP::UserAgent();
+	my $ip = $ua->get('https://api.ipify.org')->content;
+	print "$ip remote\n";
 
-	my $remote_ip = `wget -q -O - --user-agent="$user_agent_string" $remote_ip_url`;
-
-	if ($remote_ip) {
-		my @whois = `whois $remote_ip`;
-		my $printed = 0;
-		foreach (@whois) {
-			chomp;
-			if (m/^netname:/) {
-				s/^netname:\s+//;
-				print "$remote_ip $_";
-				$printed++;
-			}
-		}
-		if (!$printed) {
-			print $remote_ip;
-		}
-	}
-	else {
-		print "Failed to establish remote IP address";
-	}
 }
