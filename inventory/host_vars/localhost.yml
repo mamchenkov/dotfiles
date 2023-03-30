@@ -18,6 +18,7 @@ base_packages:
   - { name: "bash", state: "{{ package_state_default }}" }
   - { name: "bind-utils", state: "{{ package_state_default }}" }
   - { name: "grep", state: "{{ package_state_default }}" }
+  - { name: "hstr", state: "{{ package_state_default }}" }
   - { name: "htop", state: "{{ package_state_default }}" }
   - { name: "mc", state: "{{ package_state_default }}" }
   - { name: "mutt", state: "{{ package_state_default }}" }
