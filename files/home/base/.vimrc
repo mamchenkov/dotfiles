@@ -107,6 +107,11 @@ set path+=**
 " Update gitgutter, matchit, polyglot, etc every 500ms instead of default 4s
 set updatetime=500
 
+" Arrow key fix (https://github.com/spf13/spf13-vim/issues/780)
+if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
+	inoremap <silent> <C-[>OC <RIGHT>
+endif
+
 "
 " Vim UI
 "
