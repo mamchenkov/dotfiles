@@ -305,7 +305,7 @@ function fancyprompt {
 			GIT_DIRTY="$IRed$GIT_DIRTY"
 		fi
 		# Bright yellow for master branch, purple for everything else
-		if [ "$GIT_BRANCH" == "master" ] || [ "$GIT_BRANCH" == "main" ]]
+		if [ "$GIT_BRANCH" == "master" ] || [ "$GIT_BRANCH" == "main" ] 
 			then
 				GIT_BRANCH_COLOR=$IYellow
 			else
