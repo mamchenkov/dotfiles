@@ -55,6 +55,7 @@ export EDITOR="$(which --skip-alias vim) -X"
 export LC_TIME=en_US
 export HISTTIMEFORMAT="%F %T " # Always inclulde space before final quote
 export HISTCONTROL=ignoredups:ignorespace
+export HSTR_CONFIG=hicolor
 export MOZ_NO_REMOTE=1
 
 # Shorten and simplify cd
