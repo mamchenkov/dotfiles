@@ -58,8 +58,11 @@ export HISTCONTROL=ignoredups:ignorespace
 export HSTR_CONFIG=hicolor
 export MOZ_NO_REMOTE=1
 
-# Shorten and simplify cd
-export CDPATH=.:~:~/Work:~/Development:/var/www/html:/var/www/vhosts
+# Shorten and simplify cd (only in interactive shell)
+if test "${PS1+set}"
+then
+	export CDPATH=.:~:~/Work:~/Development:/var/www/html:/var/www/vhosts
+fi
 # Do not save these commands to history
 export HISTIGNORE="&:[ ]*:exit:ls:ll:bg:fg:h:history:clear"
 # Ignore files matching this suffixes from completion
