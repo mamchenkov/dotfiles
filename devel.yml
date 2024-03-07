@@ -17,5 +17,8 @@
       service: name=mariadb state=started enabled=true
 
   roles:
+    #- geerlingguy.repo-epel
+    #- geerlingguy.repo-remi
+    #- geerlingguy.php
     - geerlingguy.composer
     - andrewrothstein.terraform

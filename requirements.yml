@@ -4,5 +4,8 @@
 # Install with: ansible-galaxy install -r requirements.yml
 #
 - src: geerlingguy.composer
+- src: geerlingguy.repo-epel
+- src: geerlingguy.repo-remi
+- src: geerlingguy.php
 - src: cmprescott.chrome
 - src: andrewrothstein.terraform

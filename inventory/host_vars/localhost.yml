@@ -65,6 +65,7 @@ desktop_packages:
   - { name: "terminator", state: "{{ package_state_default }}" }
   - { name: "zeal", state: "{{ package_state_default }}" }
   - { name: "pcmanfm", state: "{{ package_state_default }}" }
+  - { name: "keepassxc", state: "{{ package_state_default }}" }
   # GNOME Desktop Manager (systemctl disable lightdm.service && systemctl enable gdm.service)
   - { name: "gdm", state: "{{ package_state_default }}" }
   # MATE Desktop Manager
@@ -115,6 +116,7 @@ devel_packages:
   - { name: "php-process", state: "{{ package_state_default }}" }
   - { name: "php-soap", state: "{{ package_state_default }}" }
   - { name: "php-xml", state: "{{ package_state_default }}" }
+  - { name: "php-imap", state: "{{ package_state_default }}" }
   # MySQL/MariaDB
   - { name: "mariadb", state: "{{ package_state_default }}" }
   - { name: "mariadb-server", state: "{{ package_state_default }}" }
@@ -123,6 +125,12 @@ devel_packages:
   # AWS CLI
   - { name: "aws", state: "{{ package_state_default }}" }
   - { name: "awscli", state: "{{ package_state_default }}" }
+
+# Use remi repo for PHP
+php_enablerepo: "remi"
+# list of PHP packages to install
+php_packages_extra:
+  - php-imap
 
 # geerlingguy.composer : Put in /usr/bin/
 composer_path: /usr/bin/composer
