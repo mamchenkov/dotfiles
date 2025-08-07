@@ -40,8 +40,8 @@ Here is a brief overview of some of the features hidden deep in these dotfiles.
 
 ### Bash shell
 
-1.	Colorful prompt, featuring current time, username, hostname, working directory, as wel as Git information.
-	When working whitin in git repository, the prompt will show the name of the current git branch, as well as 
+1.	Colorful prompt, featuring current time, username, hostname, working directory, as well as Git information.
+	When working within a Git repository, the prompt will show the name of the current git branch, as well as 
 	a little "M" flag, if the working directory is dirty (if it was modified).  The prompt will also change
 	background color from blue to red, when working as root user, provided you have installed dotfiles for both
 	your normal user and root.
