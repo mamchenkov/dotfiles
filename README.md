@@ -4,6 +4,19 @@ DOTFILES
 This repository contains most of my "movable" setup.  Mostly these are configurations
 for bash shell, git version control, and Vim text editor.
 
+
+Prerequisites
+-------------
+
+This setup can work on a variety of systems (RedHat-based especially).  However, I
+mostly use it for my workstation, which runs:
+
+- Fedora 41 (or whatever is the latest at the time)
+- Python 3
+- Ansible 2
+- Vim 9
+
+
 Installation
 ------------
 
@@ -32,6 +45,16 @@ $ ansible-playbook all.yml --skip-tags="network,packages"
 
 If you want to install/configure only certain parts, replace `all.yml` in the commands
 above with of the other playbooks.
+
+Playbooks
+---------
+
+The following playbooks are available:
+* `base.yml` - this is the safest and simplest base setup. Recommended for the first use.
+* `devel.yml` - installs some of the developer tools, such as PHP, Composer, and MySQL
+* `desktop.yml` - installs and configures my GUI desktop (MATE and i3)
+* `all.yml` - installs everything from the above playbooks
+
 
 Features
 --------
