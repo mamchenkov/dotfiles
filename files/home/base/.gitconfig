@@ -1,3 +1,71 @@
+############################################################################
+# USER & GITHUB CONFIG
+############################################################################
+
+[user]
+	name = Leonid Mamchenkov
+	email = leonid@mamchenkov.net
+
+[github]
+	user = mamchenkov
+
+[init]
+	defaultBranch = master
+
+############################################################################
+# CORE SETTINGS
+############################################################################
+
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+
+[diff]
+	noprefix = true
+
+[diff "image"]
+	textconv = identify
+
+############################################################################
+# COLOR THEMING
+############################################################################
+
+[color]
+	ui = true
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = red
+
+############################################################################
+# MERGE / CONFLICTS
+############################################################################
+
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+
+[mergetool]
+	prompt = false
+
+############################################################################
+# ALIASES
+############################################################################
+#
 [alias]
 	st = status
 	ci = commit
@@ -13,39 +81,26 @@
 	diffstat = diff --stat
 	fullchangelog = log ORIG_HEAD.. --reverse --no-merges
 	changelog = log ORIG_HEAD.. --reverse --no-merges --pretty=format:'* %s'
-[color]
-	ui = true
-[color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
-[color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
-[color "status"]
-	added = green
-	changed = yellow
-	untracked = red
-[core]
-	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	editor = vim
-	excludesfile = ~/.gitignore
-[diff "image"]
-	textconv = identify
-[merge]
-	tool = vimdiff
-	conflictstyle = diff3
-[mergetool]
-	prompt = false
-[diff]
-	noprefix = true
-[github]
-	user = mamchenkov
-[user]
-	name = Leonid Mamchenkov
-	email = leonid@mamchenkov.net
-[init]
-	defaultBranch = master
+
+###############################################################################
+# OPTIONAL ENHANCEMENTS (Uncomment if needed)
+###############################################################################
+
+#[commit]
+#    gpgsign = true
+
+#[user]
+#    signingkey = ABC1234567890
+
+#[credential]
+#    helper = store
+
+#[pager]
+#    diff = delta
+#    log = delta
+#    show = delta
+#    reflog = delta
+
+#[delta]
+#    features = side-by-side line-numbers decorations
+
