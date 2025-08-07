@@ -4,18 +4,19 @@
 # Guide and the rest of the Web.  Thanks to all who helped along the
 # way.
 
+# ------------------------------------------------------------------
+# 0. Source global definitions
+# ------------------------------------------------------------------
+[ -f /etc/bashrc ] && source /etc/bashrc
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
-
-# If not running interactively, don't do anything
+# ------------------------------------------------------------------
+# 1. Exit if not running interactively
+# ------------------------------------------------------------------
 [ -z "$PS1" ] && return
 
-#
-# Switch terminal to support 256 colors, if possible
-# 
+# ------------------------------------------------------------------
+# 2. Terminal Settings (256 color support
+# ------------------------------------------------------------------
 case $TERM in
 	xterm*)
 		# Check if the terminal supports 256 colors
@@ -30,12 +31,11 @@ case $TERM in
 		;;
 esac
 
-#
-# Various useful functions
-# 
+# ------------------------------------------------------------------
+# 3. Functions
+# ------------------------------------------------------------------
 
 # Check if command exists
-# 
 # Usage: have fortune && fortune
 function have() { 
 	type "$1" &> /dev/null; 
@@ -46,16 +46,21 @@ function top10() {
 	history | awk '{a[$4]++ } END{for(i in a){print a[i] " " i}}'|sort -rn |head -n 10
 }
 
-# 
-# Export some useful variables
-# 
+
+# ------------------------------------------------------------------
+# 4. Environment variables and shell behavior
+# ------------------------------------------------------------------
 export PATH=./bin/:./vendor/bin:$HOME/bin:$HOME/dotfiles/bin:$PATH
 export PAGER="$(which --skip-alias less) -RFSinX"
 export EDITOR="$(which --skip-alias vim) -X"
 export LC_TIME=en_US
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 export HISTTIMEFORMAT="%F %T " # Always inclulde space before final quote
 export HISTCONTROL=ignoredups:ignorespace
+export HISTIGNORE="&:[ ]*:exit:ls:ll:bg:fg:h:history:clear" # Do not save these commands to history
 export HSTR_CONFIG=hicolor
+export PROMPT_DIRTRIM=2 # Automatically trim long paths in prompt (requires Bash 4.x)
 export MOZ_NO_REMOTE=1
 
 # Shorten and simplify cd (only in interactive shell)
@@ -63,46 +68,12 @@ if test "${PS1+set}"
 then
 	export CDPATH=.:~:~/Work:~/Development:/var/www/html:/var/www/vhosts
 fi
-# Do not save these commands to history
-export HISTIGNORE="&:[ ]*:exit:ls:ll:bg:fg:h:history:clear"
 # Ignore files matching this suffixes from completion
 export FIGNORE="$FIGNORE:.svn"
-# Automatically trim long paths in prompt (requries Bash 4.x)
-export PROMPT_DIRTRIM=2
 
 # When displaying prompt, write previous command to history file so that,
 # any new shell immediately gets the history lines from all previous shells.
-PROMPT_COMMAND='history -a'
-
-# 
-# Aliases
-# 
-alias v="$EDITOR"
-alias vi="$EDITOR"
-alias vim="$EDITOR"
-alias vd="$EDITOR -d"
-alias ll="ls -al --group-directories-first"
-alias cat="bat"
-alias df="df -kTh"
-alias du="du -kh"
-alias ..="cd ..;"
-alias ...="cd ..;"
-alias h="hstr"
-alias traceroute="traceroute -I"
-alias who="who -HT"
-alias mkdir="mkdir -p"
-alias path="echo -e ${PATH//:/\\\\n}"
-
-alias head='head -n $((${LINES:-12}-2))' #as many as possible without scrolling
-alias tail='tail -n $((${LINES:-12}-2)) -s.1' #Likewise, also more responsive -f
-
-# what most people want from od (hexdump)
-alias hd='od -Ax -tx1z -v'
-
-# Leaving
-alias quit="exit"
-alias bye="exit"
-
+export PROMPT_COMMAND='history -a'
 # 
 # Less pager colors for man pages
 # Source:
@@ -144,9 +115,40 @@ shopt -s histappend histreedit histverify # better history management
 shopt -u mailwarn
 unset MAILCHECK
 
-#
-# Build shell prompt
-# 
+
+# ------------------------------------------------------------------
+# 5. Aliases
+# ------------------------------------------------------------------
+alias v="$EDITOR"
+alias vi="$EDITOR"
+alias vim="$EDITOR"
+alias vd="$EDITOR -d"
+alias ll="ls -al --group-directories-first"
+alias cat="bat"
+alias df="df -kTh"
+alias du="du -kh"
+alias ..="cd ..;"
+alias ...="cd ..;"
+alias h="hstr"
+alias traceroute="traceroute -I"
+alias who="who -HT"
+alias mkdir="mkdir -p"
+alias path="echo -e ${PATH//:/\\\\n}"
+
+alias head='head -n $((${LINES:-12}-2))' #as many as possible without scrolling
+alias tail='tail -n $((${LINES:-12}-2)) -s.1' #Likewise, also more responsive -f
+
+# what most people want from od (hexdump)
+alias hd='od -Ax -tx1z -v'
+
+# Leaving
+alias quit="exit"
+alias bye="exit"
+
+# ------------------------------------------------------------------
+# 6. Git-aware prompt
+# ------------------------------------------------------------------
+
 # Most of the code is from: https://gist.github.com/293517
 
 # Bash colors from https://wiki.archlinux.org/index.php/Color_Bash_Prompt
@@ -354,13 +356,17 @@ case "$TERM" in
 		;;
 esac
 
-# 
-# Last bits
-# 
+# ------------------------------------------------------------------------------
+# 7. Local Customization Hook
+# ------------------------------------------------------------------------------
+[ -f ~/.bashrc_custom ] && source ~/.bashrc_custom
+
+# ------------------------------------------------------------------------------
+# 8. Last bits
+# ------------------------------------------------------------------------------
 
 # Show host information
 #have whereami && whereami
 
 # Show thought of the day
 #have fortune && echo Thought of the day: && fortune -s && echo
-
