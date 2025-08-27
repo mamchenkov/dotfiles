@@ -37,28 +37,31 @@ esac
 
 # Check if command exists
 # Usage: have fortune && fortune
-function have() { 
-	type "$1" &> /dev/null; 
-}
+have() { type "$1" &> /dev/null; }
 
 # Show top 10 commands in history
-function top10() {
-	history | awk '{a[$4]++ } END{for(i in a){print a[i] " " i}}'|sort -rn |head -n 10
-}
+top10() { history | awk '{a[$4]++ } END{for(i in a){print a[i] " " i}}'|sort -rn |head -n 10 }
 
 
 # ------------------------------------------------------------------
 # 4. Environment variables and shell behavior
 # ------------------------------------------------------------------
 export PATH=./bin/:./vendor/bin:$HOME/bin:$HOME/dotfiles/bin:$PATH
+# Android Emulator
+export ANDROID_HOME=$HOME/.var/app/com.google.AndroidStudio/data/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
+
 export PAGER="$(which --skip-alias less) -RFSinX"
-export EDITOR="$(which --skip-alias vim) -X"
+export EDITOR="$(which --skip-alias vim)"
 export LC_TIME=en_US
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export HISTTIMEFORMAT="%F %T " # Always inclulde space before final quote
 export HISTCONTROL=ignoredups:ignorespace
 export HISTIGNORE="&:[ ]*:exit:ls:ll:bg:fg:h:history:clear" # Do not save these commands to history
+# Unlimited buffer and file size for history
+export HISTSIZE=
+export HISTFILESIZE=
 export HSTR_CONFIG=hicolor
 export PROMPT_DIRTRIM=2 # Automatically trim long paths in prompt (requires Bash 4.x)
 export MOZ_NO_REMOTE=1
