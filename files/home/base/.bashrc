@@ -30,7 +30,6 @@ case $TERM in
 		export TERM='linux'
 		;;
 esac
-
 # ------------------------------------------------------------------
 # 3. Functions
 # ------------------------------------------------------------------
@@ -40,7 +39,9 @@ esac
 have() { type "$1" &> /dev/null; }
 
 # Show top 10 commands in history
-top10() { history | awk '{a[$4]++ } END{for(i in a){print a[i] " " i}}'|sort -rn |head -n 10 }
+top10() { 
+	history | awk '{a[$4]++ } END{for(i in a){print a[i] " " i}}' | sort -rn | head -n 10 
+}
 
 
 # ------------------------------------------------------------------
@@ -127,7 +128,7 @@ alias vi="$EDITOR"
 alias vim="$EDITOR"
 alias vd="$EDITOR -d"
 alias ll="ls -al --group-directories-first"
-alias cat="bat"
+alias cat="bat -pp"
 alias df="df -kTh"
 alias du="du -kh"
 alias ..="cd ..;"
@@ -136,7 +137,7 @@ alias h="hstr"
 alias traceroute="traceroute -I"
 alias who="who -HT"
 alias mkdir="mkdir -p"
-alias path="echo -e ${PATH//:/\\\\n}"
+alias path='echo -e "${PATH//:/\\n}"'
 
 alias head='head -n $((${LINES:-12}-2))' #as many as possible without scrolling
 alias tail='tail -n $((${LINES:-12}-2)) -s.1' #Likewise, also more responsive -f
@@ -222,7 +223,8 @@ BIWhite="\[\e[1;97m\]"      # White
 # High Intensity backgrounds
 On_IBlack="\[\e[0;100m\]"   # Black
 On_IRed="\[\e[0;101m\]"     # Red
-On_IGreen="\[\e[0;102m\]"   # Green On_IYellow='\e[0;103m'  # Yellow
+On_IGreen="\[\e[0;102m\]"   # Green
+On_IYellow="\[\e[0;103m\]"  # Yellow
 On_IBlue="\[\e[0;104m\]"    # Blue
 On_IPurple="\[\e[0;105m\]"  # Purple
 On_ICyan="\[\e[0;106m\]"    # Cyan
@@ -248,7 +250,7 @@ function __git_branch {
 }
 
 function terminal_title {
-	echo "\\[\\033]0;\\u@\\H:\\w\\007\\]"
+	printf "\[\033]0;%s@%s:%s\007\]" "\u" "\H" "\w"
 }
 
 function fancyprompt {
@@ -314,10 +316,10 @@ function fancyprompt {
 		fi
 		# Bright yellow for master branch, purple for everything else
 		if [ "$GIT_BRANCH" == "master" ] || [ "$GIT_BRANCH" == "main" ] 
-			then
-				GIT_BRANCH_COLOR=$IYellow
-			else
-				GIT_BRANCH_COLOR=$Purple
+		then
+			GIT_BRANCH_COLOR=$IYellow
+		else
+			GIT_BRANCH_COLOR=$Purple
 		fi
 		GIT_BRANCH="$FEEL_COLOR⎇ ${GIT_BRANCH_COLOR}$GIT_BRANCH$GIT_DIRTY$FEEL_COLOR"
 	fi
