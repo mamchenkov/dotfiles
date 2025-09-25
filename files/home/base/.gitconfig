@@ -81,6 +81,9 @@
 	diffstat = diff --stat
 	fullchangelog = log ORIG_HEAD.. --reverse --no-merges
 	changelog = log ORIG_HEAD.. --reverse --no-merges --pretty=format:'* %s'
+	issues = !"git-issues"
+	issues-urls = !"git-issues --format='%url'"
+	issues-report = !"git-issues --format='* %title (%iid)'"
 
 ###############################################################################
 # OPTIONAL ENHANCEMENTS (Uncomment if needed)

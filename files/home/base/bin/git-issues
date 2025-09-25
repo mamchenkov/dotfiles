@@ -1,0 +1,201 @@
+#!/usr/bin/env bash
+# git-issues: Print GitLab issues referenced since the latest tag, with flexible formatting.
+#
+# Usage:
+#   git-issues [BRANCH]
+#   git-issues --format="* %title (%iid)"
+#   git-issues --format="%url"
+#
+# Placeholders:
+#   %iid    -> "#123"
+#   %n      -> "123"
+#   %url    -> "https://<host>/<group>/<project>/-/issues/123"
+#   %title  -> GitLab Issue Title   (requires API token + jq; auto-enabled if used)
+#
+# Options:
+#   -b, --body         Search full commit messages (default: subjects only).
+#   -r, --remote R     Remote name (default: origin).
+#   -t, --tag TAG      Start at a specific tag instead of the latest tag.
+#   --format=FMT       Output format template (default: "%iid").
+#   -h, --help         Show help.
+#
+# Auth for %title:
+#   export GITLAB_TOKEN=glpat-xxxx
+#   # or
+#   git config --global gitlab.token glpat-xxxx
+#
+# Dependencies (only if %title is used): curl, jq
+
+set -euo pipefail
+IFS=$'\n\t'
+
+branch="master"
+remote_name="origin"
+search_pretty="%s"
+start_tag=""
+format="%iid"   # default: just the list of issues as "#123"
+
+print_help() {
+  sed -n '1,120p' "$0" | sed 's/^# \{0,1\}//'
+}
+
+# ---- arg parsing ----
+for arg in "$@"; do
+  case "$arg" in
+    --format=*) format="${arg#--format=}";;
+  esac
+done
+
+# Now parse the rest (keeping branch as a positional)
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -b|--body)    search_pretty="%B"; shift ;;
+    -r|--remote)  remote_name="${2:-}"; shift 2 ;;
+    -t|--tag)     start_tag="${2:-}"; shift 2 ;;
+    --format=*)   shift ;; # already handled above
+    -h|--help)    print_help; exit 0 ;;
+    -*)
+      echo "Unknown option: $1" >&2; exit 2 ;;
+    *)
+      branch="$1"; shift ;;
+  esac
+done
+
+needs_title=false
+if [[ "$format" == *"%title"* ]]; then
+  needs_title=true
+fi
+needs_url=false
+if [[ "$format" == *"%url"* ]]; then
+  needs_url=true
+fi
+
+# ---- repo checks ----
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || {
+  echo "Not inside a git repository." >&2; exit 1;
+}
+
+# ---- tag / range ----
+if [[ -z "$start_tag" ]]; then
+  if ! start_tag="$(git describe --tags --abbrev=0 2>/dev/null)"; then
+    echo "No tags found to diff from. Use -t/--tag to specify one." >&2
+    exit 1
+  fi
+else
+  git rev-parse --verify -q "$start_tag" >/dev/null || {
+    echo "Tag not found: $start_tag" >&2; exit 1;
+  }
+fi
+
+if git rev-parse --verify -q "$branch" >/dev/null; then
+  end_ref="$branch"
+else
+  end_ref="HEAD"
+fi
+range="${start_tag}..${end_ref}"
+
+# ---- derive host/path and base URL ----
+remote_url="$(git remote get-url "$remote_name")" || {
+  echo "Failed to get URL for remote '$remote_name'." >&2; exit 1;
+}
+
+host=""
+path=""
+if [[ "$remote_url" =~ ^ssh://git@([^/:]+)(:[0-9]+)?/(.+?)(\.git)?$ ]]; then
+  host="${BASH_REMATCH[1]}"
+  path="${BASH_REMATCH[3]}"
+elif [[ "$remote_url" =~ ^git@([^:]+):(.+?)(\.git)?$ ]]; then
+  host="${BASH_REMATCH[1]}"
+  path="${BASH_REMATCH[2]}"
+elif [[ "$remote_url" =~ ^https?://([^/]+)/(.+?)(\.git)?$ ]]; then
+  host_port="${BASH_REMATCH[1]}"
+  host="${host_port%%:*}" # strip port if present
+  path="${BASH_REMATCH[2]}"
+else
+  echo "Unsupported remote URL format: $remote_url" >&2
+  exit 1
+fi
+path="${path%.git}"
+web_base="https://${host}/${path}/-/issues/"
+
+# ---- collect unique issue IIDs from commit messages ----
+raw_refs="$(
+  git log --no-merges --pretty="$search_pretty" "$range" \
+    | grep -oE '#[0-9]+' || true
+)"
+if [[ -z "$raw_refs" ]]; then
+  exit 0
+fi
+
+mapfile -t iids < <(printf '%s' "$raw_refs" \
+  | sed 's/^#//' \
+  | LC_ALL=C sort -n -u)
+
+((${#iids[@]})) || exit 0
+
+# ---- optional: fetch titles ----
+declare -A title_by_iid
+if $needs_title; then
+  # deps
+  command -v curl >/dev/null 2>&1 || { echo "curl is required when using %title." >&2; exit 1; }
+  command -v jq   >/dev/null 2>&1 || { echo "jq is required when using %title."   >&2; exit 1; }
+
+  GITLAB_TOKEN="${GITLAB_TOKEN:-$(git config --get gitlab.token || true)}"
+  if [[ -z "${GITLAB_TOKEN:-}" ]]; then
+    echo "Warning: %title requested but no GitLab token configured; titles will be empty." >&2
+  else
+    api_base="https://${host}/api/v4"
+    project_id="$(printf '%s' "$path" | sed 's,/,%2F,g')"
+
+    chunk_size=100
+    start=0
+    while (( start < ${#iids[@]} )); do
+      end=$(( start + chunk_size ))
+      (( end > ${#iids[@]} )) && end=${#iids[@]}
+      qs=""
+      for (( i=start; i<end; i++ )); do
+        qs+="&iids[]=${iids[i]}"
+      done
+      qs="${qs#&}"
+      resp="$(curl -sS --fail -H "PRIVATE-TOKEN: ${GITLAB_TOKEN}" \
+        "${api_base}/projects/${project_id}/issues?per_page=100&${qs}" || true)"
+      # Map iid -> title
+      if [[ -n "$resp" ]]; then
+        # Allow for any missing items (closed/moved/deleted); ignore errors silently
+        while IFS=$'\t' read -r iid title; do
+          title_by_iid["$iid"]="$title"
+        done < <(printf '%s' "$resp" | jq -r '.[] | "\(.iid)\t\(.title)"')
+      fi
+      start=$end
+    done
+  fi
+fi
+
+# ---- render ----
+render() {
+  local iid_num="$1"
+  local iid="#$iid_num"
+  local url="${web_base}${iid_num}"
+  local title="${title_by_iid[$iid_num]:-}"
+
+  local out="$format"
+
+  # Escaped literal percent "%%" -> placeholder token while we process
+  out="${out//%%/__PERCENT__}"
+
+  # Replace placeholders
+  out="${out//%iid/$iid}"
+  out="${out//%n/$iid_num}"
+  out="${out//%url/$url}"
+  out="${out//%title/$title}"
+
+  # Restore literal %
+  out="${out//__PERCENT__/%}"
+
+  printf '%s\n' "$out"
+}
+
+for n in "${iids[@]}"; do
+  render "$n"
+done
+
