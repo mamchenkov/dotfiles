@@ -5,6 +5,27 @@
 "  Without Vim, I am useless.
 
 "
+" Fix VIM artifacts (OSC palette queries)
+"
+
+" 1) Prevent the runtime plugin from doing anything (even if sourced)
+let g:loaded_colorresp = 1
+
+" 2) Nuke the termcap requests so nothing gets sent even if some script tries
+if exists('+t_RB') | set t_RB= | endif   " background color request
+if exists('+t_RF') | set t_RF= | endif   " foreground color request
+" (Optional, if present)
+if exists('+t_RS') | set t_RS= | endif   " cursor shape request
+if exists('+t_RC') | set t_RC= | endif   " cursor blink request
+if exists('+t_RV') | set t_RV= | endif   " version request
+
+" Clear terminal after exit just in case
+augroup CleanExit
+  autocmd!
+  autocmd VimLeave * silent! execute "!tput rmcup || clear"
+augroup END
+
+"
 " Vundle plugin manager requirements
 "
 set nocompatible
@@ -101,6 +122,7 @@ filetype plugin indent on
 
 " Change mapleader to ,
 let mapleader = ","
+
 " Search down into subfolders
 set path+=**
 
@@ -121,6 +143,7 @@ syntax enable
 set t_Co=256				" Must be BEFORE the colorscheme
 " Use colorscheme if installed
 if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/gruvbox.vim"))
+	let g:gruvbox_termcolors = 256
 	colorscheme gruvbox
 endif
 " Other color schemes to try out
@@ -205,6 +228,10 @@ set nohlsearch				" do not highlight search patterns
 set smartcase				" case-insensitive searching until pattern is in lower case
 set wrapscan				" wrap search around the end of file
 
+"
+" Fix GUI artifacts
+"
+set notermguicolors
 
 "
 " Shortcuts
@@ -300,6 +327,7 @@ autocmd FileType php setlocal keywordprg=phpdoc
 
 " Airline
 if filereadable(expand("~/.vim/bundle/vim-airline/plugin/airline.vim"))
+	let g:airline#extensions#term#enabled = 0
 	let g:airline#extensions#tabline#enabled = 1
 	let g:airline#extensions#ale#enabled = 1
 	let g:airline#extensions#branch#enabled = 1
