@@ -37,14 +37,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 "
-" Libraries and utils used by other plugins
-"
-Plugin 'tomtom/tlib_vim'
-Plugin 'mattn/webapi-vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'xolox/vim-misc'
-
-"
 " Beautifiers
 "
 Plugin 'flazz/vim-colorschemes'
@@ -57,14 +49,9 @@ Plugin 'mhinz/vim-startify'
 "
 " General utilities
 "
-Plugin 'yssl/QFEnter' " Better way of opening items from the Quick Fix window
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'ervandew/supertab'
 Plugin 'kshenoy/vim-signature'
 Plugin 'mhinz/vim-grepper'
-Plugin 'tyru/open-browser.vim'
 Plugin 'tpope/vim-speeddating'
-Plugin 'tpope/vim-eunuch'
 
 "
 " General programming
@@ -72,44 +59,19 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'sheerun/vim-polyglot'
 Plugin 'tmhedberg/matchit'
-Plugin 'KabbAmine/zeavim.vim'
-Plugin 'tyru/open-browser-github.vim' " requires tyru/open-browser.vim
-Plugin 'tyru/open-browser-unicode.vim' " requires tyru/open-browser.vim
-Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'w0rp/ale'
 
 "
 " Git
 "
 Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'gregsexton/gitv'
-Plugin 'mattn/gist-vim' " requieres: mattn/webapi-vim
 Plugin 'Xuyuanp/nerdtree-git-plugin' " requires: scrooloose/nerdtree
 
 "
 " HTML/XML
 "
 Plugin 'docunext/closetag.vim'
-
-"
-" JavaScript
-""
-Plugin 'vim-scripts/jQuery'
-
-"
-" PHP
-"
-Plugin 'vim-php/tagbar-phpctags.vim'
-Plugin 'shawncplus/phpcomplete.vim'
-
-"
-" WordPress
-"
-"Plugin 'dsawardekar/wordpress.vim'
 
 "
 " Databases
@@ -331,7 +293,6 @@ if filereadable(expand("~/.vim/bundle/vim-airline/plugin/airline.vim"))
 	let g:airline#extensions#tabline#enabled = 1
 	let g:airline#extensions#ale#enabled = 1
 	let g:airline#extensions#branch#enabled = 1
-	let g:airline#extensions#tagbar#enabled = 1
 	let g:airline_skip_empty_sections = 1
 	let g:airline_theme='powerlineish'
 	"let g:airline_left_sep=''
@@ -377,17 +338,6 @@ if filereadable(expand("~/.vim/bundle/ale/plugin/ale.vim"))
 	let g:ale_lint_on_text_changed = 0
 endif
 
-" CtrlP
-if filereadable(expand("~/.vim/bundle/ctrlp.vim/plugin/ctrlp.vim"))
-	" Ignore files from .gitignore
-	" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-	let g:ctrlp_use_caching = 1
-	let g:ctrlp_clear_cache_on_exit = 0
-	let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
-		\ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
-	map <silent> <leader>d :CtrlPTag<cr><C-\>w
-endif
-
 " EditorConfig
 if filereadable(expand("~/.vim/bundle/editorconfig-vim/plugin/editorconfig.vim"))
 	" EditorConfig exclude patterns
@@ -403,17 +353,6 @@ endif
 " Grepper
 if filereadable(expand("~/.vim/bundle/vim-grepper/plugin/grepper.vim"))
 	nnoremap <leader>g :Grepper -cword -noprompt<cr>
-endif
-
-" Gutentags
-if filereadable(expand("~/.vim/bundle/vim-gutentags/plugin/gutentags.vim"))
-	" Where to store tag files
-	let g:gutentags_cache_dir = '~/.vim/gutentags'
-	let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
-		\ '*.phar', '*.ini', '*.rst', '*.md',
-		\ '*bin/*', '*vendor/*/test*', '*vendor/*/Test*',
-		\ '*vendor/*/fixture*', '*vendor/*/Fixture*', '*node_modules/*',
-		\ '*tmp/*', '*var/cache*', '*var/log*']
 endif
 
 " NERDComment
@@ -441,60 +380,4 @@ if filereadable(expand("~/.vim/bundle/nerdtree/plugin/NERD_tree.vim"))
 	endfunction
 	"map <F3> :NERDTreeFind<CR>
 	nnoremap <F3> :call ToggleNERDTreeFind()<CR>
-endif
-
-" QFEnter
-if filereadable(expand("~/.vim/bundle/QFEnter/plugin/QFEnter.vim"))
-	let g:qfenter_keymap = {}
-	let g:qfenter_keymap.vopen = ['<C-v>']
-	let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>']
-	let g:qfenter_keymap.topen = ['<C-t>']
-endif
-
-" Polyglot
-if filereadable(expand("~/.vim/bundle/vim-polyglot/ftdetect/polyglot.vim"))
-	" JavaScript and HTML indentation plugin settings
-	let html_indent_inctags = "html,body,head,tbody"
-	let html_indent_script1 = "inc"
-	let html_indent_style1 = "inc"
-
-	" Syntax highlighting in PHP files
-	let php_sql_query=0
-	let php_parent_error_close=1
-	let php_parent_error_open=1
-	let php_htmlInStrings=0
-	let php_noShortTags=1
-	let php_folding=0
-endif
-
-" Supertab
-if filereadable(expand("~/.vim/bundle/supertab/plugin/supertab.vim"))
-	" Close Scratch buffer when popup closes
-	let g:SuperTabClosePreviewOnPopupClose = 1
-
-	" Add omnicomplition to supertab if there is one
-	autocmd FileType *
-	\ if &omnifunc != '' |
-	\   call SuperTabChain(&omnifunc, "<c-n>") |
-	\ endif
-endif
-
-" Tagbar
-if filereadable(expand("~/.vim/bundle/tagbar/plugin/tagbar.vim"))
-	" Show tag bar
-	let g:tagbar_autofocus = 1
-	map <F9> :TagbarToggle<CR>
-endif
-
-" Tagbar PHP ctags
-if filereadable(expand("~/.vim/bundle/tagbar-phpctags.vim/plugin/tagbar-phpctags.vim"))
-	" Use phpctags for tagbar
-	let g:tagbar_phpctags_bin="~/bin/phpctags"
-endif
-
-" Zeal
-if filereadable(expand("~/.vim/bundle/zeavim.vim/plugin/zeavim.vim"))
-	" Zeal offline documentation
-	let g:zv_file_types = {'php':'cakephp,php'}
-	autocmd FileType php setlocal keywordprg=zeal
 endif
