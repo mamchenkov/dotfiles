@@ -11,9 +11,9 @@ Prerequisites
 This setup can work on a variety of systems (RedHat-based especially).  However, I
 mostly use it for my workstation, which runs:
 
-- Fedora 41 (or whatever is the latest at the time)
+- Fedora 42 (or whatever is the latest at the time)
 - Python 3
-- Ansible 2
+- Ansible (ansible-core)
 - Vim 9
 
 
@@ -33,8 +33,10 @@ Run Ansible
 
 ```
 $ ansible-galaxy install -r requirements.yml
-$ ansible-playbook all.yml -K
+$ ansible-playbook all.yml
 ```
+
+You will be prompted for your sudeo (become) password when needed.
 
 You can skip package installations and/or network operations (Vim plugins cloning, etc)
 with something like:
