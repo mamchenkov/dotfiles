@@ -1,9 +1,12 @@
+---
 # This task copies a given list of files and directories
-# For more information, see:
-# - http://docs.ansible.com/ansible/copy_module.html
-- name: Copying files and directories
-  copy:
-    src: "{{ files_src }}"
-    dest: "{{ files_dst }}"
-    backup: yes
-    force: yes
+- name: Sync files and directories (rsync)
+  become: false
+  ansible.posix.synchronize:
+    src: "{{ files_src }}/"
+    dest: "{{ files_dst }}/"
+    recursive: true
+    archive: true
+    delete: false
+    times: true
+    perms: true
