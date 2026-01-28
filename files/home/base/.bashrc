@@ -68,9 +68,6 @@ fi
 # Ignore files matching this suffixes from completion
 export FIGNORE="$FIGNORE:.svn"
 
-# When displaying prompt, write previous command to history file so that,
-# any new shell immediately gets the history lines from all previous shells.
-export PROMPT_COMMAND='history -a'
 # 
 # Less pager colors for man pages
 # Source:
@@ -346,11 +343,11 @@ function dullprompt {
 case "$TERM" in
 	xterm-color|xterm-256color|rxvt*|screen*)
 			# Update history on each command
-			PROMPT_COMMAND="fancyprompt && history -a"
+			PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;}fancyprompt && history -a"
 		;;
 	*)
 			# Update history on each command
-			PROMPT_COMMAND="dullprompt && history -a"
+			PROMPT_COMMAND="${PROMPT_COMMAND:$+$PROMPT_COMMAND;}dullprompt && history -a"
 		;;
 esac
 
