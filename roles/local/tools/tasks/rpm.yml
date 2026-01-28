@@ -1,12 +1,19 @@
 ---
 # Manage RPM packages on Fedora/CentOS/RHEL.
 # Use the generic package module so it works with dnf, dnf5, yum, etc.
-- name: Manage RPM packages
+- name: Refresh package cache
   become: true
   ansible.builtin.package:
-    name: "{{ item.name | default(item) }}"
-    state: "{{ item.state | default('present') }}"
-  loop: "{{ rpms }}"
+    update_cache: true
+  tags:
+    - packages
+    - network
+
+- name: Manage RPM packages (single transaction)
+  become: true
+  ansible.builtin.package:
+    name: "{{ rpms | map(attribute='name') | list }}"
+    state: present
   tags:
     - packages
     - network
