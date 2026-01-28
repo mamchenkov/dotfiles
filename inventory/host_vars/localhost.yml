@@ -21,8 +21,8 @@ base_packages:
   - { name: "hstr", state: "{{ package_state_default }}" }
   - { name: "htop", state: "{{ package_state_default }}" }
   - { name: "mc", state: "{{ package_state_default }}" }
-  - { name: "mutt", state: "{{ package_state_default }}" }
   - { name: "sysstat", state: "{{ package_state_default }}" }
+  - { name: "rsync", state: "{{ package_state_default }}" }
   # Networking
   - { name: "mtr", state: "{{ package_state_default }}" }
   - { name: "net-tools", state: "{{ package_state_default }}" }
