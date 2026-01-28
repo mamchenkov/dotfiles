@@ -40,7 +40,7 @@ top10() {
 # ------------------------------------------------------------------
 # 4. Environment variables and shell behavior
 # ------------------------------------------------------------------
-export PATH=./bin/:./vendor/bin:$HOME/bin:$HOME/dotfiles/bin:$PATH
+export PATH=$HOME/bin:$HOME/dotfiles/bin:$PATH
 # Android Emulator
 export ANDROID_HOME=$HOME/.var/app/com.google.AndroidStudio/data/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
