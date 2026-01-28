@@ -37,17 +37,22 @@ hide_edge_borders both
 #
 # Click to focus
 focus_follows_mouse no
+
+# Exec always
+
 # US/RU keyboard layouts (switch with Right Ctrl)
-exec --no-startup-id "setxkbmap -model pc105 -layout us,ru -variant ,legacy -option grp:rctrl_toggle"
+exec_always --no-startup-id "setxkbmap -model pc105 -layout us,ru -variant ,legacy -option grp:rctrl_toggle"
+# Set background image
+exec_always --no-startup-id feh --bg-scale ~/Pictures/Backgrounds/alleotech.png
+
+# Exec once
+
 # Start up MATE stuff
 exec --no-startup-id mate-settings-daemon
 exec --no-startup-id mate-power-manager
 exec --no-startup-id blueman-applet
-# Start NetworkManager applet
 exec --no-startup-id nm-applet
 
-# Set background image
-exec --no-startup-id feh --bg-scale ~/Pictures/Backgrounds/alleotech.png
 # Transparency and window fading
 #exec --no-startup-id "xcompmgr -c -f -n"
 #exec --no-startup-id compton --config ~/.config/i3/compton.conf

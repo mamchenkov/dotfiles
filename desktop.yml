@@ -34,5 +34,14 @@
       vars:
         urls: "{{ desktop_downloads }}"
 
+    - name: Ensure MATE uses i3 as window manager
+      become: false
+      command: >
+        dbus-run-session -- gsettings set
+        org.mate.desktop.session.required-components
+        windowmanager
+        i3
+      changed_when: false
+
   roles:
     - { role: cmprescott.chrome, become: yes }
