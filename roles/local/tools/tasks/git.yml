@@ -1,8 +1,13 @@
+---
 # This task manages a list of given git repositories
-# For more information, see:
-# - http://docs.ansible.com/ansible/git_module.html
 - name: Managing git repositories
-  git: "{{ item }}"
-  with_items: "{{ git_repos }}"
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    version: "{{ item.get('version', omit) }}"
+    update: "{{ item.get('update', omit) }}"
+    force: "{{ item.get('force', omit) }}"
+    accept_hostkey: "{{ item.get('accept_hostkey', omit) }}"
+  loop: "{{ git_repos }}"
   tags:
     - network
