@@ -26,59 +26,50 @@ augroup CleanExit
 augroup END
 
 "
-" Vundle plugin manager requirements
+" vim-plug plugin manager requirements
 "
 set nocompatible
 filetype off
-" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-set rtp+=~/.vim/bundle/Vundle.vim
-" Run :PluginInstall to install everything
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
 "
 " Beautifiers
 "
-Plugin 'flazz/vim-colorschemes'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'vim-scripts/CSApprox' " Convert GVim colorschemes for terminal Vim
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'mhinz/vim-startify'
+Plug 'flazz/vim-colorschemes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
+Plug 'mhinz/vim-startify'
 
 "
 " General utilities
 "
-Plugin 'kshenoy/vim-signature'
-Plugin 'mhinz/vim-grepper'
-Plugin 'tpope/vim-speeddating'
+Plug 'kshenoy/vim-signature'
+Plug 'mhinz/vim-grepper'
+Plug 'tpope/vim-speeddating'
 
 "
 " General programming
 "
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'tmhedberg/matchit'
-Plugin 'w0rp/ale'
+Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdtree'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tmhedberg/matchit'
+Plug 'dense-analysis/ale'
 
 "
 " Git
 "
-Plugin 'airblade/vim-gitgutter'
-Plugin 'Xuyuanp/nerdtree-git-plugin' " requires: scrooloose/nerdtree
+Plug 'airblade/vim-gitgutter'
+Plug 'Xuyuanp/nerdtree-git-plugin' " requires: scrooloose/nerdtree
 
 "
 " HTML/XML
 "
-Plugin 'docunext/closetag.vim'
+Plug 'docunext/closetag.vim'
 
-"
-" Databases
-"
-"Plugin 'tpope/vim-dadbod'
+call plug#end()
 
-call vundle#end()
 " To ignore plugin indent changes use 'filetype plugin on' instead
 filetype plugin indent on
 
@@ -101,10 +92,9 @@ endif
 "
 set bg=dark					" use colors for the dark background
 syntax on					" switch on syntax highlighting
-syntax enable
 set t_Co=256				" Must be BEFORE the colorscheme
 " Use colorscheme if installed
-if filereadable(expand("~/.vim/bundle/vim-colorschemes/colors/gruvbox.vim"))
+if filereadable(expand("~/.vim/plugged/vim-colorschemes/colors/gruvbox.vim"))
 	let g:gruvbox_termcolors = 256
 	colorscheme gruvbox
 endif
@@ -235,13 +225,13 @@ map <F4> :q<CR>
 function! ToggleLeftColumn()
 	if &number == 1
 		set nonumber
-		if filereadable(expand("~/.vim/bundle/vim-gitgutter/plugin/gitgutter.vim"))
+		if exists(':GitGutterDisable')
 			GitGutterDisable
 		endif
 		echo "Left column is off"
 	else
 		set number
-		if filereadable(expand("~/.vim/bundle/vim-gitgutter/plugin/gitgutter.vim"))
+		if exists(':GitGutterEnable')
 			GitGutterEnable
 		endif
 		echo "Left column is on"
@@ -288,7 +278,7 @@ autocmd FileType php setlocal keywordprg=phpdoc
 "
 
 " Airline
-if filereadable(expand("~/.vim/bundle/vim-airline/plugin/airline.vim"))
+if exists(':AirlineToggle')
 	let g:airline#extensions#term#enabled = 0
 	let g:airline#extensions#tabline#enabled = 1
 	let g:airline#extensions#ale#enabled = 1
@@ -330,7 +320,7 @@ if filereadable(expand("~/.vim/bundle/vim-airline/plugin/airline.vim"))
 endif
 
 " ALE
-if filereadable(expand("~/.vim/bundle/ale/plugin/ale.vim"))
+if exists(':ALEEnable')
 	let g:ale_linters = {
 		\   'php': ['php'],
 		\}
@@ -339,24 +329,24 @@ if filereadable(expand("~/.vim/bundle/ale/plugin/ale.vim"))
 endif
 
 " EditorConfig
-if filereadable(expand("~/.vim/bundle/editorconfig-vim/plugin/editorconfig.vim"))
+if filereadable(expand("~/.vim/plugged/editorconfig-vim/plugin/editorconfig.vim"))
 	" EditorConfig exclude patterns
 	let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 endif
 
 " GitGutter
-if filereadable(expand("~/.vim/bundle/vim-gitgutter/plugin/gitgutter.vim"))
+if exists(':GitGutterEnable')
 	" Don't show gitgutter signs in files with more than 500 changes
 	let g:gitgutter_max_signs = 500
 endif
 
 " Grepper
-if filereadable(expand("~/.vim/bundle/vim-grepper/plugin/grepper.vim"))
+if exists(':Grepper')
 	nnoremap <leader>g :Grepper -cword -noprompt<cr>
 endif
 
 " NERDComment
-if filereadable(expand("~/.vim/bundle/nerdcommenter/plugin/NERD_commenter.vim"))
+if filereadable(expand("~/.vim/plugged/nerdcommenter/plugin/NERD_commenter.vim"))
 	let NERDCommentEmptyLines = 1
 	let NERDDefaultAlign = 'left'
 	let NERDCommentWholeLinesInVMode = 1
@@ -365,7 +355,7 @@ if filereadable(expand("~/.vim/bundle/nerdcommenter/plugin/NERD_commenter.vim"))
 endif
 
 " NERDTree
-if filereadable(expand("~/.vim/bundle/nerdtree/plugin/NERD_tree.vim"))
+if exists(':NERDTreeToggle')
 	" Open NERDTree if no files were specified for vim startup
 	" autocmd vimenter * if !argc() | NERDTree | endif
 
