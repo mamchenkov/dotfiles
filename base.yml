@@ -19,6 +19,7 @@
       vars:
         files_src: "home/base/"
         files_dst: "{{ ansible_env.HOME }}"
+      register: base_home_files
 
     - name: Get Vim plugins
       include_role:
@@ -26,7 +27,49 @@
         tasks_from: git
       vars:
         git_repos: "{{ vim_plugins }}"
+      register: vim_plugin_repos
 
-    - name: Install Vim plugins
-      shell: vim +PluginInstall +qall
+    # Marker file so plugin install runs once unless you force it
+    - name: Check Vim plugin install marker
+      stat:
+        path: "{{ ansible_env.HOME }}/.vim/.plugin_installed"
+      register: vim_plugins_marker
 
+    - name: Check Vundle directory exists
+      stat:
+        path: "{{ ansible_env.HOME }}/.vim/bundle/Vundle.vim"
+      register: vundle_dir
+
+    - name: Install Vim plugins (first run only)
+      shell: >
+        vim -E -s
+        -u "{{ ansible_env.HOME }}/.vimrc"
+        -i NONE
+        -V1"{{ ansible_env.HOME }}/.vim/vundle_install.log"
+        +PluginInstall +qall
+      args:
+        executable: /bin/bash
+      when:
+        - not vim_plugins_marker.stat.exists
+        - vundle_dir.stat.exists
+      register: vim_plugin_install
+      changed_when: true
+      failed_when: false
+
+    - name: Verify Vundle completed (check log for Done!)
+      command: grep -q "Done!" "{{ ansible_env.HOME }}/.vim/vundle_install.log"
+      when:
+        - not vim_plugins_marker.stat.exists
+        - vundle_dir.stat.exists
+      register: vundle_done
+      changed_when: false
+      failed_when: vundle_done.rc != 0
+
+    - name: Write Vim plugins install marker
+      file:
+        path: "{{ ansible_env.HOME }}/.vim/.plugin_installed"
+        state: touch
+      when:
+        - not vim_plugins_marker.stat.exists
+        - vundle_done is defined
+        - vundle_done.rc == 0
