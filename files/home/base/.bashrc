@@ -15,19 +15,12 @@
 [ -z "$PS1" ] && return
 
 # ------------------------------------------------------------------
-# 2. Terminal Settings (256 color support
+# 2. Terminal Settings
 # ------------------------------------------------------------------
 case $TERM in
-	xterm*)
-		# Check if the terminal supports 256 colors
-		if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-			export TERM='xterm-256color'
-		else
-			export TERM='xterm-color'
-		fi
-		;;
-	*)
-		export TERM='linux'
+	xterm)
+		# If we know xterm-256color exists, we can upgrade plain xterm safely.
+		[ -e /usr/share/terminfo/x/xterm-256color ] && export TERM='xterm-256color'
 		;;
 esac
 # ------------------------------------------------------------------
