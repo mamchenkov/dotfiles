@@ -10,3 +10,6 @@
     delete: false
     times: true
     perms: true
+    checksum: true
+  register: sync_result
+  changed_when: "'<<CHANGED>>' in (sync_result.stdout | default(''))"
