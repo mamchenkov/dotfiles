@@ -63,7 +63,6 @@ desktop_packages:
   - { name: "graphviz", state: "{{ package_state_default }}" }
   - { name: "hexchat", state: "{{ package_state_default }}" }
   - { name: "terminator", state: "{{ package_state_default }}" }
-  - { name: "zeal", state: "{{ package_state_default }}" }
   - { name: "pcmanfm", state: "{{ package_state_default }}" }
   - { name: "keepassxc", state: "{{ package_state_default }}" }
   # GNOME Desktop Manager (systemctl disable lightdm.service && systemctl enable gdm.service)
@@ -77,14 +76,13 @@ desktop_packages:
   - { name: "i3lock", state: "{{ package_state_default }}" }
   - { name: "dmenu", state: "{{ package_state_default }}" }
   - { name: "feh", state: "{{ package_state_default }}" }
-  - { name: "xcompmgr", state: "{{ package_state_default }}" }
   - { name: "xorg-x11-xkb-utils", state: "{{ package_state_default }}" }
   - { name: "network-manager-applet", state: "{{ package_state_default }}" }
   - { name: "alsa-utils", state: "{{ package_state_default }}" }
   - { name: "pulseaudio-utils", state: "{{ package_state_default }}" }
   - { name: "xbacklight", state: "{{ package_state_default }}" }
   - { name: "arandr", state: "{{ package_state_default }}" }
-  - { name: "compton", state: "{{ package_state_default }}" }
+  - { name: "picom", state: "{{ package_state_default }}" }
 
 # GUI related files to download on desktops
 # For parameters see:
