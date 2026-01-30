@@ -240,11 +240,13 @@ function __git_branch {
 }
 
 function terminal_title {
-	printf "\[\033]0;%s@%s:%s\007\]" "\u" "\H" "\w"
+    # Non-printing title escape; keep \u/\H/\w for PS1 expansion
+    printf '\\[\\e]0;\\u@\\H:\\w\\a\\]'
 }
 
 function fancyprompt {
-	local RETVAL=$?
+	#local RETVAL=$?
+	local RETVAL="${1:-$?}"
 
 	# Show $ for regular user and # for root
 	LAST_SYMBOL="\\$"
@@ -252,8 +254,10 @@ function fancyprompt {
 	if [ "$RETVAL" -eq "0" ]
 	then
 		LAST_COLOR=$Green
+		LAST_SYMBOL="➜"
 	else
 		LAST_COLOR=$Red
+		LAST_SYMBOL="✗"
 	fi
 
 	# Root is bright red, everyone else is green
@@ -343,11 +347,11 @@ function dullprompt {
 case "$TERM" in
 	xterm-color|xterm-256color|rxvt*|screen*)
 			# Update history on each command
-			PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;}fancyprompt && history -a"
+			PROMPT_COMMAND='__ps=$?; fancyprompt "$__ps"; history -a'
 		;;
 	*)
 			# Update history on each command
-			PROMPT_COMMAND="${PROMPT_COMMAND:$+$PROMPT_COMMAND;}dullprompt && history -a"
+			PROMPT_COMMAND='__ps=$?; dullprompt; && history -a'
 		;;
 esac
 
