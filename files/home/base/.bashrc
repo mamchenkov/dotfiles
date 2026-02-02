@@ -47,6 +47,8 @@ export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_H
 
 export PAGER="$(which --skip-alias less) -RFSinX"
 export EDITOR="$(which --skip-alias vim)"
+export VISUAL="$(which --skip-alias vim)"
+export SYSTEMD_EDITOR="$(which --skip-alias vim)"
 export LC_TIME=en_US
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
