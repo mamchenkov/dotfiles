@@ -6,7 +6,7 @@ set -euo pipefail
 # Supports section selection, markdown/json output, redaction, missing-tool reporting/install,
 # section listing, minimal mode, and sudo-aware execution for privileged checks.
 
-VERSION="2.4"
+VERSION="2.7"
 
 # Capture the exact command used to invoke this script (before we shift args during parsing).
 INVOCATION_STR="$(printf '%q ' "$0" "$@")"
@@ -24,7 +24,10 @@ ALL=0
 LIST_SECTIONS=0
 MINIMAL=0
 USE_SUDO=0
-SECTIONS=()          # if empty, defaults based on --minimal or full set
+SECTIONS=()          # explicit sections (required unless --all/--minimal)
+
+# If executed with no parameters, show help and exit.
+ORIG_ARGC="$#"
 
 usage() {
   cat <<'USAGE'
@@ -38,12 +41,15 @@ Examples:
   host-profile.sh --all > host-profile.md
   host-profile.sh --minimal --output host-min.md
   host-profile.sh --section cpu --section video --format json --output host.json
+  host-profile.sh --section services --section packages --format json
   host-profile.sh --all --show-missing
   host-profile.sh --all --install-missing
   host-profile.sh --all --sudo --output host-profile.md
   host-profile.sh --list-sections
 
 Notes:
+  You must pick at least one section via --section NAME, or use --all / --minimal.
+  If you run only --show-missing/--install-missing, the script defaults to the --all section set for the checks.
   --output writes the *actual report* (same content as stdout), not a template.
   --redact scrubs common identifiers (MACs, IPs, UUIDs, serial-ish strings, SSIDs where obvious).
   --sudo enables privileged checks (SMART, some logs) using sudo when needed.
@@ -69,6 +75,11 @@ while [[ $# -gt 0 ]]; do
     *) die "Unknown option: $1" ;;
   esac
 done
+
+if [[ "$ORIG_ARGC" -eq 0 ]]; then
+  usage
+  exit 0
+fi
 
 case "$FORMAT" in
   md|json) ;;
@@ -179,13 +190,19 @@ declare -A PKG_FOR_CMD=(
   [lscpu]="util-linux"
   [lsblk]="util-linux"
   [blkid]="util-linux"
+  [dmesg]="util-linux"
   [lspci]="pciutils"
   [lsusb]="usbutils"
   [dmidecode]="dmidecode"
   [mokutil]="mokutil"
+  [hostnamectl]="systemd"
   [ethtool]="ethtool"
   [iw]="iw"
   [nmcli]="NetworkManager"
+  [ip]="iproute"
+  [free]="procps-ng"
+  [vmstat]="procps-ng"
+  [pgrep]="procps-ng"
   [inxi]="inxi"
   [lshw]="lshw"
   [glxinfo]="mesa-demos"
@@ -196,8 +213,12 @@ declare -A PKG_FOR_CMD=(
   [rfkill]="rfkill"
   [fwupdmgr]="fwupd"
   [upower]="upower"
+  [tlp-stat]="tlp"
   [loginctl]="systemd"
   [journalctl]="systemd"
+  [systemctl]="systemd"
+  [rpm]="rpm"
+  [sort]="coreutils"
 )
 
 # Section registry (for --list-sections)
@@ -214,6 +235,18 @@ declare -A SECTION_DESC=(
   [firmware]="dmesg firmware-ish, fwupdmgr devices"
   [power]="upower, tlp-stat"
   [logs]="journal warnings/errors (tail)"
+  [services]="systemd services (running/enabled)"
+  [packages]="installed RPM packages snapshot (rpm -qa)"
+)
+
+declare -a section_services=(
+  "Running services|||systemctl list-units --type=service --state=running --no-pager 2>/dev/null || true|||0"
+  "Enabled services|||systemctl list-unit-files --type=service --state=enabled --no-pager 2>/dev/null || true|||0"
+  "Heuristic service status (no actions)|||for s in bluetooth.service cups.service avahi-daemon.service ModemManager.service postfix.service rpcbind.service libvirtd.service docker.service containerd.service podman.service; do if systemctl is-active --quiet \"\$s\" 2>/dev/null; then echo \"ACTIVE: \$s\"; else echo \"inactive: \$s\"; fi; done; true|||0"
+)
+
+declare -a section_packages=(
+  "rpm -qa (sorted)|||rpm -qa 2>/dev/null | sort || true|||0"
 )
 
 declare -a section_base=(
@@ -289,8 +322,8 @@ declare -a section_logs=(
 )
 
 # Default section sets
-default_sections_full=(base cpu memory pci usb storage network video session firmware power logs)
-default_sections_minimal=(base cpu pci storage network video session)
+default_sections_full=(base cpu memory pci usb storage network video session firmware power services packages logs)
+default_sections_minimal=(base cpu pci storage network video session services)
 
 # If --list-sections, print and exit.
 if [[ "$LIST_SECTIONS" -eq 1 ]]; then
@@ -305,14 +338,18 @@ if [[ "$LIST_SECTIONS" -eq 1 ]]; then
   exit 0
 fi
 
-# Resolve section list
+# Resolve section list (required unless: --help/--version/--list-sections/--show-missing/--install-missing)
 if [[ "$ALL" -eq 1 ]]; then
   SECTIONS=("${default_sections_full[@]}")
+elif [[ "$MINIMAL" -eq 1 ]]; then
+  SECTIONS=("${default_sections_minimal[@]}")
 elif [[ "${#SECTIONS[@]}" -eq 0 ]]; then
-  if [[ "$MINIMAL" -eq 1 ]]; then
-    SECTIONS=("${default_sections_minimal[@]}")
-  else
+  # If user only wants missing-tool info, default to the full set so checks are meaningful.
+  if [[ "$SHOW_MISSING" -eq 1 || "$INSTALL_MISSING" -eq 1 ]]; then
     SECTIONS=("${default_sections_full[@]}")
+  else
+    usage >&2
+    die "You must specify at least one --section NAME (or use --all / --minimal)."
   fi
 fi
 
@@ -341,6 +378,8 @@ declare -A NEED_CMDS=(
   [firmware]="dmesg fwupdmgr grep tail"
   [power]="upower tlp-stat"
   [logs]="journalctl tail"
+  [services]="systemctl"
+  [packages]="rpm sort"
 )
 
 collect_missing() {
@@ -486,9 +525,9 @@ emit_md() {
       echo
       echo '```'
       if [[ "${needs_sudo:-0}" -eq 1 && "$USE_SUDO" -eq 1 ]]; then
-        echo "\$ sudo bash -c $cmd"
+        printf '\$ sudo bash -c %q\n' "$cmd"
       else
-        echo "\$ bash -c $cmd"
+        printf '\$ bash -c %q\n' "$cmd"
       fi
       echo '```'
       echo
