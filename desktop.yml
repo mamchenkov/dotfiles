@@ -18,18 +18,16 @@
         state: "{{ package_state_default }}"
       become: true
 
-    - name: Enable CPOR repo for rofi (yaroslav/i3desktop)
+    - name: Enable COPR repo for rofi (yaroslav/i3desktop) on older Fedora
       command: dnf -y copr enable yaroslav/i3desktop
-      args:
-        creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:yaroslav:i3desktop.repo
-      become: yes
+      when: ansible_distribution == "Fedora" and (ansible_distribution_major_version | int) < 43
 
     - name: Install rofi from COPR repository
       dnf:
         name: rofi
         enablerepo: yaroslav/i3desktop
         state: "{{ package_state_default }}"
-      become: yes
+      become: true
 
     - name: Setup desktop files in /home folder
       include_role:
@@ -39,12 +37,49 @@
         files_src: "home/desktop/"
         files_dst: "{{ ansible_user_dir }}"
 
-    - name: Download avatar image
-      include_role:
-        name: tools
-        tasks_from: download
-      vars:
-        urls: "{{ desktop_downloads }}"
+    - name: Find user avatar image by username in Avatars folder
+      ansible.builtin.find:
+        paths: "{{ desktop_avatar_dir | default(ansible_user_dir ~ '/Pictures/Avatars') }}"
+        patterns:
+          - "{{ ansible_user_id }}.jpg"
+          - "{{ ansible_user_id }}.jpeg"
+          - "{{ ansible_user_id }}.png"
+          - "{{ ansible_user_id }}.webp"
+        file_type: file
+        recurse: false
+      register: avatar_matches
+
+    - name: Pick detected avatar file (first match)
+      set_fact:
+        desktop_avatar_file_detected: >-
+          {{ (avatar_matches.files
+          | sort(attribute='path')
+          | map(attribute='path')
+          | list
+          | first) | default('') }}
+
+    - name: Ensure ~/.face is set from avatar URL (if provided)
+      get_url:
+        url: "{{ desktop_avatar_url }}"
+        dest: "{{ ansible_user_dir }}/.face"
+        mode: "0644"
+      when: desktop_avatar_url is defined and desktop_avatar_url | length > 0
+
+    - name: Ensure ~/.face is a symlink to detected avatar file (default)
+      file:
+        src: "{{ desktop_avatar_file_detected }}"
+        dest: "{{ ansible_user_dir }}/.face"
+        state: link
+        force: true
+      when: desktop_avatar_url is not defined or desktop_avatar_url | length == 0
+
+    - name: Fail if no local avatar file found and no URL provided
+      fail:
+        msg: "No avatar found for '{{ ansible_user_id }}' in {{ desktop_avatar_dir | default(ansible_user_dir ~ '/Pictures/Avatars') }}. Expected one of: {{ ansible_user_id }}.jpg, {{ ansible_user_id }}.jpeg, {{ ansible_user_id }}.png, {{ ansible_user_id }}.webp"
+      when:
+        - desktop_avatar_url is not defined or desktop_avatar_url | length == 0
+        - desktop_avatar_file_detected | length == 0
+
 
     - name: Check current MATE window manager
       command: dconf read /org/mate/desktop/session/required-components/windowmanager
@@ -57,5 +92,29 @@
         dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
       when: mate_wm.stdout.strip() != "'i3'"
 
-  roles:
-    - { role: cmprescott.chrome, become: yes }
+    - name: Add Google Linux signing key (Fedora)
+      ansible.builtin.rpm_key:
+        state: present
+        key: https://dl.google.com/linux/linux_signing_key.pub
+      become: true
+      when: ansible_distribution == "Fedora"
+
+    - name: Add Google Chrome repository (Fedora)
+      ansible.builtin.yum_repository:
+        name: google-chrome
+        description: Google Chrome - x86_64
+        baseurl: https://dl.google.com/linux/chrome/rpm/stable/x86_64
+        enabled: true
+        gpgcheck: true
+        gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+      become: true
+      when: ansible_distribution == "Fedora"
+
+    - name: Install Google Chrome (Fedora)
+      ansible.builtin.dnf:
+        name: google-chrome-stable
+        state: present
+        update_cache: true
+      become: true
+      when: ansible_distribution == "Fedora"
+

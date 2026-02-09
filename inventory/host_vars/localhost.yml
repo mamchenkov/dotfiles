@@ -54,12 +54,12 @@ vim_plugin_base: "~/.vim/bundle"
 vim_plugins:
   - { repo: "https://github.com/VundleVim/Vundle.vim.git", dest: "{{ vim_plugin_base }}/Vundle.vim" }
 
-# GUI related files to download on desktops
-# For parameters see:
-# - http://docs.ansible.com/ansible/get_url_module.html
-desktop_downloads:
-  # Gravatar image login/screensaver lock/etc
-  - { url: "https://s.gravatar.com/avatar/54bfadc28c22bf76402608db646cd031?s=100", dest: "~/.face" }
+# Desktop avatar:
+# Default behavior: pick ~/Pictures/Avatars/<username>.(jpg|jpeg|png|webp)
+desktop_avatar_dir: "{{ ansible_user_dir }}/Pictures/Avatars"
+
+# Optional override: if you set this, it wins over local files
+# desktop_avatar_url: "https://example.com/avatar.jpg"
 
 # Development packages to be installed on development workstations
 # For parameters see:
