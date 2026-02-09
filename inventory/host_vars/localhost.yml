@@ -61,12 +61,9 @@ vim_plugins:
 desktop_packages:
   # Desktop
   - { name: "graphviz", state: "{{ package_state_default }}" }
-  - { name: "hexchat", state: "{{ package_state_default }}" }
   - { name: "terminator", state: "{{ package_state_default }}" }
   - { name: "pcmanfm", state: "{{ package_state_default }}" }
   - { name: "keepassxc", state: "{{ package_state_default }}" }
-  # GNOME Desktop Manager (systemctl disable lightdm.service && systemctl enable gdm.service)
-  - { name: "gdm", state: "{{ package_state_default }}" }
   # MATE Desktop Manager
   - { name: "mate-screenshot", state: "{{ package_state_default }}" }
   - { name: "eom", state: "{{ package_state_default }}" }
