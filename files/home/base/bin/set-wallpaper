@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+CONF="$HOME/.config/wallpaper.conf"
+WALLPAPER=""
+
+# Optional user override:
+#   WALLPAPER=/full/path/to/file.png
+if [[ -f "$CONF" ]]; then
+  # shellcheck disable=SC1090
+  source "$CONF"
+  WALLPAPER="${WALLPAPER:-}"
+fi
+
+# Fallback: pick random wallpaper from ~/Pictures/Backgrounds
+if [[ -z "$WALLPAPER" ]]; then
+  DIR="$HOME/Pictures/Backgrounds"
+  mapfile -t candidates < <(
+    find "$DIR" -maxdepth 1 -type f \
+      \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
+      2>/dev/null | sort
+  )
+
+  if (( ${#candidates[@]} == 0 )); then
+    echo "set-wallpaper: no images found in $DIR" >&2
+    exit 1
+  fi
+
+  WALLPAPER="${candidates[RANDOM % ${#candidates[@]}]}"
+fi
+
+# i3/X11 wallpaper
+if command -v feh >/dev/null 2>&1; then
+  feh --no-fehbg --bg-scale "$WALLPAPER"
+fi
+
+# MATE wallpaper (best-effort; don't fail the whole script)
+if command -v dconf >/dev/null 2>&1; then
+  dconf write /org/mate/desktop/background/picture-filename "'$WALLPAPER'" || true
+  dconf write /org/mate/desktop/background/picture-options "'scaled'" || true
+fi
+
+echo "$WALLPAPER"
+
