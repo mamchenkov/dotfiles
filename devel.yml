@@ -2,7 +2,7 @@
 # are used for the development.
 ---
 - name: Development setup
-  hosts: localhost
+  hosts: all
   become: yes
   pre_tasks:
 

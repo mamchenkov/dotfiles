@@ -3,7 +3,7 @@
 # keys of the user's GitHub profile
 ---
 - name: SSH keys
-  hosts: localhost
+  hosts: all
   pre_tasks:
 
     - name: Find GitHub username from git config

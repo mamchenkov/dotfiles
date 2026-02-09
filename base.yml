@@ -2,7 +2,7 @@
 # like bash, vim, and git
 ---
 - name: Base setup
-  hosts: localhost
+  hosts: all
   pre_tasks:
 
     - name: Install base packages

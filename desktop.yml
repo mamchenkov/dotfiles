@@ -2,7 +2,7 @@
 # are useful on the graphical desktop.
 ---
 - name: Desktop setup
-  hosts: localhost
+  hosts: all
   pre_tasks:
 
     - name: Install desktop tools
@@ -12,7 +12,19 @@
       vars:
         rpms: "{{ desktop_packages }}"
 
-    - name: Install rofi from CORP repository
+    - name: Ensure dnf PR plugin is installed
+      dnf:
+        name: dnf-plugins-core
+        state: present
+      become: true
+
+    - name: Enable CPOR repo for rofi (yaroslav/i3desktop)
+      command: dnf -y copr enable yaroslav/i3desktop
+      args:
+        creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:yaroslav:i3desktop.repo
+      become: yes
+
+    - name: Install rofi from COPR repository
       dnf:
         name: rofi
         enablerepo: yaroslav/i3desktop
@@ -34,14 +46,16 @@
       vars:
         urls: "{{ desktop_downloads }}"
 
+    - name: Check current MATE window manager
+      command: dconf read /org/mate/desktop/session/required-components/windowmanager
+      register: mate_wam
+      changed_when: false
+
     - name: Ensure MATE uses i3 as window manager
       become: false
-      command: >
-        dbus-run-session -- gsettings set
-        org.mate.desktop.session.required-components
-        windowmanager
-        i3
-      changed_when: false
+      command:
+        dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
+      when: mate_wm.stdout.strip() != "'i3'"
 
   roles:
     - { role: cmprescott.chrome, become: yes }
