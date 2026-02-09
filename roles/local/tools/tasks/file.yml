@@ -1,5 +1,12 @@
 ---
 # This task copies a given list of files and directories
+
+- name: Ensure rsync is installed
+  become: true
+  dnf:
+    name: rsync
+    state: present
+
 - name: Sync files and directories (rsync)
   become: false
   ansible.posix.synchronize:
