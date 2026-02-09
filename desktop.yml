@@ -15,7 +15,7 @@
     - name: Ensure dnf PR plugin is installed
       dnf:
         name: dnf-plugins-core
-        state: present
+        state: "{{ package_state_default }}"
       become: true
 
     - name: Enable CPOR repo for rofi (yaroslav/i3desktop)
@@ -28,7 +28,7 @@
       dnf:
         name: rofi
         enablerepo: yaroslav/i3desktop
-        state: present
+        state: "{{ package_state_default }}"
       become: yes
 
     - name: Setup desktop files in /home folder
