@@ -37,7 +37,7 @@
         tasks_from: file
       vars:
         files_src: "home/desktop/"
-        files_dst: "{{ ansible_env.HOME }}"
+        files_dst: "{{ ansible_user_dir }}"
 
     - name: Download avatar image
       include_role:

@@ -18,40 +18,40 @@
         tasks_from: file
       vars:
         files_src: "home/base/"
-        files_dst: "{{ ansible_env.HOME }}"
+        files_dst: "{{ ansible_user_dir }}"
       register: base_home_files
 
     - name: Remove legacy Vundle directory
       file:
-        path: "{{ ansible_env.HOME }}/.vim/bundle"
+        path: "{{ ansible_user_dir }}/.vim/bundle"
         state: absent
 
     - name: Remove legacy Vundle install log
       file:
-        path: "{{ ansible_env.HOME }}/.vim/vundle_install.log"
+        path: "{{ ansible_user_dir }}/.vim/vundle_install.log"
         state: absent
 
     - name: Ensure vim-plug autoload directory exists
       file:
-        path: "{{ ansible_env.HOME }}/.vim/autoload"
+        path: "{{ ansible_user_dir }}/.vim/autoload"
         state: directory
         mode: "0755"
 
     - name: Install vim-plug (plug.vim)
       get_url:
         url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-        dest: "{{ ansible_env.HOME }}/.vim/autoload/plug.vim"
+        dest: "{{ ansible_user_dir }}/.vim/autoload/plug.vim"
         mode: "0644"
 
     - name: Check vim-plug install marker
       stat:
-        path: "{{ ansible_env.HOME }}/.vim/.plug_installed"
+        path: "{{ ansible_user_dir }}/.vim/.plug_installed"
       register: plug_marker
 
     - name: Install Vim plugins (vim-plug, first run only)
       shell: >
         vim -E -s
-        -u "{{ ansible_env.HOME }}/.vimrc"
+        -u "{{ ansible_user_dir }}/.vimrc"
         -i NONE
         +"silent! PlugInstall --sync"
         +qall
@@ -64,20 +64,20 @@
 
     - name: Verify vim-plug installed a key plugin dir
       stat:
-        path: "{{ ansible_env.HOME }}/.vim/plugged/vim-airline"
+        path: "{{ ansible_user_dir }}/.vim/plugged/vim-airline"
       register: airline_dir
       when: not plug_marker.stat.exists
 
     - name: Fail if plugin install did not create expected dirs
       fail:
-        msg: "vim-plug ran but {{ ansible_env.HOME }}/.vim/plugged/vim-airline was not created."
+        msg: "vim-plug ran but {{ ansible_user_dir }}/.vim/plugged/vim-airline was not created."
       when:
         - not plug_marker.stat.exists
         - not airline_dir.stat.exists
 
     - name: Write vim-plug install marker
       file:
-        path: "{{ ansible_env.HOME }}/.vim/.plug_installed"
+        path: "{{ ansible_user_dir }}/.vim/.plug_installed"
         state: touch
       when:
         - not plug_marker.stat.exists
