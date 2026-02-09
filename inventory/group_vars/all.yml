@@ -18,6 +18,7 @@ desktop_packages:
   - { name: "i3", state: "{{ package_state_default }}" }
   - { name: "i3status", state: "{{ package_state_default }}" }
   - { name: "i3lock", state: "{{ package_state_default }}" }
+  - { name: "i3blocks", state: "{{ package_state_default }}" }
   - { name: "dmenu", state: "{{ package_state_default }}" }
   - { name: "feh", state: "{{ package_state_default }}" }
   - { name: "xorg-x11-xkb-utils", state: "{{ package_state_default }}" }

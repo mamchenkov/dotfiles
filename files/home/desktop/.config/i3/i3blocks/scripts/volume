@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+source "${SCRIPT_DIR}/00_include"
+
+# PipeWire via pactl is fine
+mute="$(pactl get-sink-mute @DEFAULT_SINK@ 2>/dev/null | awk '{print $2}')"
+vol="$(pactl get-sink-volume @DEFAULT_SINK@ 2>/dev/null | grep -oE '[0-9]+%' | head -n1)"
+sink="$(pactl get-default-sink 2>/dev/null)"
+
+# Friendly output label (what you actually care about)
+out="Audio"
+shopt -s nocasematch
+if [[ "$sink" == *hdmi* ]]; then
+  out="HDMI"
+elif [[ "$sink" == *dp* || "$sink" == *displayport* ]]; then
+  out="DP"
+elif [[ "$sink" == *analog* || "$sink" == *speaker* || "$sink" == *speakers* ]]; then
+  out="Internal"
+elif [[ "$sink" == *bluez* || "$sink" == *bluetooth* ]]; then
+  out="BT"
+elif [[ "$sink" == *usb* ]]; then
+  out="USB"
+fi
+shopt -u nocasematch
+
+if [[ -z "$vol" ]]; then
+  echo "<span foreground='${FG_BAD}' background='${BG_BAD}'> 婢 OFF </span>"
+  echo
+  exit 0
+fi
+
+bg="$BG_GOOD"
+fg="$FG_GOOD"
+icon=""
+
+if [[ "$mute" == "yes" ]]; then
+  bg="$BG_BAD"; fg="$FG_BAD"
+  icon="婢"
+elif [[ "${vol%\%}" -ge 80 ]]; then
+  bg="$BG_WARN"; fg="$FG_WARN"
+fi
+
+echo "<span foreground='${fg}' background='${bg}'> ${icon} ${vol} | ${out} </span>"
+echo
+
+case "${BLOCK_BUTTON:-}" in
+  1) mate-volume-control >/dev/null 2>&1 & ;;
+  2) pactl set-sink-mute @DEFAULT_SINK@ toggle; pkill -RTMIN+10 i3blocks 2>/dev/null ;;
+  3) mate-volume-control >/dev/null 2>&1 & ;;
+  4) pactl set-sink-volume @DEFAULT_SINK@ +5%; pkill -RTMIN+10 i3blocks 2>/dev/null ;;
+  5) pactl set-sink-volume @DEFAULT_SINK@ -5%; pkill -RTMIN+10 i3blocks 2>/dev/null ;;
+esac
+

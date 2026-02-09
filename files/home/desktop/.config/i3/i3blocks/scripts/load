@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+source "${SCRIPT_DIR}/00_include"
+
+read -r l1 l5 l15 _ < /proc/loadavg
+
+# 3-tier: warn above 2.0, bad above 4.0 (tweak later if you want)
+level=$(awk -v x="$l1" 'BEGIN{
+  if (x>4.0) print "bad";
+  else if (x>2.0) print "warn";
+  else print "good";
+}')
+
+bg="$BG_GOOD"
+fg="$FG_GOOD"
+[[ "$level" == "warn" ]] && bg="$BG_WARN" && fg="$FG_WARN"
+[[ "$level" == "bad"  ]] && bg="$BG_BAD"  && fg="$FG_BAD"
+
+echo "<span foreground='${fg}' background='${bg}'>  ${l1} | ${l5} | ${l15} </span>"
+echo
+
+# Click: open htop
+case "${BLOCK_BUTTON:-}" in
+  1) $RUN_IN_TERM htop ;;
+esac
+

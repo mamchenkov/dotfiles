@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+source "${SCRIPT_DIR}/00_include"
+
+# Prefer ethernet if connected, else wifi, else down.
+eth_dev="$(nmcli -t -f DEVICE,TYPE,STATE dev 2>/dev/null | awk -F: '$2=="ethernet" && $3=="connected"{print $1; exit}')"
+wifi_dev="$(nmcli -t -f DEVICE,TYPE,STATE dev 2>/dev/null | awk -F: '$2=="wifi" && $3=="connected"{print $1; exit}')"
+
+if [[ -n "$eth_dev" ]]; then
+  ip4="$(ip -4 -o addr show dev "$eth_dev" 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -n1)"
+  printf "<span foreground='%s' background='%s'> ﯱ %s </span>\n\n\n" "$FG_GOOD" "$BG_GOOD" "${ip4:-?}"
+elif [[ -n "$wifi_dev" ]]; then
+  essid="$(nmcli -t -f ACTIVE,SSID dev wifi 2>/dev/null | awk -F: '$1=="yes"{print $2; exit}')"
+  ip4="$(ip -4 -o addr show dev "$wifi_dev" 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -n1)"
+  dbm="$(iw dev "$wifi_dev" link 2>/dev/null | awk '/signal:/ {print $2; exit}' || true)"
+  if [[ -n "${dbm:-}" ]]; then
+    q="$(awk -v s="$dbm" 'BEGIN{ if (s<-90)s=-90; if (s>-40)s=-40; printf "%.0f", (s+90)*2 }')"
+  else
+    q="?"
+  fi
+  bg="$BG_GOOD"
+  fg="$FG_GOOD"
+  if [[ "$q" != "?" ]]; then
+    if (( q < 20 )); then
+      bg="$BG_BAD";  fg="$FG_BAD"
+    elif (( q < 50 )); then
+      bg="$BG_WARN"; fg="$FG_WARN"
+    fi
+  fi
+
+printf "<span foreground='%s' background='%s'>  %s%% | %s | %s </span>\n\n\n" "$fg" "$bg" "$q" "${essid:-?}" "${ip4:-?}"
+
+else
+  printf "<span foreground='%s' background='%s'>  OFF </span>\n\n\n" "$FG_BAD" "$BG_BAD"
+fi
+
+case "${BLOCK_BUTTON:-}" in
+  1) $RUN_IN_TERM nmtui ;;
+  3) $RUN_IN_TERM bash -lc 'nmcli dev status; echo; nmcli -f IN-USE,SSID,SIGNAL dev wifi | head -n 30; echo; read -r -p "Press Enter..."' ;;
+esac
+

@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+source "${SCRIPT_DIR}/00_include"
+
+# Use MemAvailable (more honest than “free”)
+mem_total_kb=$(awk '/MemTotal:/ {print $2}' /proc/meminfo)
+mem_avail_kb=$(awk '/MemAvailable:/ {print $2}' /proc/meminfo)
+mem_used_kb=$(( mem_total_kb - mem_avail_kb ))
+
+# threshold_degraded = 10% (available < 10% of total)
+avail_pct=$(( mem_avail_kb * 100 / mem_total_kb ))
+
+fmt_kib() {
+  # input: KiB -> output: GiB/MiB-ish (binary)
+  awk -v kib="$1" 'BEGIN{
+    b=kib*1024;
+    split("B KiB MiB GiB TiB",u," ");
+    i=1;
+    while (b>=1024 && i<5) {b/=1024; i++}
+    printf "%.1f %s", b, u[i]
+  }'
+}
+
+used_h=$(fmt_kib "$mem_used_kb")
+total_h=$(fmt_kib "$mem_total_kb")
+avail_h=$(fmt_kib "$mem_avail_kb")
+
+bg="$BG_GOOD"
+fg="$FG_GOOD"
+
+if (( avail_pct < 10 )); then
+  bg="$BG_BAD"
+  fg="$FG_BAD"
+  text=" FREE: ${avail_h}"
+elif (( avail_pct < 20 )); then
+  bg="$BG_WARN"
+  fg="$FG_WARN"
+  text=" FREE: ${avail_h}"
+else
+  text=" ${used_h} | ${total_h}"
+fi
+
+echo "<span foreground='${fg}' background='${bg}'> ${text} </span>"
+echo
+
+# Click: show top memory hogs
+case "${BLOCK_BUTTON:-}" in
+  1) $RUN_IN_TERM bash -lc 'ps aux --sort=-%mem | head -n 25; echo; read -r -p "Press Enter..."' ;;
+esac
+

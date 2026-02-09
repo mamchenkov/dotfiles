@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+source "${SCRIPT_DIR}/00_include"
+
+TZ="Asia/Nicosia"
+
+echo "<span background='${BG_GOOD}'>  $(TZ="$TZ" date '+%a %b %d, %H:%M') </span>"
+echo
+
+case "${BLOCK_BUTTON:-}" in
+  1) $RUN_IN_TERM bash -lc 'cal -3; echo; read -r -p "Press Enter..."' ;;
+esac
+

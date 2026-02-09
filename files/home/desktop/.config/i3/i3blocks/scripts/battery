@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+source "${SCRIPT_DIR}/00_include"
+
+bat_dir="/sys/class/power_supply/BAT0"
+cap_file="${bat_dir}/capacity"
+stat_file="${bat_dir}/status"
+
+if [[ ! -r "$cap_file" || ! -r "$stat_file" ]]; then
+  echo "<span foreground='${FG_BAD}' background='${BG_BAD}'>  OFF </span>"
+  echo
+  exit 0
+fi
+
+cap="$(<"$cap_file")"
+status="$(<"$stat_file")"
+
+# Icons from your i3status config
+#case "$status" in
+#  Charging) ico="" ;;
+#  Discharging) ico="" ;;
+#  Full) ico="" ;;
+#  *) ico="" ;;
+#esac
+# Text+icon state tag (max readability)
+case "$status" in
+  Charging)    ico=" CHG" ;;
+  Discharging) ico="🔋 BAT" ;;
+  Full)        ico="✅ FULL" ;;
+  *)           ico="⚡ BAT" ;;
+esac
+
+bg="$BG_GOOD"
+fg="$FG_GOOD"
+
+if [[ "$status" == "Discharging" ]]; then
+  if (( cap <= 10 )); then
+    bg="$BG_BAD";  fg="$FG_BAD"
+  elif (( cap <= 20 )); then
+    bg="$BG_WARN"; fg="$FG_WARN"
+  fi
+fi
+
+echo "<span foreground='${fg}' background='${bg}'> ${ico} ${cap}% </span>"
+echo
+
+case "${BLOCK_BUTTON:-}" in
+  1) $RUN_IN_TERM bash -lc 'upower -i $(upower -e | grep -i battery | head -n1); echo; read -r -p "Press Enter..."' ;;
+esac
+

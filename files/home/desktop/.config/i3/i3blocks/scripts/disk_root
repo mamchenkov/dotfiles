@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+source "${SCRIPT_DIR}/00_include"
+
+# coreutils df: --output and -P are mutually exclusive.
+# Use bytes to avoid unit ambiguity.
+read -r avail size pcent <<<"$(
+  df --output=avail,size,pcent -B1 / 2>/dev/null | tail -n 1 | awk '{gsub(/%/,"",$3); print $1, $2, $3}'
+)"
+
+# If df failed for any reason, degrade gracefully
+if [[ -z "${avail:-}" || -z "${size:-}" || -z "${pcent:-}" ]]; then
+  printf "<span foreground='%s' background='%s'>  ? </span>\n\n\n" "$FG_BAD" "$BG_BAD"
+  exit 0
+fi
+
+free_pct=$(( 100 - pcent ))
+
+fmt_b() {
+  awk -v b="$1" 'BEGIN{
+    split("B KiB MiB GiB TiB",u," ");
+    i=1;
+    while (b>=1024 && i<5) {b/=1024; i++}
+    printf "%.1f %s", b, u[i]
+  }'
+}
+
+avail_h="$(fmt_b "$avail")"
+size_h="$(fmt_b "$size")"
+
+bg="$BG_GOOD"
+fg="$FG_GOOD"
+if (( free_pct < 10 )); then
+  bg="$BG_BAD"
+  fg="$FG_BAD"
+elif (( free_pct < 20 )); then
+  bg="$BG_WARN"
+  fg="$FG_WARN"
+fi
+
+printf "<span foreground='%s' background='%s'>  %s | %s </span>\n\n\n" "$fg" "$bg" "$avail_h" "$size_h"
+
+case "${BLOCK_BUTTON:-}" in
+  1) $RUN_IN_TERM bash -lc 'df -h /; echo; lsblk; echo; read -r -p "Press Enter..."' ;;
+esac
+
