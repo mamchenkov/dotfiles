@@ -48,7 +48,7 @@
 
     - name: Check current MATE window manager
       command: dconf read /org/mate/desktop/session/required-components/windowmanager
-      register: mate_wam
+      register: mate_wm
       changed_when: false
 
     - name: Ensure MATE uses i3 as window manager
