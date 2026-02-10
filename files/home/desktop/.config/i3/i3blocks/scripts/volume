@@ -42,7 +42,7 @@ elif [[ "${vol%\%}" -ge 80 ]]; then
   bg="$BG_WARN"; fg="$FG_WARN"
 fi
 
-echo "<span foreground='${fg}' background='${bg}'> ${icon} ${vol} | ${out} </span>"
+echo "<span foreground='${fg}' background='${bg}'> ${icon}  ${vol} | ${out} </span>"
 echo
 
 case "${BLOCK_BUTTON:-}" in

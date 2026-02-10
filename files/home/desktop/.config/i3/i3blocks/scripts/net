@@ -26,7 +26,7 @@ elif [[ -n "$wifi_dev" ]]; then
   if [[ "$q" != "?" ]]; then
     if (( q < 20 )); then
       bg="$BG_BAD";  fg="$FG_BAD"
-    elif (( q < 50 )); then
+    elif (( q < 40 )); then
       bg="$BG_WARN"; fg="$FG_WARN"
     fi
   fi

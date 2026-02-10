@@ -6,7 +6,7 @@ BG_BAD="#f78f96"
 # Font colors
 FG_GOOD="#111111"
 FG_WARN="#111111"
-FG_BAD="#ffffff"
+FG_BAD="#111111"
 
 # Terminal emulator to use for command execution
 RUN_IN_TERM="terminator -x"
