@@ -353,14 +353,14 @@ case "$TERM" in
 		;;
 	*)
 			# Update history on each command
-			PROMPT_COMMAND='__ps=$?; dullprompt; && history -a'
+			PROMPT_COMMAND='__ps=$?; dullprompt; history -a'
 		;;
 esac
 
 # ------------------------------------------------------------------------------
 # 7. Local Customization Hook
 # ------------------------------------------------------------------------------
-[ -f ~/.bashrc_custom ] && source ~/.bashrc_custom
+[ -f ~/.bashrc_custom ] && source ~/.bashrc_custom || true
 
 # ------------------------------------------------------------------------------
 # 8. Last bits
