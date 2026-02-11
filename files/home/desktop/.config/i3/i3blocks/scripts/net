@@ -11,7 +11,7 @@ wifi_dev="$(nmcli -t -f DEVICE,TYPE,STATE dev 2>/dev/null | awk -F: '$2=="wifi" 
 
 if [[ -n "$eth_dev" ]]; then
   ip4="$(ip -4 -o addr show dev "$eth_dev" 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -n1)"
-  printf "<span foreground='%s' background='%s'> ﯱ %s </span>\n\n\n" "$FG_GOOD" "$BG_GOOD" "${ip4:-?}"
+  printf "<span foreground='%s' background='%s'> 󰱓 %s </span>\n\n\n" "$FG_GOOD" "$BG_GOOD" "${ip4:-?}"
 elif [[ -n "$wifi_dev" ]]; then
   essid="$(nmcli -t -f ACTIVE,SSID dev wifi 2>/dev/null | awk -F: '$1=="yes"{print $2; exit}')"
   ip4="$(ip -4 -o addr show dev "$wifi_dev" 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -n1)"
