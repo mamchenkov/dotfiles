@@ -269,19 +269,19 @@ function fancyprompt {
 		PROMPT_COLOR=$IRed
 		FEEL_COLOR=$IBlack
 	else
-		USER_COLOR=$Green
+		USER_COLOR=$ICyan
 		PROMPT_COLOR=$IWhite
 		FEEL_COLOR=$IBlack
 	fi
 
-	# Load average green, or bright yellow, or bright red
+	# Load average -green- gray, or bright yellow, or bright red
 	CPUS=$(grep -c vendor_id /proc/cpuinfo)
 	CPUS=$(printf "%.0f" $CPUS)
 	read ONE REST < /proc/loadavg
 	LOAD=$(printf "%.0f" $ONE)
 	if [ "$LOAD" -lt "$CPUS" ]
 	then 
-		LOAD_COLOR=$Green
+		LOAD_COLOR=$IBlack
 	elif [ "$LOAD" -eq "$CPUS" ]
 	then 
 		LOAD_COLOR=$IYellow
@@ -289,12 +289,12 @@ function fancyprompt {
 		LOAD_COLOR=$IRed
 	fi
 
-	# localhost|localdomain hostnames are green, as well as anything with .ppl. (people)
-	if [[ $HOSTNAME =~ "localhost" || $HOSTNAME =~ "localdomain" || $HOSTNAME =~ ".ppl." ]]
+	# localhost|localdomain hostnames are green
+	if [[ $HOSTNAME =~ "localhost" || $HOSTNAME =~ "localdomain" ]]
 	then
 		HOST_COLOR=$Green
-	# .com|.org|.net hostnames are bright red
-	elif [[ $HOSTNAME =~ ".com" || $HOSTNAME =~ ".org" || $HOSTNAME =~ ".net" ]]
+	# .com|.org|.net|.tech hostnames are bright red
+	elif [[ $HOSTNAME =~ ".com" || $HOSTNAME =~ ".org" || $HOSTNAME =~ ".net" || $HOSTNAME =~ ".tech" ]]
 	then
 		HOST_COLOR=$IRed
 	# everything else yellow
@@ -310,13 +310,20 @@ function fancyprompt {
 		then
 			GIT_DIRTY="$IRed$GIT_DIRTY"
 		fi
-		# Bright yellow for master branch, purple for everything else
-		if [ "$GIT_BRANCH" == "master" ] || [ "$GIT_BRANCH" == "main" ] 
-		then
-			GIT_BRANCH_COLOR=$IYellow
-		else
-			GIT_BRANCH_COLOR=$Purple
-		fi
+
+		# Bright red for default, master, main branches, purple for everything else
+		DEFAULT_BRANCH=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD | sed -e 's#^origin/##' || true)
+
+		case "$GIT_BRANCH" in
+			"$DEFAULT_BRANCH"|master|main|develop|production) GIT_BRANCH_COLOR=$IRed ;;
+			release/*|hostfix/*) GIT_BRANCH_COLOR=$IRed ;;
+			fix/*/bugfix/*) $GIT_BRANCH_COLOR=$IYellow ;;
+			feature/*|feat/*) GIT_BRANCH_COLOR=$IGreen ;;
+			chore/*|refactor/*|docs/*|test/*|ci/*) GIT_BRANCH_COLOR=$IBlue ;;
+			spike/*|experiment/*|wip/*) GIT_BRANCH_COLOR=$IBlack ;;
+			*) GIT_BRANCH_COLOR=$Purple ;;
+		esac
+
 		GIT_BRANCH="$FEEL_COLOR⎇ ${GIT_BRANCH_COLOR}$GIT_BRANCH$GIT_DIRTY$FEEL_COLOR"
 	fi
 
