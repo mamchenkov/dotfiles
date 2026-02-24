@@ -38,7 +38,7 @@ icon=""
 if [[ "$mute" == "yes" ]]; then
   bg="$BG_BAD"; fg="$FG_BAD"
   icon="婢"
-elif [[ "${vol%\%}" -ge 80 ]]; then
+elif [[ "${vol%\%}" -ge 90 ]]; then
   bg="$BG_WARN"; fg="$FG_WARN"
 fi
 
