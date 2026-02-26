@@ -5,13 +5,22 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "${SCRIPT_DIR}/00_include"
 
+# VPN(s) if connected
+vpn_names="$(nmcli -t -f NAME,TYPE con show --active 2>/dev/null \
+  | awk -F: '$2=="vpn" || $2=="wireguard"{print $1}' \
+  | paste -sd, -)"
+vpn_badge=""
+if [[ -n "${vpn_names:-}" ]]; then
+  vpn_badge=" <span foreground='${FG_GOOD}' background='${BG_GOOD}'>  ${vpn_names} </span>"
+fi
+
 # Prefer ethernet if connected, else wifi, else down.
 eth_dev="$(nmcli -t -f DEVICE,TYPE,STATE dev 2>/dev/null | awk -F: '$2=="ethernet" && $3=="connected"{print $1; exit}')"
 wifi_dev="$(nmcli -t -f DEVICE,TYPE,STATE dev 2>/dev/null | awk -F: '$2=="wifi" && $3=="connected"{print $1; exit}')"
 
 if [[ -n "$eth_dev" ]]; then
   ip4="$(ip -4 -o addr show dev "$eth_dev" 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -n1)"
-  printf "<span foreground='%s' background='%s'> 󰱓 %s </span>\n\n\n" "$FG_GOOD" "$BG_GOOD" "${ip4:-?}"
+  printf "<span foreground='%s' background='%s'> 󰱓 %s %s </span>\n\n\n" "$FG_GOOD" "$BG_GOOD" "${ip4:-?}" "$vpn_badge"
 elif [[ -n "$wifi_dev" ]]; then
   essid="$(nmcli -t -f ACTIVE,SSID dev wifi 2>/dev/null | awk -F: '$1=="yes"{print $2; exit}')"
   ip4="$(ip -4 -o addr show dev "$wifi_dev" 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -n1)"
@@ -32,7 +41,7 @@ elif [[ -n "$wifi_dev" ]]; then
     fi
   fi
 
-printf "<span foreground='%s' background='%s'>   %s%% %sMb | %s | %s </span>\n\n\n" "$fg" "$bg" "$q" "$txrate" "${essid:-?}" "${ip4:-?}"
+printf "<span foreground='%s' background='%s'>   %s%% %sMb | %s | %s %s </span>\n\n\n" "$fg" "$bg" "$q" "$txrate" "${essid:-?}" "${ip4:-?}" "$vpn_badge"
 
 else
   printf "<span foreground='%s' background='%s'>  OFF </span>\n\n\n" "$FG_BAD" "$BG_BAD"
