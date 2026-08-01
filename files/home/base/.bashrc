@@ -62,6 +62,7 @@ export HISTFILESIZE=
 export HSTR_CONFIG=hicolor
 export PROMPT_DIRTRIM=2 # Automatically trim long paths in prompt (requires Bash 4.x)
 export MOZ_NO_REMOTE=1
+export LS_COLORS="$LS_COLORS:di=01;94" # Use bright blue for directories (better for dark background terminals)
 
 # Shorten and simplify cd (only in interactive shell)
 if test "${PS1+set}"
@@ -121,6 +122,7 @@ alias vi="$EDITOR"
 alias vim="$EDITOR"
 alias vd="$EDITOR -d"
 alias ll="ls -al --group-directories-first"
+alias less="less -R"
 alias cat="bat -pp"
 alias df="df -kTh"
 alias du="du -kh"

@@ -9,8 +9,7 @@ cap_file="${bat_dir}/capacity"
 stat_file="${bat_dir}/status"
 
 if [[ ! -r "$cap_file" || ! -r "$stat_file" ]]; then
-  echo "<span foreground='${FG_BAD}' background='${BG_BAD}'>  OFF </span>"
-  echo
+  # No battery on this machine → don't render the block at all
   exit 0
 fi
 

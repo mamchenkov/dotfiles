@@ -4,12 +4,14 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "${SCRIPT_DIR}/00_include"
 
-TZ="Asia/Nicosia"
+TZ="${TZONE:-Asia/Nicosia}"
+LABEL="${LABEL:-LOCAL}"
 
-echo "<span background='${BG_GOOD}'>  $(TZ="$TZ" date '+%a %b %d, %H:%M') </span>"
+FMT="${FMT:-+%a %b %d, %H:%M}"
+
+echo "<span background='${BG_GOOD}'>  ${LABEL}: $(TZ="$TZ" date "$FMT") </span>"
 echo
 
 case "${BLOCK_BUTTON:-}" in
-  1) $RUN_IN_TERM bash -lc 'cal -3; echo; read -r -p "Press Enter..."' ;;
+  1) TZ="$TZ" $RUN_IN_TERM bash -lc 'cal -3; echo; read -r -p "Press Enter..."' ;;
 esac
-

@@ -40,6 +40,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 "
 " General utilities
@@ -67,6 +68,12 @@ Plug 'Xuyuanp/nerdtree-git-plugin' " requires: scrooloose/nerdtree
 " HTML/XML
 "
 Plug 'docunext/closetag.vim'
+
+"
+" Markdown
+"
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 call plug#end()
 
@@ -370,4 +377,43 @@ if exists(':NERDTreeToggle')
 	endfunction
 	"map <F3> :NERDTreeFind<CR>
 	nnoremap <F3> :call ToggleNERDTreeFind()<CR>
+endif
+
+" Markdown (folding)
+if filereadable(expand('~/.vim/plugged/vim-markdown/ftplugin/markdown.vim'))
+
+  let g:vim_markdown_folding_disabled = 0
+
+  augroup MarkdownFolds
+    autocmd!
+    autocmd FileType markdown setlocal foldmethod=expr
+    autocmd FileType markdown setlocal foldexpr=vim_markdown#foldexpr()
+    autocmd FileType markdown setlocal foldlevel=99
+  augroup END
+
+  augroup markdownfoldkeys
+	autocmd!
+	" + opens current fold, ++ opens all folds
+	autocmd FileType markdown nnoremap <buffer> <silent> +  zo
+	autocmd FileType markdown nnoremap <buffer> <silent> <kPlus>  zo
+	autocmd FileType markdown nnoremap <buffer> <silent> ++ zR
+	autocmd FileType markdown nnoremap <buffer> <silent> <kPlus><kPlus> zR
+	" - closes current fold, -- closes all folds
+	autocmd FileType markdown nnoremap <buffer> <silent> -  zc
+	autocmd FileType markdown nnoremap <buffer> <silent> <kMinus>  zc
+	autocmd FileType markdown nnoremap <buffer> <silent> -- zM
+	autocmd FileType markdown nnoremap <buffer> <silent> <kMinus><kMinus> zM
+  augroup END
+
+endif
+
+" Tabular (table alignment)
+if filereadable(expand('~/.vim/plugged/tabular/plugin/Tabular.vim'))
+
+  augroup MarkdownTabular
+    autocmd!
+    " Align markdown tables quickly: <leader>t
+    autocmd FileType markdown nnoremap <buffer> <silent> <leader>t <Cmd>Tabularize /\|<CR>
+  augroup END
+
 endif
