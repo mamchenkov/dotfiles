@@ -1,6 +1,6 @@
 # One Playbook to rule them all, One Playbook to find them,
 # One Playbook to bring them all and in the darkness bind them
 ---
-- include: base.yml
-- include: desktop.yml
-- include: devel.yml
+- import_playbook: base.yml
+- import_playbook: desktop.yml
+- import_playbook: devel.yml
