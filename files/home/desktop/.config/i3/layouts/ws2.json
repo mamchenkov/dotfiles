@@ -1,72 +1,69 @@
-[
-    {
-        "border": "normal",
-        "current_border_width": 2,
-        "floating": "auto_off",
-        "geometry": {
-            "height": 1400,
-            "width": 1718,
-            "x": 0,
-            "y": 20
-        },
-        "marks": [],
-        "name": "Google Chrome",
-        "percent": 0.5,
-        "swallows": [
-            {
-                "class": "^Google\\-chrome$"
-            }
-        ],
-        "type": "con"
+{
+	"type": "con",
+	"layout": "splith",
+	"percent": null,
+
+    "border": "normal",
+    "current_border_width": 2,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1400,
+       "width": 1718,
+       "x": 0,
+       "y": 20
     },
-    {
-        "border": "normal",
-        "floating": "auto_off",
-        "layout": "splitv",
-        "marks": [],
-        "percent": 0.5,
-        "type": "con",
-        "nodes": [
-            {
-                "border": "normal",
-                "current_border_width": 2,
-                "floating": "auto_off",
-                "geometry": {
-                    "height": 864,
-                    "width": 1376,
-                    "x": 1032,
-                    "y": 288
-                },
-                "marks": [],
-                "name": "Slack",
-                "percent": 0.5,
-                "swallows": [
-                    {
-                        "class": "^Slack$"
-                    }
-                ],
-                "type": "con"
-            },
-            {
-                "border": "normal",
-                "current_border_width": 2,
-                "floating": "user_off",
-                "geometry": {
-                    "height": 690,
-                    "width": 1718,
-                    "x": 1722,
-                    "y": 730
-                },
-                "marks": [],
-                "name": "Telegram",
-                "percent": 0.5,
-                "swallows": [
-                    {
-                        "class": "^TelegramDesktop$"
-                    }
-                ],
-                "type": "con"
-            }
-        ]
-    }
-]
+    "marks": [],
+
+	"nodes": [
+		{
+			"type": "con",
+			"name": "Google Chrome",
+			"layout": "stacked",
+			"percent": 0.6,
+			"swallows": [
+			   {
+				  "class": "(?i)^google-chrome$",
+				  "title": "(?i).*@gmail\\.com.*Gmail.*"
+			   }
+			]
+		},
+		{
+			"type": "con",
+			"layout": "splitv",
+			"percent": 0.4,
+			"nodes": [
+				{
+					"type": "con",
+					"name": "Slack",
+					"layout": "stacked",
+					"percent": 0.5,
+					"swallows": [
+					   {
+						  "class": "(?i)^slack$"
+					   }
+					]
+				},
+				{
+					"type": "con",
+					"name": "Telegram Web",
+					"layout": "stacked",
+					"percent": 0.5,
+					"swallows": [
+					   {
+						   "class": "(?i)^telegramdesktop$"
+					   },
+					   {
+						  "class": "(?i)^google-chrome$",
+						  "title": "(?i).*telegram.*web.*"
+					   },
+					   {
+						   "class": "(?i)^google-chrome$",
+						   "instance": "^crx_aeejceomnhmjmeacdckmmopfaigimnkl$"
+					   }
+					]
+				}
+			]
+		}
+	]
+}
+
