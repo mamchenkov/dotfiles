@@ -7,6 +7,7 @@ package_state_default: "latest"
 # - http://docs.ansible.com/ansible/yum_module.html
 desktop_packages:
   # Desktop
+  - { name: "flatpak", state: "{{ package_state_default }}" }
   - { name: "graphviz", state: "{{ package_state_default }}" }
   - { name: "terminator", state: "{{ package_state_default }}" }
   - { name: "pcmanfm", state: "{{ package_state_default }}" }
@@ -31,3 +32,7 @@ desktop_packages:
   - { name: "arandr", state: "{{ package_state_default }}" }
   - { name: "picom", state: "{{ package_state_default }}" }
 
+# Desktop applications installed from Flathub
+desktop_flatpaks:
+  - com.slack.Slack
+  - org.telegram.desktop

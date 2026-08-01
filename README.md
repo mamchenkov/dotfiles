@@ -11,7 +11,7 @@ Prerequisites
 This setup can work on a variety of systems (RedHat-based especially).  However, I
 mostly use it for my workstation, which runs:
 
-- Fedora 42 (or whatever is the latest at the time)
+- Fedora 44 (or whatever is the latest at the time)
 - Python 3
 - Ansible (ansible-core)
 - Vim 9
@@ -37,7 +37,7 @@ $ ansible-galaxy collection install -r collections/requirements.yml
 $ ansible-playbook all.yml
 ```
 
-You will be prompted for your sudeo (become) password when needed.
+You will be prompted for your sudo (become) password when needed.
 
 You can skip package installations and/or network operations (Vim plugins cloning, etc)
 with something like:
@@ -57,6 +57,18 @@ The following playbooks are available:
 * `devel.yml` - installs some of the developer tools, such as PHP, Composer, and MySQL
 * `desktop.yml` - installs and configures my GUI desktop (MATE and i3)
 * `all.yml` - installs everything from the above playbooks
+
+On Fedora, `desktop.yml` installs the complete MATE desktop environment and the
+Xorg server, installs Slack and Telegram Desktop from Flathub, then configures
+MATE to use i3 as its window manager.  After installation, log out, select
+**MATE** from GDM's session chooser (the gear menu), and log back in.  The entry
+is named MATE even though i3 replaces MATE's default window manager.
+
+MATE's panels are treated as dock windows and remain visible during normal i3
+use.  An application put into i3 fullscreen mode intentionally covers those
+panels; press **Mod+F** to toggle fullscreen off.  This is runtime workspace
+state, not a session setup option, so it should not be forced from the
+playbook.
 
 
 Features
@@ -100,4 +112,3 @@ If you need to get in touch, send me an email to leonid@mamchenkov.net .  Altern
 comments and pull requests for the project on GitHub at https://github.com/mamchenkov/dotfiles .
 
 Patches welcome! ;)
-

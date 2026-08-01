@@ -5,6 +5,17 @@
   hosts: all
   pre_tasks:
 
+    - name: Install the MATE desktop environment and Xorg on Fedora
+      ansible.builtin.dnf:
+        name:
+          - "@mate-desktop-environment"
+          - xorg-x11-server-Xorg
+        state: present
+      become: true
+      when: ansible_distribution == "Fedora"
+      tags:
+        - packages
+
     - name: Install desktop tools
       include_role:
         name: tools
@@ -36,6 +47,26 @@
       vars:
         files_src: "home/desktop/"
         files_dst: "{{ ansible_user_dir }}"
+
+    - name: Enable Flathub system-wide
+      community.general.flatpak_remote:
+        name: flathub
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        method: system
+        state: present
+      become: true
+      tags:
+        - packages
+
+    - name: Install desktop applications from Flathub
+      community.general.flatpak:
+        name: "{{ desktop_flatpaks }}"
+        remote: flathub
+        method: system
+        state: present
+      become: true
+      tags:
+        - packages
 
     - name: Find user avatar image by username in Avatars folder
       ansible.builtin.find:
@@ -117,4 +148,3 @@
         update_cache: true
       become: true
       when: ansible_distribution == "Fedora"
-
