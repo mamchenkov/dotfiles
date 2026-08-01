@@ -84,7 +84,6 @@ devel_packages:
   - { name: "php-process", state: "{{ package_state_default }}" }
   - { name: "php-soap", state: "{{ package_state_default }}" }
   - { name: "php-xml", state: "{{ package_state_default }}" }
-  - { name: "php-imap", state: "{{ package_state_default }}" }
   # MySQL/MariaDB
   - { name: "mariadb", state: "{{ package_state_default }}" }
   - { name: "mariadb-server", state: "{{ package_state_default }}" }
