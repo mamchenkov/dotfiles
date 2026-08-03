@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repository_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repository_dir"
+
+required_commands=(ansible-lint ansible-playbook git shellcheck yamllint)
+for required_command in "${required_commands[@]}"; do
+	if ! command -v "$required_command" >/dev/null 2>&1; then
+		printf 'Required validation command is missing: %s\n' "$required_command" >&2
+		exit 1
+	fi
+done
+
+validation_tmp="$(mktemp -d /tmp/dotfiles-validation.XXXXXX)"
+trap 'rm -rf -- "$validation_tmp"' EXIT
+export ANSIBLE_LOCAL_TEMP="$validation_tmp/ansible-local"
+export ANSIBLE_REMOTE_TEMP="$validation_tmp/ansible-remote"
+
+git diff --check
+ansible-playbook all.yml --syntax-check
+ansible-playbook ssh_keys.yml --syntax-check
+yamllint .
+ansible-lint all.yml ssh_keys.yml
+
+syntax_shell_files=(files/home/base/.bashrc scripts/validate)
+shellcheck_files=(scripts/validate)
+while IFS= read -r executable_file; do
+	read -r first_line < "$executable_file" || true
+	case "$first_line" in
+		'#!'*bash*|'#! /bin/sh'|'#!/bin/sh')
+			syntax_shell_files+=("$executable_file")
+			case "$executable_file" in
+				files/home/desktop/.config/i3/i3blocks/scripts/*)
+					shellcheck_files+=("$executable_file")
+					;;
+			esac
+			;;
+	esac
+done < <(find files -type f -perm /111 -print | sort)
+
+bash -n "${syntax_shell_files[@]}"
+shellcheck --severity=warning -x "${shellcheck_files[@]}"

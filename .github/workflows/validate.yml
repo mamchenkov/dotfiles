@@ -1,0 +1,33 @@
+---
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install validation tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes shellcheck
+          python -m pip install ansible-core ansible-lint yamllint
+
+      - name: Install Ansible dependencies
+        run: |
+          ansible-galaxy role install \
+            --role-file requirements.yml \
+            --roles-path roles/remote
+          ansible-galaxy collection install \
+            --requirements-file collections/requirements.yml
+
+      - name: Validate repository
+        run: scripts/validate

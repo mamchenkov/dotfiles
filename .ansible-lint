@@ -1,0 +1,5 @@
+---
+profile: min
+
+exclude_paths:
+  - roles/remote/
