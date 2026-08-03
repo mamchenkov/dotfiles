@@ -319,8 +319,8 @@ function fancyprompt {
 
 		case "$GIT_BRANCH" in
 			"$DEFAULT_BRANCH"|master|main|develop|production) GIT_BRANCH_COLOR=$IRed ;;
-			release/*|hostfix/*) GIT_BRANCH_COLOR=$IRed ;;
-			fix/*/bugfix/*) $GIT_BRANCH_COLOR=$IYellow ;;
+			release/*|hotfix/*) GIT_BRANCH_COLOR=$IRed ;;
+			fix/*|bugfix/*) GIT_BRANCH_COLOR=$IYellow ;;
 			feature/*|feat/*) GIT_BRANCH_COLOR=$IGreen ;;
 			chore/*|refactor/*|docs/*|test/*|ci/*) GIT_BRANCH_COLOR=$IBlue ;;
 			spike/*|experiment/*|wip/*) GIT_BRANCH_COLOR=$IBlack ;;
