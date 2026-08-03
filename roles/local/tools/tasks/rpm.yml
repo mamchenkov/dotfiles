@@ -12,8 +12,8 @@
 - name: Manage RPM packages (single transaction)
   become: true
   ansible.builtin.package:
-    name: "{{ rpms | map(attribute='name') | list }}"
-    state: present
+    name: "{{ rpms }}"
+    state: "{{ package_state_default }}"
   tags:
     - packages
     - network

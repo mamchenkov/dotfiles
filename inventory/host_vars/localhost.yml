@@ -4,46 +4,43 @@ ansible_python_interpreter: /usr/bin/python3
 
 ansible_connection: local
 
-# Default state for the RPM packages
-package_state_default: "latest"
-
 # Base packages to be installed everywhere
 # For parameters see:
 # - http://docs.ansible.com/ansible/dnf_module.html
 # - http://docs.ansible.com/ansible/yum_module.html
 base_packages:
   # Base
-  - { name: "bat", state: "{{ package_state_default }}" }
-  - { name: "bash-completion", state: "{{ package_state_default }}" }
-  - { name: "bash", state: "{{ package_state_default }}" }
-  - { name: "bind-utils", state: "{{ package_state_default }}" }
-  - { name: "grep", state: "{{ package_state_default }}" }
-  - { name: "hstr", state: "{{ package_state_default }}" }
-  - { name: "htop", state: "{{ package_state_default }}" }
-  - { name: "mc", state: "{{ package_state_default }}" }
-  - { name: "sysstat", state: "{{ package_state_default }}" }
-  - { name: "rsync", state: "{{ package_state_default }}" }
+  - bat
+  - bash-completion
+  - bash
+  - bind-utils
+  - grep
+  - hstr
+  - htop
+  - mc
+  - sysstat
+  - rsync
   # Networking
-  - { name: "mtr", state: "{{ package_state_default }}" }
-  - { name: "net-tools", state: "{{ package_state_default }}" }
-  - { name: "tcpdump", state: "{{ package_state_default }}" }
-  - { name: "telnet", state: "{{ package_state_default }}" }
+  - mtr
+  - net-tools
+  - tcpdump
+  - telnet
   # Terminal emulation
-  - { name: "screen", state: "{{ package_state_default }}" }
-  - { name: "tmux", state: "{{ package_state_default }}" }
+  - screen
+  - tmux
   # HTTP
-  - { name: "curl", state: "{{ package_state_default }}" }
-  - { name: "httpie", state: "{{ package_state_default }}" }
-  - { name: "links", state: "{{ package_state_default }}" }
-  - { name: "wget", state: "{{ package_state_default }}" }
+  - curl
+  - httpie
+  - links
+  - wget
   # Git
-  - { name: "git", state: "{{ package_state_default }}" }
-  - { name: "git-extras", state: "{{ package_state_default }}" }
-  - { name: "tig", state: "{{ package_state_default }}" }
+  - git
+  - git-extras
+  - tig
   # Vim
-  - { name: "ack", state: "{{ package_state_default }}" }
-  - { name: "ctags", state: "{{ package_state_default }}" }
-  - { name: "vim-enhanced", state: "{{ package_state_default }}" }
+  - ack
+  - ctags
+  - vim-enhanced
 
 # Desktop avatar:
 # Default behavior: pick ~/Pictures/Avatars/<username>.(jpg|jpeg|png|webp)
@@ -58,29 +55,29 @@ desktop_avatar_dir: "{{ ansible_user_dir }}/Pictures/Avatars"
 # - http://docs.ansible.com/ansible/yum_module.html
 devel_packages:
   # PHP
-  - { name: "php", state: "{{ package_state_default }}" }
-  - { name: "php-bcmath", state: "{{ package_state_default }}" }
-  - { name: "php-cli", state: "{{ package_state_default }}" }
-  - { name: "php-common", state: "{{ package_state_default }}" }
-  - { name: "php-gd", state: "{{ package_state_default }}" }
-  - { name: "php-intl", state: "{{ package_state_default }}" }
-  - { name: "php-ldap", state: "{{ package_state_default }}" }
-  - { name: "php-mbstring", state: "{{ package_state_default }}" }
-  - { name: "php-mysqlnd", state: "{{ package_state_default }}" }
-  - { name: "php-opcache", state: "{{ package_state_default }}" }
-  - { name: "php-pdo", state: "{{ package_state_default }}" }
-  - { name: "php-pecl-apcu", state: "{{ package_state_default }}" }
-  - { name: "php-pecl-xdebug", state: "{{ package_state_default }}" }
-  - { name: "php-process", state: "{{ package_state_default }}" }
-  - { name: "php-soap", state: "{{ package_state_default }}" }
-  - { name: "php-xml", state: "{{ package_state_default }}" }
+  - php
+  - php-bcmath
+  - php-cli
+  - php-common
+  - php-gd
+  - php-intl
+  - php-ldap
+  - php-mbstring
+  - php-mysqlnd
+  - php-opcache
+  - php-pdo
+  - php-pecl-apcu
+  - php-pecl-xdebug
+  - php-process
+  - php-soap
+  - php-xml
   # MySQL/MariaDB
-  - { name: "mariadb", state: "{{ package_state_default }}" }
-  - { name: "mariadb-server", state: "{{ package_state_default }}" }
+  - mariadb
+  - mariadb-server
   # NodeJS/NPM
-  - { name: "npm", state: "{{ package_state_default }}" }
+  - npm
   # AWS CLI
-  - { name: "aws", state: "{{ package_state_default }}" }
+  - aws
 
 # geerlingguy.composer : Put in /usr/bin/
 composer_path: /usr/bin/composer

@@ -7,30 +7,30 @@ package_state_default: "latest"
 # - http://docs.ansible.com/ansible/yum_module.html
 desktop_packages:
   # Desktop
-  - { name: "flatpak", state: "{{ package_state_default }}" }
-  - { name: "graphviz", state: "{{ package_state_default }}" }
-  - { name: "terminator", state: "{{ package_state_default }}" }
-  - { name: "pcmanfm", state: "{{ package_state_default }}" }
-  - { name: "keepassxc", state: "{{ package_state_default }}" }
+  - flatpak
+  - graphviz
+  - terminator
+  - pcmanfm
+  - keepassxc
   # MATE Desktop Manager
-  - { name: "mate-screenshot", state: "{{ package_state_default }}" }
-  - { name: "eom", state: "{{ package_state_default }}" }
+  - mate-screenshot
+  - eom
   # i3 Window Manager
-  - { name: "i3", state: "{{ package_state_default }}" }
-  - { name: "i3status", state: "{{ package_state_default }}" }
-  - { name: "i3lock", state: "{{ package_state_default }}" }
-  - { name: "i3blocks", state: "{{ package_state_default }}" }
-  - { name: "dmenu", state: "{{ package_state_default }}" }
-  - { name: "feh", state: "{{ package_state_default }}" }
-  - { name: "setxkbmap", state: "{{ package_state_default }}" }
-  - { name: "xkbcomp", state: "{{ package_state_default }}" }
-  - { name: "xkeyboard-config", state: "{{ package_state_default }}" }
-  - { name: "network-manager-applet", state: "{{ package_state_default }}" }
-  - { name: "alsa-utils", state: "{{ package_state_default }}" }
-  - { name: "pulseaudio-utils", state: "{{ package_state_default }}" }
-  - { name: "xbacklight", state: "{{ package_state_default }}" }
-  - { name: "arandr", state: "{{ package_state_default }}" }
-  - { name: "picom", state: "{{ package_state_default }}" }
+  - i3
+  - i3status
+  - i3lock
+  - i3blocks
+  - dmenu
+  - feh
+  - setxkbmap
+  - xkbcomp
+  - xkeyboard-config
+  - network-manager-applet
+  - alsa-utils
+  - pulseaudio-utils
+  - xbacklight
+  - arandr
+  - picom
 
 # Desktop applications installed from Flathub
 desktop_flatpaks:
