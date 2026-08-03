@@ -68,6 +68,40 @@
       tags:
         - packages
 
+    - name: Read Flatpak filesystem overrides
+      ansible.builtin.command:
+        argv:
+          - flatpak
+          - override
+          - --user
+          - --show
+          - "{{ item }}"
+      loop: "{{ desktop_flatpaks }}"
+      register: desktop_flatpak_overrides
+      changed_when: false
+
+    - name: Grant Flatpak desktop applications access to the home directory
+      ansible.builtin.command:
+        argv:
+          - flatpak
+          - override
+          - --user
+          - --filesystem=home
+          - "{{ item }}"
+      loop: "{{ desktop_flatpaks }}"
+      loop_control:
+        index_var: flatpak_index
+      when: >-
+        'filesystems=home;' not in
+        desktop_flatpak_overrides.results[flatpak_index].stdout
+
+    - name: Reload and start the desktop portal
+      ansible.builtin.systemd_service:
+        name: xdg-desktop-portal.service
+        scope: user
+        daemon_reload: true
+        state: started
+
     - name: Find user avatar image by username in Avatars folder
       ansible.builtin.find:
         paths: "{{ desktop_avatar_dir | default(ansible_user_dir ~ '/Pictures/Avatars') }}"

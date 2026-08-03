@@ -1,0 +1,14 @@
+[Unit]
+Description=Portal service
+# Fedora 44's packaged unit has Requisite=graphical-session.target, but MATE
+# does not activate that target. Keep ordering/cleanup semantics without the
+# hard prerequisite so D-Bus activation works in a MATE session.
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=dbus
+BusName=org.freedesktop.portal.Desktop
+ExecStart=/usr/libexec/xdg-desktop-portal
+Slice=session.slice
+
