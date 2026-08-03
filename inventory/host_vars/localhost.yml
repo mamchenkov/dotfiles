@@ -75,7 +75,6 @@ devel_packages:
   - { name: "php-intl", state: "{{ package_state_default }}" }
   - { name: "php-ldap", state: "{{ package_state_default }}" }
   - { name: "php-mbstring", state: "{{ package_state_default }}" }
-  - { name: "php-mcrypt", state: "{{ package_state_default }}" }
   - { name: "php-mysqlnd", state: "{{ package_state_default }}" }
   - { name: "php-opcache", state: "{{ package_state_default }}" }
   - { name: "php-pdo", state: "{{ package_state_default }}" }
@@ -91,16 +90,8 @@ devel_packages:
   - { name: "npm", state: "{{ package_state_default }}" }
   # AWS CLI
   - { name: "aws", state: "{{ package_state_default }}" }
-  - { name: "awscli", state: "{{ package_state_default }}" }
-
-# Use remi repo for PHP
-php_enablerepo: "remi"
-# list of PHP packages to install
-php_packages_extra:
-  - php-imap
 
 # geerlingguy.composer : Put in /usr/bin/
 composer_path: /usr/bin/composer
 # geerlingguy.composer : Keep updated to prevent outdated warnings
 composer_keep_updated: true
-
