@@ -130,20 +130,22 @@
         mode: "0644"
       when: desktop_avatar_url is defined and desktop_avatar_url | length > 0
 
-    - name: Ensure ~/.face is a symlink to detected avatar file (default)
-      file:
-        src: "{{ desktop_avatar_file_detected }}"
-        dest: "{{ ansible_user_dir }}/.face"
-        state: link
-        force: true
-      when: desktop_avatar_url is not defined or desktop_avatar_url | length == 0
-
     - name: Fail if no local avatar file found and no URL provided
       fail:
         msg: "No avatar found for '{{ ansible_user_id }}' in {{ desktop_avatar_dir | default(ansible_user_dir ~ '/Pictures/Avatars') }}. Expected one of: {{ ansible_user_id }}.jpg, {{ ansible_user_id }}.jpeg, {{ ansible_user_id }}.png, {{ ansible_user_id }}.webp"
       when:
         - desktop_avatar_url is not defined or desktop_avatar_url | length == 0
         - desktop_avatar_file_detected | length == 0
+
+    - name: Ensure ~/.face is a symlink to detected avatar file (default)
+      file:
+        src: "{{ desktop_avatar_file_detected }}"
+        dest: "{{ ansible_user_dir }}/.face"
+        state: link
+        force: true
+      when:
+        - desktop_avatar_url is not defined or desktop_avatar_url | length == 0
+        - desktop_avatar_file_detected | length > 0
 
 
     - name: Check current MATE window manager
