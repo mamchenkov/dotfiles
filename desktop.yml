@@ -40,6 +40,17 @@
         state: "{{ package_state_default }}"
       become: true
 
+    - name: Read the packaged desktop portal unit
+      ansible.builtin.slurp:
+        src: /usr/lib/systemd/user/xdg-desktop-portal.service
+      register: packaged_desktop_portal_unit
+
+    - name: Determine whether the desktop portal workaround is needed
+      ansible.builtin.set_fact:
+        desktop_portal_workaround_needed: >-
+          {{ 'Requisite=graphical-session.target' in
+          (packaged_desktop_portal_unit.content | b64decode) }}
+
     - name: Setup desktop files in /home folder
       include_role:
         name: tools
@@ -47,6 +58,15 @@
       vars:
         files_src: "home/desktop/"
         files_dst: "{{ ansible_user_dir }}"
+        files_rsync_opts: >-
+          {{ [] if desktop_portal_workaround_needed else
+          ['--exclude=.config/systemd/user/xdg-desktop-portal.service'] }}
+
+    - name: Remove the desktop portal workaround after Fedora fixes the regression
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.config/systemd/user/xdg-desktop-portal.service"
+        state: absent
+      when: not desktop_portal_workaround_needed
 
     - name: Enable Flathub system-wide
       community.general.flatpak_remote:

@@ -18,5 +18,6 @@
     times: true
     perms: true
     checksum: true
+    rsync_opts: "{{ files_rsync_opts | default([]) }}"
   register: sync_result
   changed_when: sync_result.changed
