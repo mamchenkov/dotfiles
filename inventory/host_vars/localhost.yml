@@ -45,15 +45,6 @@ base_packages:
   - { name: "ctags", state: "{{ package_state_default }}" }
   - { name: "vim-enhanced", state: "{{ package_state_default }}" }
 
-# Where Vim plugins live
-vim_plugin_base: "~/.vim/bundle"
-
-# Vim plugins to be installed everywhere
-# For parameters see:
-# - http://docs.ansible.com/ansible/git_module.html
-vim_plugins:
-  - { repo: "https://github.com/VundleVim/Vundle.vim.git", dest: "{{ vim_plugin_base }}/Vundle.vim" }
-
 # Desktop avatar:
 # Default behavior: pick ~/Pictures/Avatars/<username>.(jpg|jpeg|png|webp)
 desktop_avatar_dir: "{{ ansible_user_dir }}/Pictures/Avatars"

@@ -97,7 +97,7 @@ Here is a brief overview of some of the features hidden deep in these dotfiles.
 
 ### Vim text editor
 
-1.	Modular configuration of plugins with Pathogen plugin and git submodules.
+1.	Plugin management with vim-plug.
 2.  Collection of plugins for web developers (PHP Indent, NERDTree, Syntastic, Tagbar, Gist, etc).
 3.	Support for 256 colors in console.
 
